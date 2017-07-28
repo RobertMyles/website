@@ -84,11 +84,11 @@ wb &lt;- wb %&gt;%
   select(-14) #NA column</code></pre>
 <p>Now we’ve got lots of interesting data to use. Let’s have a look at life expectancy.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 <pre class="r"><code>ggplot(wb_l, aes(x = year, y = l_means)) +
-  # annotation straight away to put it behind everything:
-  annotation_custom(si, xmin = as.numeric(as.POSIXct(&#39;2006-01-01&#39;, 
-                                         origin = &#39;1970-01-01&#39;)),  
-                    xmax = as.numeric(as.POSIXct(&#39;2010-01-01&#39;, 
-                                         origin = &#39;1970-01-01&#39;)), 
+  #annotation straight away to put it behind everything:
+  annotation_custom(si, xmin = as.numeric(as.POSIXct(&#39;2006-01-01&#39;,
+                                         origin = &#39;1970-01-01&#39;)),
+                    xmax = as.numeric(as.POSIXct(&#39;2010-01-01&#39;,
+                                         origin = &#39;1970-01-01&#39;)),
                     ymin = 53, ymax = 64) +
   geom_line(aes(group = status, colour = communist), size = 0.8) +
   geom_point(aes(colour = communist, shape = region), size = 4) +
@@ -103,28 +103,6 @@ wb &lt;- wb %&gt;%
 <p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-4-1.png" width="1152" /></p>
 <p>Ah, that font…<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a><br />
 Well, everybody’s life expectancy is going up, that’s good, but there’s a massive difference between communist and non-communist countries in Africa and Asia. Former communist countries do slightly better in Eastern Europe, although it’s pretty much even. That’s quite a notable trend over such a short time period, it’s a pity the data doesn’t go back further. This might also be nice as a boxplot:</p>
-<pre><code>## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database</code></pre>
-<pre><code>## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family not found in Windows font database</code></pre>
 <p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
 <p>Communist countries were/are well-known for having rather large armies. In the data I’ve taken from the World Bank, we have two variables for exploring this theme, <code>Armed forces personnel (% of total labor force)</code> and <code>Military expenditure (% of GDP)</code>. Let’s see how they rank:</p>
 <pre class="r"><code>wb %&gt;% mutate(year = as.character(year)) %&gt;% 
@@ -161,26 +139,6 @@ So what about our <bdi style="font-size: 0.8em; font-family:kremlin;">komrades</
 ##  9      Serbia                          2.095175
 ## 10     Estonia                          1.895746</code></pre>
 <p>I’m not sure <em>any</em> of these can be really be classed as communist, perhaps stubborn ol’ Cuba. Perhaps the number of armed forces personnel will live up the stereotype.</p>
-<pre><code>## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database</code></pre>
 <p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
 <p>There we go! The Democratic People’s Republic of Korea hasn’t let us down in our hunt to confirm what we already want to find. Some surprises in here: Montenegro, Singapore. I’m guessing mandatory military service for makes of a certain age exists in these countries. Or maybe Montenegro <strong>really</strong> doesn’t like Greece.</p>
 <p>And how about GDP? Maybe it’s a bit unfair to compare these, since communism was supposedly against all that filthy wealth generation. But let’s Czech it out. If you’re re-creating these plots, remember that I’m using <code>readPNG()</code> and <code>rasterGrob()</code> to get the images ready for use with <code>annotation_custom()</code>.</p>
@@ -198,40 +156,6 @@ So what about our <bdi style="font-size: 0.8em; font-family:kremlin;">komrades</
         axis.text = element_text(colour = &quot;#991014&quot;)) +
   scale_colour_manual(values = c(&quot;#ffda85&quot;, &quot;black&quot;)) +
   guides(colour = guide_legend(title = &quot;System&quot;))</code></pre>
-<pre><code>## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database</code></pre>
-<pre><code>## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family not found in Windows font database
-
-## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family not found in Windows font database
-
-## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family not found in Windows font database</code></pre>
 <p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
 <p>Unsurprisingly, the communist countries don’t compete well in terms of GDP per capita.</p>
 <p>How about other, less financial indicators, like adult literacy levels?</p>
@@ -281,34 +205,6 @@ ggplot(e_w, aes(x = Year)) +
   geom_line(aes(y = East), colour = &quot;#ff0000&quot;, size = 1.3, linetype = 2) +
   geom_line(aes(y = West), colour = &quot;#ff0000&quot;, size = 1.3, linetype = 2) +
   ylab(&quot;Real GDP for East and West Germany\n Billions hated US dollars&quot;)</code></pre>
-<pre><code>## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family not found in Windows font database</code></pre>
-<pre><code>## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family not found in Windows font database
-
-## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family not found in Windows font database
-
-## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family not found in Windows font database</code></pre>
 <p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p><br></p>
 <p><bdi style="font-family:kremlin;color:#b22222">VICTORY TO EVIL WEST!!</bdi></p>

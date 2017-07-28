@@ -26,27 +26,27 @@ tb_x &lt;- html_nodes(page, css = &quot;#filmographyTbl&quot;)
 tb &lt;- html_table(tb_x)
 movies &lt;- tb[[1]]
 head(movies)</code></pre>
-<pre><code>##         RATING              TITLE
-## 1 No Score Yet      World War Z 2
-## 2          54%        War Machine
-## 3          88% The Lost City of Z
-## 4 No Score Yet      Brad&#39;s Status
-## 5          60%             Allied
-## 6          98%          Moonlight
+<pre><code>##         RATING                               TITLE
+## 1 No Score Yet                       World War Z 2
+## 2          54%                         War Machine
+## 3          87%                  The Lost City of Z
+## 4          60%                              Allied
+## 5          98%                           Moonlight
+## 6          92% Voyage of Time: The IMAX Experience
 ##                                                                                                                                                                                                                                                                           CREDIT
 ## 1                                                                                                                       Producer\n                                                \n                                    \n                                            Gerry Lane
 ## 2 Gen. Stanley A. McChrystal\n                                    \n                                            Producer\n                                                \n                                    \n                                            Executive Producer
 ## 3                                                                                                                                                                                                                                                             Executive Producer
-## 4                                                                                                                                                                                                                                                                          Actor
-## 5                                                                                                                                                                                                                                                                      Max Vatan
-## 6                                                                                                                                                                                                                                                             Executive Producer
+## 4                                                                                                                                                                                                                                                                      Max Vatan
+## 5                                                                                                                                                                                                                                                             Executive Producer
+## 6                                                                                                                         Producer\n                                                \n                                    \n                                            Narrator
 ##   BOX OFFICE YEAR
-## 1           2018
-## 2           2017
-## 3      $8.3M 2017
-## 4           2017
-## 5     $40.1M 2016
-## 6     $27.9M 2016</code></pre>
+## 1          — 2018
+## 2          — 2017
+## 3      $8.6M 2017
+## 4     $40.1M 2016
+## 5     $27.9M 2016
+## 6          — 2016</code></pre>
 <p>Now we’ve got Mr. Pitt’s movies in a dataframe, with their rating, title, producer credits and year. Since anything with “No Score Yet” is not of particular use to us, let’s remove it. We also could do with changing “87%” to an actual number, i.e. 0.87, and we’ll take out the movies in which he had no acting role, and try to clean up all those spaces and new lines.</p>
 <pre class="r"><code>&#39;%ni%&#39; &lt;- Negate(&#39;%in%&#39;)
 movies &lt;- movies %&gt;%
@@ -107,7 +107,7 @@ ggplot(movies, aes(x = date_counter, y = difference)) +
 <p>So what was Mr. Pitt’s worst film?</p>
 <pre class="r"><code>movies %&gt;% arrange(RATING) %&gt;% head(n = 1)</code></pre>
 <pre><code>##   RATING      TITLE            CREDIT BOX OFFICE YEAR difference
-## 1   0.04 Cool World Det. Frank Harris           1992      -0.79
+## 1   0.04 Cool World Det. Frank Harris          — 1992      -0.79
 ##   date_counter
 ## 1            5</code></pre>
 <p>Wow! 0.04!! I have never seen ‘Cool World’, but it can’t be that bad…can it?</p>

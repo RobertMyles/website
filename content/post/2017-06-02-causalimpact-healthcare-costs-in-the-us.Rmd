@@ -80,7 +80,7 @@ ggplot(cpi, aes(x = Date, y = Value)) +
 
 
 library(readr)
-med <- read_csv("C:/Users/d840118/Downloads/CPIMEDSL.csv") %>% 
+med <- read_csv("/Users/robert/Downloads/CPIMEDSL.csv") %>% 
   mutate(DATE = parse_date_time(DATE, "Ymd"))
                   
 

@@ -37,7 +37,7 @@ linktitle: ''
     /* Scale the background image to be as large as possible */
     background-size: cover;
 }</code></pre>
-<p>The image itself will need to be quite transparent. You can do that with imagemagick. On a mac terminal, the command is:</p>
+<p>The image itself will need to be quite transparent. You can do that with imagemagick. On a mac terminal, to make the image 50% more transparent, the command is:</p>
 <pre class="bash"><code>convert IMAGE -fill white -colorize 50% NEW_IMAGE</code></pre>
 <p>After this, we just need to change our YAML at the top of the R Markdown document like so:</p>
 <pre class="r"><code>---
@@ -107,11 +107,11 @@ code.r{ /* Code block */
 # content
 &lt;/font&gt;</code></pre>
 <p>Similarly, bits of html can come in handy when you want to change little elements of the document. <code>&lt;br&gt;</code> will give you a vertical space, and using <code>&lt;bdi&gt;</code> tags can be useful for changing the style of particular words, especially useful for words that are presented as ‘code’ in back ticks. For example:</p>
-<pre class="html"><code>&lt;bdi style=&quot;color:#36648B&quot;&gt;`variable_1`&lt;/bdi&gt;.
+<pre class="html"><code>&lt;bdi style=&quot;color:#1E90FF&quot;&gt;`variable_1`&lt;/bdi&gt;.
 
 &lt;bdi style=&quot;font-size:70%;&quot;&gt;(**`?dplyr::select`**)&lt;/bdi&gt;
 </code></pre>
-<p>will make ‘variable_1’ appear in code-style text and be blue (<bdi style="color:#36648B"><code>variable_1</code></bdi>), whereas ‘?dplyr::select’ will be bold and 70% of the size that it would otherwise be. (<bdi style="font-size:70%;">(<strong><code>?dplyr::select</code></strong>)</bdi>)</p>
+<p>will make ‘variable_1’ appear in code-style text and be blue (<bdi style="color:#1E90FF"><code>variable_1</code></bdi>), whereas ‘?dplyr::select’ will be bold and 70% of the size that it would otherwise be. (<bdi style="font-size:70%;">(<strong><code>?dplyr::select</code></strong>)</bdi>)</p>
 </div>
 <div id="revealjs-logos" class="section level2">
 <h2>revealjs logos</h2>
@@ -123,7 +123,7 @@ code.r{ /* Code block */
     &lt;h1 class=&quot;title&quot;&gt;&lt;/h1&gt;&lt;image class=&quot;logo&quot; src=&quot;logo.png&quot; style=&quot;width:180px; height:85px;&quot;&gt;
 &lt;/div&gt;
 &lt;/html&gt;</code></pre>
-<p>And the RMarkdown YAML I used (for a course in statistics in R in Portuguese; the 2017-06-02 is a nice trick to put the current date on the presentation):</p>
+<p>And the RMarkdown YAML I used (for a course in statistics in R in Portuguese; the <code>Sys.Date()</code> is a nice trick to put the current date on the presentation):</p>
 <pre class="r"><code>---
 title: &quot;Introdução a estatística no `R`, Dia 2&quot;
 author: &quot;Robert McDonnell&quot;

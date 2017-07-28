@@ -125,11 +125,11 @@ st <- rasterGrob(star, interpolate=T)
 
 ```{r, warning = F, message=F, fig.width=12}
 ggplot(wb_l, aes(x = year, y = l_means)) +
-  # annotation straight away to put it behind everything:
-  annotation_custom(si, xmin = as.numeric(as.POSIXct('2006-01-01', 
-                                         origin = '1970-01-01')),  
-                    xmax = as.numeric(as.POSIXct('2010-01-01', 
-                                         origin = '1970-01-01')), 
+  #annotation straight away to put it behind everything:
+  annotation_custom(si, xmin = as.numeric(as.POSIXct('2006-01-01',
+                                         origin = '1970-01-01')),
+                    xmax = as.numeric(as.POSIXct('2010-01-01',
+                                         origin = '1970-01-01')),
                     ymin = 53, ymax = 64) +
   geom_line(aes(group = status, colour = communist), size = 0.8) +
   geom_point(aes(colour = communist, shape = region), size = 4) +

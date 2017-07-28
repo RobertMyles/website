@@ -2,84 +2,84 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Robert Myles McDonnell</title>
-    <link>/tags/</link>
+    <link>https://robertmylesmcdonnell.netlify.com/tags/</link>
     <description>Recent content in Tags on Robert Myles McDonnell</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Oct 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://robertmylesmcdonnell.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>EU</title>
-      <link>/tags/eu/</link>
+      <link>https://robertmylesmcdonnell.netlify.com/tags/eu/</link>
       <pubDate>Thu, 20 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/eu/</guid>
+      <guid>https://robertmylesmcdonnell.netlify.com/tags/eu/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Geo-reference</title>
-      <link>/tags/geo-reference/</link>
+      <link>https://robertmylesmcdonnell.netlify.com/tags/geo-reference/</link>
       <pubDate>Sat, 13 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/geo-reference/</guid>
+      <guid>https://robertmylesmcdonnell.netlify.com/tags/geo-reference/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ggplot2</title>
-      <link>/tags/ggplot2/</link>
+      <link>https://robertmylesmcdonnell.netlify.com/tags/ggplot2/</link>
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/ggplot2/</guid>
+      <guid>https://robertmylesmcdonnell.netlify.com/tags/ggplot2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GitHub</title>
-      <link>/tags/github/</link>
+      <link>https://robertmylesmcdonnell.netlify.com/tags/github/</link>
       <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/github/</guid>
+      <guid>https://robertmylesmcdonnell.netlify.com/tags/github/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
-      <pubDate>Mon, 22 May 2017 00:00:00 +0000</pubDate>
+      <link>https://robertmylesmcdonnell.netlify.com/tags/r/</link>
+      <pubDate>Sun, 19 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/r/</guid>
+      <guid>https://robertmylesmcdonnell.netlify.com/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rotten Tomatoes</title>
-      <link>/tags/rotten-tomatoes/</link>
+      <link>https://robertmylesmcdonnell.netlify.com/tags/rotten-tomatoes/</link>
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rotten-tomatoes/</guid>
+      <guid>https://robertmylesmcdonnell.netlify.com/tags/rotten-tomatoes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rstan</title>
-      <link>/tags/rstan/</link>
+      <link>https://robertmylesmcdonnell.netlify.com/tags/rstan/</link>
       <pubDate>Thu, 20 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rstan/</guid>
+      <guid>https://robertmylesmcdonnell.netlify.com/tags/rstan/</guid>
       <description></description>
     </item>
     
     <item>
       <title>The Economist</title>
-      <link>/tags/the-economist/</link>
+      <link>https://robertmylesmcdonnell.netlify.com/tags/the-economist/</link>
       <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/the-economist/</guid>
+      <guid>https://robertmylesmcdonnell.netlify.com/tags/the-economist/</guid>
       <description></description>
     </item>
     

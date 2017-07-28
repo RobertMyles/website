@@ -13,12 +13,16 @@ date: "2016-05-05T21:48:51-07:00"
 
 ## <i class="fa fa-history"></i> Professional History
 
+### Data Scientist, Avanade, São Paulo
+
+I currently work for Avanade in the São Paulo office.
+
 ### São Paulo City Council
-- 03/2017 — present
+- 03/2017 — 07/2017
 - São Paulo
 - Position: Director of DIPROJ; Data Science & Analystics Administration
 
-In the *Secretaria de Finanças*, I head a team responsible for making accurate forecasts of data on public spending. Part of my job is also modernizing the way our department does analysis. To do that, I'm giving in-house R courses and building Shiny applications, along with semi-automated reports. It's an interesting job being at the heart of politics in one of the biggest cities in the world!  
+In the *Secretaria da Fazenda*, I headed a team responsible for making accurate forecasts of data on public spending. Part of my job was also modernizing the way the department does analysis. To do that, I gave an in-house R course and built a Shiny application for the department (part of an internal R package that I wrote), along with the production of semi-automated reports. It was an interesting experience being at the heart of politics in one of the biggest cities in the world, without a doubt. I learned how much of the job was actually about something very simple: managing relationships.   
 
 ### Instituto Brasileiro de Pesquisa e Análise de Dados ([IBPAD](http://www.ibpad.com.br/))
 - 08/2016 – present

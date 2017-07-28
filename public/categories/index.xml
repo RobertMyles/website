@@ -111,15 +111,6 @@
     </item>
     
     <item>
-      <title>Go</title>
-      <link>/categories/go/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Healthcare</title>
       <link>/categories/healthcare/</link>
       <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
@@ -170,15 +161,6 @@
       <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>
       
       <guid>/categories/jags/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Jekyll</title>
-      <link>/categories/jekyll/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/categories/jekyll/</guid>
       <description></description>
     </item>
     

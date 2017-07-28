@@ -1,29 +1,9 @@
-+++
-title = "About Hugo"
-date = "2014-04-09"
-+++
-
-Hugo is a static site engine written in Go.
+---
+title: "About"
+date: "2016-05-05T21:48:51-07:00"
+---
 
 
-It makes use of a variety of open source projects including:
+I'm Robert McDonnell and I live in Brazil, in the hustle and bustle of São Paulo. I studied Fine Art (in [NCAD](http://www.ncad.ie/) in Dublin, Ireland), International Relations & Political Science (in [DCU](http://www.dcu.ie/)), and I did my PhD in International Relations in the University of São Paulo. My academic work has so far focused on Bayesian item-response models of legislative voting. Currently, I produce some research for the [Getúlio Vargas Foundation](http://portal.fgv.br/en), I'm developing some R packages, I give classes and courses on R and data analysis for [IBPAD](http://www.ibpad.com.br/), and I do some freelance R consultancy.   
 
-* [Cobra](https://github.com/spf13/cobra)
-* [Viper](https://github.com/spf13/viper)
-* [J Walter Weatherman](https://github.com/spf13/jWalterWeatherman)
-* [Cast](https://github.com/spf13/cast)
-
-Learn more and contribute on [GitHub](https://github.com/spf13).
-
-## Setup
-
-Some fun facts about [Hugo](http://gohugo.io/):
-
-* Built in [Go](http://golang.org/)
-* Loosely inspired by [Jekyll](http://jekyllrb.com/)
-* Primarily developed by [spf13](http://spf13.com/) on the train while commuting to and from Manhattan.
-* Coded in [Vim](http://vim.org) using [spf13-vim](http://vim.spf13.com/)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/spf13/hugo/issues/new) or [ask me on Twitter](https://twitter.com/spf13).
-
-Thanks for reading!
+You can find my work on [Github](https://github.com/RobertMyles), or have a look at my [LinkedIn](https://br.linkedin.com/in/robert-mcdonnell-7475b320) or my [CV](http://robertmyles.github.io/cv/).   

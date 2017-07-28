@@ -31,6 +31,16 @@ So then I started thinking about something else that would be (kind of) similar 
     </item>
     
     <item>
+      <title>Robert Myles McDonnell</title>
+      <link>/other/</link>
+      <pubDate>Mon, 01 May 2017 21:48:51 -0700</pubDate>
+      
+      <guid>/other/</guid>
+      <description> One Hand on the Bottle OHOTB was a band I had some years ago, with some talented musician friends. Phil Coyle played bass, Holly Pereira played guitar and sang, Tom Mulrooney played bass, John Mac Naeidhe pplayed keyboards and weird sounds, Sean McDonnell played drums and Rudy played percussion. We recorded an album in Fastlane Studios in Donabate, Dublin, in 2008. Here it is:
+ </description>
+    </item>
+    
+    <item>
       <title>A Tale of Two Eurozones</title>
       <link>/2017/04/23/a-tale-of-two-eurozones/</link>
       <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
@@ -220,6 +230,36 @@ Perhaps the most straightforward way is to use rvest, in tandem with other packa
     </item>
     
     <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      
+      <guid>/about/</guid>
+      <description>I&amp;rsquo;m Robert McDonnell and I live in Brazil, in the hustle and bustle of São Paulo. I studied Fine Art (in NCAD in Dublin, Ireland), International Relations &amp;amp; Political Science (in DCU), and I did my PhD in International Relations in the University of São Paulo. My academic work has so far focused on Bayesian item-response models of legislative voting. Currently, I produce some research for the Getúlio Vargas Foundation, I&amp;rsquo;m developing some R packages, I give classes and courses on R and data analysis for IBPAD, and I do some freelance R consultancy.</description>
+    </item>
+    
+    <item>
+      <title>Research</title>
+      <link>/research/</link>
+      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      
+      <guid>/research/</guid>
+      <description>&amp;nbsp;&amp;nbsp;Formally Comparing Legislative Institutions - Brazilian Political Science Review, Issue 1, 2017. Available here.
+&amp;nbsp;&amp;nbsp;Explaining the Determinants of Foreign Policy Voting Behaviour in the Brazilian Houses of Legislature, with a Focus on the Senate - My PhD thesis, defended at the University of São Paulo in June 2016. You can download it here
+&amp;nbsp;&amp;nbsp;Measuring the effect of group-based voting in the United Nations General Assembly - with Danilo Freire, working paper.</description>
+    </item>
+    
+    <item>
+      <title>Robert Myles McDonnell</title>
+      <link>/cv/</link>
+      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      
+      <guid>/cv/</guid>
+      <description>19/12/1980  +55 (11) 98282-8713  robertmylesmcdonnell@gmail.com &amp;nbsp; &amp;nbsp;
+ Professional History São Paulo City Council  03/2017 — present São Paulo Position: Director of DIPROJ; Data Science &amp;amp; Analystics Administration  In the Secretaria de Finanças, I head a team responsible for making accurate forecasts of data on public spending. Part of my job is also modernizing the way our department does analysis. To do that, I&amp;rsquo;m giving in-house R courses and building Shiny applications, along with semi-automated reports.</description>
+    </item>
+    
+    <item>
       <title>Bayesian Stats -- Book Recommendations</title>
       <link>/2016/05/03/bayesian-stats----book-recommendations/</link>
       <pubDate>Tue, 03 May 2016 00:00:00 +0000</pubDate>
@@ -259,73 +299,6 @@ One variant of Markdown is R Markdown, developed by the RStudio team, and in par
       
       <guid>/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</guid>
       <description>Anybody who has ever tried to run even a moderately-sized Bayesian IRT model in R (for ideal points as in the political science literature, or otherwise) will know that these models can take a long time. It’s not R’s fault: these are usually big models with lots of parameters, and naturally take longer.1 Not to mention the fact that Bayesian computation is more computationally intense than other methods. Historically (okay, I’m talking about the last twenty years, maybe ‘historically’ is a little strong), the sampling software BUGS (Bayesian Inference Using Gibbs Sampling) and then JAGS were used to run Bayesian models (JAGS is still pretty common, and BUGS too, though not as much).</description>
-    </item>
-    
-    <item>
-      <title>Creating a New Theme</title>
-      <link>/blog/creating-a-new-theme/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/creating-a-new-theme/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
-We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
-    </item>
-    
-    <item>
-      <title>About Hugo</title>
-      <link>/about/</link>
-      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>Hugo is a static site engine written in Go.
-It makes use of a variety of open source projects including:
- Cobra Viper J Walter Weatherman Cast  Learn more and contribute on GitHub.
-Setup Some fun facts about Hugo:
- Built in Go Loosely inspired by Jekyll Primarily developed by spf13 on the train while commuting to and from Manhattan. Coded in Vim using spf13-vim  Have questions or suggestions?</description>
-    </item>
-    
-    <item>
-      <title>(Hu)go Template Primer</title>
-      <link>/blog/goisforlovers/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/goisforlovers/</guid>
-      <description>Hugo uses the excellent go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in go templates.
-This document is a brief primer on using go templates.</description>
-    </item>
-    
-    <item>
-      <title>Getting Started with Hugo</title>
-      <link>/blog/hugoisforlovers/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/hugoisforlovers/</guid>
-      <description>&lt;h2 id=&#34;step-1-install-hugo&#34;&gt;Step 1. Install Hugo&lt;/h2&gt;
-
-&lt;p&gt;Go to &lt;a href=&#34;https://github.com/spf13/hugo/releases&#34;&gt;hugo releases&lt;/a&gt; and download the
-appropriate version for your os and architecture.&lt;/p&gt;
-
-&lt;p&gt;Save it somewhere specific as we will be using it in the next step.&lt;/p&gt;
-
-&lt;p&gt;More complete instructions are available at &lt;a href=&#34;/overview/installing/&#34;&gt;installing hugo&lt;/a&gt;
-&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Migrate to Hugo from Jekyll</title>
-      <link>/blog/migrate-from-jekyll/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/migrate-from-jekyll/</guid>
-      <description>&lt;h2 id=&#34;move-static-content-to-static&#34;&gt;Move static content to &lt;code&gt;static&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;Jekyll has a rule that any directory not starting with &lt;code&gt;_&lt;/code&gt; will be copied as-is to the &lt;code&gt;_site&lt;/code&gt; output. Hugo keeps all static content under &lt;code&gt;static&lt;/code&gt;. You should therefore move it all there.
-With Jekyll, something that looked like&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;▾ &amp;lt;root&amp;gt;/
-    ▾ images/
-        logo.png
-&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

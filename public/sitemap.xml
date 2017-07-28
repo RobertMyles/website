@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>/other/</loc>
+    <lastmod>2017-05-01T21:48:51-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2017/04/23/a-tale-of-two-eurozones/</loc>
     <lastmod>2017-04-23T00:00:00+00:00</lastmod>
   </url>
@@ -113,6 +118,21 @@
   </url>
   
   <url>
+    <loc>/about/</loc>
+    <lastmod>2016-05-05T21:48:51-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/research/</loc>
+    <lastmod>2016-05-05T21:48:51-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/cv/</loc>
+    <lastmod>2016-05-05T21:48:51-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2016/05/03/bayesian-stats----book-recommendations/</loc>
     <lastmod>2016-05-03T00:00:00+00:00</lastmod>
   </url>
@@ -133,31 +153,6 @@
   </url>
   
   <url>
-    <loc>/blog/creating-a-new-theme/</loc>
-    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/about/</loc>
-    <lastmod>2014-04-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/blog/goisforlovers/</loc>
-    <lastmod>2014-04-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/blog/hugoisforlovers/</loc>
-    <lastmod>2014-04-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/blog/migrate-from-jekyll/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/bayesian-statistics/</loc>
     <lastmod>2016-05-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -166,12 +161,6 @@
   <url>
     <loc>/categories/bitcoin/</loc>
     <lastmod>2017-04-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/blog/</loc>
-    <lastmod>2014-09-28T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -260,12 +249,6 @@
   </url>
   
   <url>
-    <loc>/categories/go/</loc>
-    <lastmod>2014-04-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/categories/healthcare/</loc>
     <lastmod>2017-06-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -298,12 +281,6 @@
   <url>
     <loc>/categories/jags/</loc>
     <lastmod>2016-04-13T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/jekyll/</loc>
-    <lastmod>2014-03-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -38,79 +38,103 @@ googleAnalytics = ""
     customCSS            = ["/css/main.min.css"]
     customJS             = ["/js/main.min.js"]
 
-# parms.intro will appear on the sidebar
-# This is optional, but it's suggested to use
-[params.intro]
-    header    = "Hugo Future Imperfect"
 
-    paragraph = "Another fine responsive site template by <a href=\"http://html5up.net\">HTML5 UP</a>. Ported by Julio Pescador with some extra goodies <i class='fa fa-hand-peace-o'></i>"
+    [params.logo]
+        url = "logo.png"
+        width = 50
+        height = 50
+        alt = "Logo"
 
-    about     = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tellus lacus, auctor vehicula molestie quis, tempor quis velit. Quisque in quam ac leo efficitur vulputate. Phasellus ullamcorper aliquam sodales. Maecenas sit amet condimentum ipsum. Proin sit amet ligula elit. Mauris."
+    [params.intro]
+        header    = "if(topic != junk) {write} else { wine }"
+        paragraph = "by Robert Myles McDonnell"
+        about     = ""
 
-# This will also appear on the sidebar.
-# A width of less than 100px is recommended
-# This is optional
-[params.intro.pic]
-    src       = "/img/main/logo.jpg"
-    # modify your picture in the shape of a circle or
-    # future imperfect's hexagonal shape
-    circle    = false
-    imperfect = true
-    width     = ""
-    alt       = "Hugo Future Imperfect"
 
-# Adjust the amount of recent posts on the sidebar.
-# This is optional. The default value 5 will be used
-[params.postAmount]
-    sidebar = 2
+    [params.intro.pic]
+        src       = "/images/pic1.jpg"
+        # modify your picture in the shape of a circle or
+        # future imperfect's hexagonal shape
+        circle    = false
+        imperfect = true
+        width     = ""
+        alt       = ""
 
-# Set up your menu items in the navigation bar
-# You can use identifier to prepend a font awesome icon to your text
-[[menu.main]]
-    name = "Blog"
-    url = "/blog"
-    identifier = "fa fa-newspaper-o"
-    weight = 1
+    [params.postAmount]
+        sidebar = 10
 
-[[menu.main]]
-    name = "Categories"
-    url = "/categories"
-    weight = 2
+    [[menu.main]]
+        name = "Blog"
+        url = "/post/"
+        identifier = "fa fa-newspaper-o"
+        weight = 4
 
-[[menu.main]]
-    name = "About"
-    url = "/about"
-    weight = 3
+    [[menu.main]]
+        name = "About"
+        url = "/about/"
+        weight = 5
 
-# Insert your username and the icon will apear on the page as long as
-# socialAppearAtTop or socialAppearAtBottom is set to true in the params area
-# The social media icons will appear on the sidebar
-[social]
-    github          = "jpescador"
-    bitbucket       = ""
-    jsfiddle        = ""
-    codepen         = ""
-    foursquare      = ""
-    dribbble        = ""
-    deviantart      = ""
-    behance         = ""
-    flickr          = ""
-    instagram       = ""
-    youtube         = ""
-    vimeo           = ""
-    vine            = ""
-    medium          = ""
-    wordpress       = ""
-    tumblr          = ""
-    xing            = ""
-    linkedin        = ""
-    slideshare      = ""
-    stackoverflow   = ""
-    reddit          = ""
-    pinterest       = ""
-    googleplus      = ""
-    facebook        = ""
-    facebook_admin  = ""
-    twitter_domain  = ""
-    twitter         = "julio_pescador"
-    email           = ""
+    [[menu.main]]
+        name = "Categories"
+        url = "/categories/"
+        weight = 6
+
+    [[menu.main]]
+        name = "Blogroll"
+        url = "/blogroll/"
+        weight = 7
+        identifier = "fa fa-bookmark-o"
+
+    [[menu.main]]
+        name = "Other"
+        url = "/other/"
+        weight = 7
+        identifier = "fa fa-music"
+
+    [[menu.main]]
+        name = "GitHub"
+        url = "https://github.com/RobertMyles"
+        identifier = "fa fa-code"
+        weight = 2
+
+    [[menu.main]]
+        name = "Research"
+        url = "/research/"
+        identifier = "fa fa-bar-chart"
+        weight = 1
+
+    [[menu.main]]
+        name = "CV"
+        url = "/cv/"
+        identifier = "fa fa-file-o"
+        weight = 3
+
+    [social]
+        github          = "RobertMyles"
+        linkedin        = "robert-mcdonnell-7475b320"
+        stackoverflow   = "4296028/robertmc"
+        facebook_admin  = "1213956375281226"
+        twitter         = "RobertMylesMc"
+        email           = "robertmylesmcdonnell@gmail.com"
+        bitbucket       = ""
+        jsfiddle        = ""
+        codepen         = ""
+        foursquare      = ""
+        dribbble        = ""
+        deviantart      = ""
+        behance         = ""
+        flickr          = ""
+        instagram       = ""
+        youtube         = ""
+        vimeo           = ""
+        vine            = ""
+        medium          = ""
+        wordpress       = ""
+        tumblr          = ""
+        xing            = ""
+        slideshare      = ""
+        reddit          = ""
+        pinterest       = ""
+        googleplus      = ""
+        facebook        = ""
+        twitter_domain  = ""

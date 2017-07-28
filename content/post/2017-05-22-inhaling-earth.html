@@ -1,0 +1,107 @@
+---
+title: Inhaling Earth
+author: Robert McDonnell
+date: '2017-05-22'
+categories: []
+tags: [R]
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+draft : true
+---
+
+
+
+<p>After seeing Nadieh Bremer’s great <a href="http://www.datasketch.es/april/code/nadieh/">Breathing Earth</a> infographic, I thought it would be cool to recreate it in R, as you do. Then I saw that it was made from lots of tif files…hmmm. I did some work with those before, ain’t doin it again voluntarily, no thanks.</p>
+<p>So then I started thinking about something else that would be (kind of) similar and interesting. I saw the <a href="https://github.com/edzer/sfr">sf</a> package and its interesting <code>geom_sf()</code> recently, and so I thought it would be a nice opportunity to try that out. Given we started with ‘breathing’ Earth, the natural next step was to think of ‘inhaling’ Earth! A quick download of some cannabis data from <a href="https://data.unodc.org/?lf=1&amp;lng=en">here</a> and we’re (almost) ready to go, just some cleaning, tidying and merging with the geometry data from the <a href="https://github.com/ropenscilabs/rnaturalearth">rnaturalearth</a> package.</p>
+<pre class="r"><code>library(stringi)
+library(sf)
+library(rnaturalearth)
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+weed &lt;- read_csv(&quot;/Users/robert/Downloads/drugs.csv&quot;, skip = 2) %&gt;% 
+  filter(!is.na(Year)) %&gt;% 
+  select(Region, Country, Rate = Best, Year) %&gt;% 
+  mutate(Year = ifelse(Year == &quot;2013-2014&quot;, &quot;2014&quot;, ifelse(
+    Year == &quot;2014/15&quot;, &quot;2014&quot;, ifelse(
+      Year == &quot;2013/14&quot;, &quot;2014&quot;, ifelse(
+        Year == &quot;2012/13&quot;, &quot;2012&quot;, Year)))),
+    Year = paste0(Year, &quot;-01-01&quot;), 
+    Year = lubridate::parse_date_time(Year, &quot;Ymd&quot;),
+    Country = stri_trans_general(Country, &quot;Latin-ASCII&quot;),
+    Country = case_when(
+      .$Country == &quot;Venezuela (Bolivarian Republic of)&quot; ~ &quot;Venezuela&quot;,
+      grepl(&quot;United Kingdom &quot;, .$Country) ~ &quot;United Kingdom&quot;,
+      .$Country == &quot;The former Yugoslav Republic of Macedonia&quot; ~ &quot;Macedonia&quot;,
+      .$Country == &quot;Taiwan Province of China&quot; ~ &quot;Taiwan&quot;,
+      .$Country == &quot;Russian Federation&quot; ~ &quot;Russia&quot;,
+      .$Country == &quot;Lao People&#39;s Democratic Republic&quot; ~ &quot;Laos&quot;,
+      grepl(&quot;China,&quot;, .$Country) ~ &quot;China&quot;,
+      .$Country == &quot;Bolivia (Plurinational State of)&quot; ~ &quot;Bolivia&quot;,
+      TRUE ~ .$Country),
+    Period = ifelse(Year &lt; &quot;2006-01-01&quot;, &quot;2000-2005&quot;, ifelse(
+      Year &gt; &quot;2010-01-01&quot;, &quot;2010-2015&quot;, &quot;2006-2010&quot;)))
+
+globe &lt;- ne_countries(scale = 110, type = &quot;countries&quot;, returnclass =  &quot;sf&quot;) %&gt;% 
+  select(Country = admin, formal = formal_en, geometry)
+
+two &lt;- full_join(weed, globe) %&gt;% st_as_sf() %&gt;%
+  filter(!is.na(formal))
+
+pp &lt;- ggplot(two, aes(frame = Period)) + geom_sf(aes(fill = Rate)) +
+  scale_fill_continuous(trans = &quot;reverse&quot;, low = &quot;dodgerblue4&quot;, high = &quot;white&quot;) +
+  theme_minimal()
+
+gganimate::gg_animate(pp, interval = 4)</code></pre>
+<p>Hmm, not a good candidate for animations…</p>
+<p>How about booze?</p>
+<pre class="r"><code>&#39;%ni%&#39; &lt;- Negate(&#39;%in%&#39;)
+
+booze &lt;- read_csv(&quot;/Users/robert/Downloads/UNdata_Export_20170523_022116370.csv&quot;) %&gt;% 
+  select(-Nature, Country = `Reference Area`) %&gt;% 
+  filter(Country %ni% c(&quot;World&quot;, &quot;Developing regions&quot;,
+                      &quot;Caucasus and Central Asia&quot;, &quot;Developed regions&quot;,
+                      &quot;Eastern Asia&quot;, &quot;Landlocked developing countries&quot;,
+                      &quot;Latin America and the Caribbean&quot;, 
+                      &quot;Least developed countries&quot;, &quot;Oceania&quot;,
+                      &quot;Northern Africa&quot;, &quot;South-eastern Asia&quot;,
+                      &quot;Small island developing States&quot;, &quot;Sub-Saharan Africa&quot;,
+                      &quot;Western Asia&quot;, &quot;Southern Asia&quot;)) %&gt;% 
+  mutate(Country = case_when(
+      .$Country == &quot;Venezuela (Bolivarian Republic of)&quot; ~ &quot;Venezuela&quot;,
+      grepl(&quot;United Kingdom &quot;, .$Country) ~ &quot;United Kingdom&quot;,
+      .$Country == &quot;The former Yugoslav Republic of Macedonia&quot; ~ &quot;Macedonia&quot;,
+      .$Country == &quot;Taiwan Province of China&quot; ~ &quot;Taiwan&quot;,
+      .$Country == &quot;Russian Federation&quot; ~ &quot;Russia&quot;,
+      .$Country == &quot;Democratic People&#39;s Republic of Korea&quot; ~ &quot;North Korea&quot;,
+      .$Country == &quot;Lao People&#39;s Democratic Republic&quot; ~ &quot;Laos&quot;,
+      .$Country == &quot;Czechia&quot; ~ &quot;Czech Republic&quot;,
+      .$Country == &quot;Timor-Leste&quot; ~ &quot;East Timor&quot;,
+      .$Country == &quot;Viet Nam&quot; ~ &quot;Vietnam&quot;,
+      .$Country == &quot;Brunei Darussalam&quot; ~ &quot;Brunei&quot;,
+      .$Country == &quot;Bahamas&quot; ~ &quot;The Bahamas&quot;,
+      .$Country == &quot;Côte d&#39;Ivoire&quot;  ~ &quot;Ivory Coast&quot;,
+      .$Country == &quot;Guinea-Bissau&quot;  ~ &quot;Guinea Bissau&quot;,
+      .$Country == &quot;Syrian Arab Republic&quot;  ~ &quot;Syria&quot;,
+      .$Country == &quot;Iran (Islamic Republic of)&quot;  ~ &quot;Iran&quot;,
+      .$Country == &quot;Republic of Korea&quot;  ~ &quot;South Korea&quot;,
+      .$Country == &quot;Congo&quot;  ~ &quot;Republic of Congo&quot;,
+      .$Country == &quot;Serbia&quot;  ~ &quot;Republic of Serbia&quot;,
+      .$Country == &quot;Moldova&quot;  ~ &quot;Republic of Moldova&quot;,
+      .$Country == &quot;Bolivia (Plurinational State of)&quot; ~ &quot;Bolivia&quot;,
+      TRUE ~ .$Country)) %&gt;% 
+  full_join(globe) %&gt;% filter(!is.na(formal))
+  
+
+
+b &lt;- ggplot(booze, aes(frame = `Time Period`)) + geom_sf(aes(fill = Value)) +
+  scale_fill_continuous(trans = &quot;reverse&quot;, low = &quot;firebrick&quot;, high = &quot;white&quot;) +
+  theme_minimal() + guides(fill = guide_legend(title=&quot;Litres of \nPure Alcohol&quot;))
+
+gganimate::gg_animate(b, interval = 4)</code></pre>
+<p>That works! Nice. Ok, it’s pretty simple, but given the hellish wrangling involved with some spatial polygon sets and administrative unit geographical data, I’m really impressed with how easy <code>geom_sf()</code> was to use.</p>
+<p>Data from <a href="http://data.un.org/Data.aspx?q=alcohol&amp;d=SDGs&amp;f=series%3aSH_ALC_CONSPT">here</a>.</p>

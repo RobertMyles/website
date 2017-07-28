@@ -11,7 +11,7 @@ featuredpath: '/images'
 linktitle: ''
 --- 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache.lazy = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(cache.lazy = TRUE, message = FALSE, warning = FALSE, eval = F)
 ```
 [This](https://www.theguardian.com/business/2017/apr/30/emmanuel-macron-france-economic-riddle) Guardian article on the prospective French President Macron got me thinking, especially this passage:   
 

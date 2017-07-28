@@ -1,24 +1,27 @@
-baseurl = "http://hugo.spf13.com/"
-languageCode = "en-us"
-title = "Hugo Future Imperfect"
-theme = "hugo-future-imperfect"
+baseurl = "https://robertmylesmcdonnell.netlify.com/"
 preserveTaxonomyNames = true
 paginate = 3
-disqusShortname = "shortname"
-googleAnalytics = ""
+languageCode = "en-us"
+title = "Robert Myles McDonnell"
+theme = "hugo-future-imperfect"
+googleAnalytics = "76482767"
+disqusShortname = "rob-gitblog"
+enableEmoji =  true
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
 
 [params]
     # Sets the meta tag description, usually reserved for the main page
-    description          = "HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo"
+    description          = "Robert Myles McDonnell's website"
     # This will appear on the top left of the navigation bar
-    navbarTitle          = "Future Imperfect"
+    navbarTitle          = "Home"
     # Social media buttons that appear on the sidebar
     socialAppearAtTop    = true
     socialAppearAtBottom = true
     # set this to the section name if section is not post
-    viewMorePostLink     = "/blog/"
+    viewMorePostLink     = "/post/"
 
-# Optional Params
     categoriesByCount    = true
     includeReadingTime   = true
     # The set of favicons used are based on the write-up from this link:

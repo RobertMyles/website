@@ -1,0 +1,67 @@
+---
+title: text analysis of metal lyrics in R
+author: Robert McDonnell
+date: '2017-02-28'
+categories: 
+  - R
+  - metal
+  - text analysis
+tags: []
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+draft: true
+---
+
+
+
+<pre class="r"><code>library(tidyverse)
+
+metal &lt;- data_frame(Title = c(&quot;South of Heaven&quot;, &quot;Seasons in the Abyss&quot;, 
+                              &quot;Raining Blood&quot;, &quot;Live Undead&quot;, &quot;Angel of Death&quot;,
+                              &quot;Cowboys From Hell&quot;, &quot;Five Minutes Alone&quot;, 
+                              &quot;War Nerve&quot;, &quot;Goddamn Electric&quot;, &quot;Walk&quot;,
+                              &quot;Master of Puppets&quot;, &quot;Blackened&quot;, 
+                              &quot;Sad But True&quot;, &quot;Fade to Black&quot;, &quot;Battery&quot;,
+                              &quot;I am the Black Wizards&quot;, &quot;Inno A Satana&quot;,
+                              &quot;The Prophet&quot;, &quot;Thus Spake the Night Spirit&quot;,
+                              &quot;Ye Entrancemperium&quot;, &quot;Black Seeds of Vengeance&quot;, 
+                              &quot;Masturbating the War God&quot;, &quot;To Dream of Ur&quot;,
+                              &quot;The Wind of Horus&quot;, &quot;Lashed to the Slave Stick&quot;),
+                    Band = c(rep(&quot;slayer&quot;, 5), rep(&quot;pantera&quot;, 5),
+                             rep(&quot;metallica&quot;, 5), rep(&quot;emperor&quot;, 5),
+                             rep(&quot;nile&quot;, 5)),
+                    Url = &quot;https://genius.com/&quot;,
+                    Lyrics = NA)</code></pre>
+<p>slayer/southofheaven.html <a href="https://genius.com/Emperor-i-am-the-black-wizards-lyrics" class="uri">https://genius.com/Emperor-i-am-the-black-wizards-lyrics</a></p>
+<pre class="r"><code>metal &lt;- metal %&gt;% 
+  mutate(url_2 = tolower(gsub(&quot; &quot;, &quot;-&quot;, Title)),
+         Url = paste0(Url, Band, &quot;-&quot;, url_2, &quot;-lyrics&quot;)) %&gt;% 
+  select(-url_2)</code></pre>
+<pre class="r"><code>library(rvest)
+
+lyrics &lt;- list()
+
+for(i in 1:nrow(metal)){
+  lyrics[[i]] &lt;- XML::htmlParse(metal$Url[[i]])
+  lyrics[[i]] &lt;- XML::getNodeSet(lyrics[[i]],
+                           path = &quot;/html/body/div[5]/div[2]/div[1]/div/lyrics/div/section/p&quot;)
+  lyrics[[i]] &lt;- html_text(lyrics[[i]])
+  
+}
+
+
+  metal$Lyrics[[i]] &lt;- try(,
+    silent = FALSE)
+  
+   if(class(metal$Lyrics[[i]]) == &quot;try-error&quot;){
+     metal$Lyrics[[i]] &lt;- NA
+     metal$Url[[i]] &lt;- &quot;Try Other Site&quot;
+   } else{
+     metal$Lyrics[[i]] &lt;- html_text(metal$Lyrics[[i]])
+     metal$Lyrics[[i]] &lt;- gsub(&quot;\\r&quot;, &quot;&quot;, metal$Lyrics[[i]])
+     metal$Lyrics[[i]] &lt;- gsub(&quot;\\n&quot;, &quot;&quot;, metal$Lyrics[[i]])
+   }
+}</code></pre>

@@ -25,7 +25,7 @@ The data are availbale from [http://www.coindesk.com/price/](http://www.coindesk
 
 First, we import the csv and turn it into a ts object:
 
-```{r, message = F, warning=F}
+```{r, message = F, warning=F, eval = F}
 bit <- read_csv("../../data/coindesk-bpi-USD-close_data-2010-07-17_2017-04-23.csv") %>% 
   filter(!is.na(Date))
 
@@ -34,7 +34,7 @@ bitcoin <- ts(data = bit$`Close Price`, start = c(2010, 7, 7), end = c(2017, 4, 
 
 We can have a look at the raw data. You could do this by plotting the time series (ts) object using `forecast::plot()`, but here I'll use ggplot2 and the raw data.
 
-```{r}
+```{r, eval = F}
 ggplot(bit, aes(x = Date, y = `Close Price`)) +
   geom_line(colour = "dodgerblue3") +
   theme_classic()

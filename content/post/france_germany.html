@@ -1,0 +1,92 @@
+---
+title: "A Tale of Two Eurozones"
+author: "Robert McDonnell"
+date: '2017-04-23'
+categories: [R, Eurozone, France, Germany]
+tags: []
+description: ''
+featured: 'Hollande_Merkel.jpg'
+featuredalt: ''
+featuredpath: '/images'
+linktitle: ''
+--- 
+
+
+
+<p><a href="https://www.theguardian.com/business/2017/apr/30/emmanuel-macron-france-economic-riddle">This</a> Guardian article on the prospective French President Macron got me thinking, especially this passage:</p>
+<blockquote>
+<p>France’s economic performance in recent years has been underwhelming, especially when compared to that of Germany. Fifteen years ago, the eurozone’s two biggest countries enjoyed comparable living standards. Today, Germany’s are almost a fifth higher than those in France. Likewise, at the time when euro notes and coins were introduced in 2002, French and German unemployment rates were both around 8%. Today, Germany’s unemployment rate has dropped below 4% while French unemployment is close to 10%.</p>
+</blockquote>
+<blockquote>
+<p>Youth unemployment is a particular problem. Almost one in four of those aged under 25 are out of work, a much higher rate than in Germany. Hollande has had some success increasing the number of people in training and he forced through legislation last year making hiring and firing easier. But more than 85% of employment growth last year was for temporary jobs, and the vast majority of those hired were on contracts of less than a month.</p>
+</blockquote>
+<p>I was interested in visualizing this quickly in R, so I grabbed the data from <a href="http://ec.europa.eu/eurostat/data/database">Eurostat</a>. After a little cleaning, we can plot the figures using ggplot2.</p>
+<pre class="r"><code>library(tidyverse)
+fg &lt;- read_csv(&quot;ilc_di03/ilc_di03_1_Data.csv&quot;)
+une &lt;- read_csv(&quot;une_rt_a/une_rt_a_1_Data.csv&quot;)</code></pre>
+<p>Let’s take a look at these:</p>
+<pre class="r"><code>head(fg)</code></pre>
+<pre class="r"><code>head(une)</code></pre>
+<p>So let’s quickly tidy the data up and keep only what we need. There are no <code>Value</code> observations for 2016, so we remove that year. The value for 2003 is missing for France, as are 2003 &amp; 2004 for Germany, so here we can take an average of the values the year before and the year after and impute these. After that, we just tidy up the way ‘Germany’ is entered, change <code>Value</code> to numeric and <code>TIME</code> to a date-time, and then select only what we want, renaming in the process. (I do something similar for the unemployment data.)</p>
+<pre class="r"><code>fg &lt;- fg %&gt;% 
+  filter(TIME != 2016) %&gt;% 
+  mutate(Value = ifelse(
+    TIME == 2003 &amp; GEO == &quot;France&quot;, (14889 + 15242)/2, Value), 
+         Value =  ifelse(
+           TIME == 2004 | TIME == 2003 &amp; GEO == &quot;Germany (until 1990 former territory of the FRG)&quot;, (15758 + 16393)/2, 
+           Value)) %&gt;% 
+  mutate(GEO = gsub(&quot;\\(until 1990 former territory of the FRG\\)&quot;, &quot;&quot;, GEO),
+         Value = gsub(&quot;,&quot;, &quot;&quot;, Value),
+         Value = as.numeric(Value),
+         TIME = paste0(TIME, &quot;-01-01&quot;),
+         TIME = lubridate::parse_date_time(TIME, &quot;Ymd&quot;)) %&gt;% 
+  select(date = TIME, country = GEO, `Median Income`= Value)</code></pre>
+<p>Now these data are easier to work with:</p>
+<pre class="r"><code>head(fg)</code></pre>
+<pre class="r"><code>head(une)</code></pre>
+<p>Let’s get our Euro-France-Germany-themed plots going. France has the colours #013896 <bdi style="color:#013896">(blue)</bdi>, #ffffff (white), and red <bdi style="color:#cf142b">(#cf142b)</bdi>. Germany is #000000 (black), #ffce00 <bdi style="color:#ffce00">(yellow)</bdi>, and red <bdi style="color:#dd0000">(#dd0000)</bdi>.</p>
+<pre class="r"><code>ggplot(fg, aes(x = date, y = `Median Income`, colour = country)) +
+  geom_line() +
+  theme_classic() + 
+  scale_colour_manual(values = c(&quot;#013896&quot;, &quot;black&quot;)) +
+  labs(title = &quot;Median Income, France &amp; Germany&quot;, colour = &quot;&quot;,
+       subtitle = &quot;1995-2015&quot;, caption = &quot;Data: Eurostat&quot;) +
+  theme(title = element_text(colour = &quot;#cf142b&quot;), 
+        axis.line = element_line(colour = &quot;#ffce00&quot;))</code></pre>
+<pre class="r"><code>ggplot(une, aes(x = date, y = `Unempl. Rate`, colour = country)) +
+  geom_line() +
+  theme_classic() + scale_y_continuous(limits = c(0, 13)) +
+  scale_colour_manual(values = c(&quot;#cf142b&quot;, &quot;#000000&quot;)) +
+  labs(title = &quot;Unemployment Rate, France &amp; Germany&quot;, colour = &quot;&quot;,
+       subtitle = &quot;1995-2015&quot;, caption = &quot;Data: Eurostat&quot;) +
+  theme(title = element_text(colour = &quot;#013896&quot;), 
+        axis.line = element_line(colour = &quot;#ffce00&quot;))</code></pre>
+<p>Ok, these colours aren’t <em>amazing</em> together. But at least the unemployment figures show the differences between the two countries that the Guardian article mentioned. Still, median income actually favours France, although it’s not exactly clear what the Guardian means by “living standards”; I’m sure we could explore this with many more indicators.</p>
+<p>I wonder how facebook’s prophet package would predict the near future for the unemployment rate?<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<pre class="r"><code>library(prophet)
+
+france &lt;- une %&gt;% 
+  filter(country == &quot;France&quot;) %&gt;% 
+  select(ds = date, y = `Unempl. Rate`)
+
+germany &lt;- une %&gt;% 
+  filter(country == &quot;Germany &quot;) %&gt;% 
+  select(ds = date, y = `Unempl. Rate`)
+
+fr &lt;- prophet(france)
+future_france &lt;- make_future_dataframe(fr, periods = 1)
+forecast_france &lt;- predict(fr, future_france)
+
+ge &lt;- prophet(germany)
+future_germany &lt;- make_future_dataframe(ge, periods = 1)
+forecast_germany &lt;- predict(ge, future_germany)</code></pre>
+<pre class="r"><code>plot(fr, forecast_france)</code></pre>
+<p>Ok, France’s is quite unpredictable using these sparse data. Germany’s however, shows a clear downward trend:</p>
+<pre class="r"><code>plot(ge, forecast_germany)</code></pre>
+<p>I wonder how much Macron will change all this? Given the ingrained statism of France, I doubt it will be a lot.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><em>Super</em> unsophisticated analysis, I know. The data here are yearly, quarterly or monthly would be far better.<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>

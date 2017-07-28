@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Hugo Future Imperfect</title>
+    <link>http://hugo.spf13.com/categories/</link>
+    <description>Recent content in Categories on Hugo Future Imperfect</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://hugo.spf13.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go</title>
+      <link>http://hugo.spf13.com/categories/go/</link>
+      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://hugo.spf13.com/categories/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>http://hugo.spf13.com/categories/hugo/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://hugo.spf13.com/categories/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jekyll</title>
+      <link>http://hugo.spf13.com/categories/jekyll/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://hugo.spf13.com/categories/jekyll/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>http://hugo.spf13.com/categories/r/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>http://hugo.spf13.com/categories/r/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,86 @@
+---
+title: text analysis of metal lyrics in R
+author: Robert McDonnell
+date: '2017-02-28'
+categories: 
+  - R
+  - metal
+  - text analysis
+tags: []
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache.lazy = TRUE)
+```
+
+
+```{r, message=F, warning=F}
+library(tidyverse)
+
+metal <- data_frame(Title = c("South of Heaven", "Seasons in the Abyss", 
+                              "Raining Blood", "Live Undead", "Angel of Death",
+                              "Cowboys From Hell", "Five Minutes Alone", 
+                              "War Nerve", "Goddamn Electric", "Walk",
+                              "Master of Puppets", "Blackened", 
+                              "Sad But True", "Fade to Black", "Battery",
+                              "I am the Black Wizards", "Inno A Satana",
+                              "The Prophet", "Thus Spake the Night Spirit",
+                              "Ye Entrancemperium", "Black Seeds of Vengeance", 
+                              "Masturbating the War God", "To Dream of Ur",
+                              "The Wind of Horus", "Lashed to the Slave Stick"),
+                    Band = c(rep("slayer", 5), rep("pantera", 5),
+                             rep("metallica", 5), rep("emperor", 5),
+                             rep("nile", 5)),
+                    Url = "https://genius.com/",
+                    Lyrics = NA)
+
+```
+
+slayer/southofheaven.html
+https://genius.com/Emperor-i-am-the-black-wizards-lyrics
+
+```{r}
+
+metal <- metal %>% 
+  mutate(url_2 = tolower(gsub(" ", "-", Title)),
+         Url = paste0(Url, Band, "-", url_2, "-lyrics")) %>% 
+  select(-url_2)
+
+
+```
+
+
+```{r, eval = F}
+library(rvest)
+
+lyrics <- list()
+
+for(i in 1:nrow(metal)){
+  lyrics[[i]] <- XML::htmlParse(metal$Url[[i]])
+  lyrics[[i]] <- XML::getNodeSet(lyrics[[i]],
+                           path = "/html/body/div[5]/div[2]/div[1]/div/lyrics/div/section/p")
+  lyrics[[i]] <- html_text(lyrics[[i]])
+  
+}
+
+
+  metal$Lyrics[[i]] <- try(,
+    silent = FALSE)
+  
+   if(class(metal$Lyrics[[i]]) == "try-error"){
+     metal$Lyrics[[i]] <- NA
+     metal$Url[[i]] <- "Try Other Site"
+   } else{
+     metal$Lyrics[[i]] <- html_text(metal$Lyrics[[i]])
+     metal$Lyrics[[i]] <- gsub("\\r", "", metal$Lyrics[[i]])
+     metal$Lyrics[[i]] <- gsub("\\n", "", metal$Lyrics[[i]])
+   }
+}
+
+```

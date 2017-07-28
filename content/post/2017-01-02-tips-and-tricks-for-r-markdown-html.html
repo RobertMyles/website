@@ -1,0 +1,140 @@
+---
+title: Tips and Tricks for R Markdown html
+date: '2017-01-02'
+categories:
+  - R
+  - R Markdown
+tags: []
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+---
+
+
+
+<p>Here are a couple of little tips and tricks that I’ve picked up for use with RMarkdown html documents (including presentations and notebooks). This post is aimed at the R user who doesn’t know much, if anything, about html and css.</p>
+<div id="background-images" class="section level2">
+<h2>Background images</h2>
+<p>Sometimes it’s useful (or just nice) to have a background image of some sort in a presentation or notebook. This could be the logo of your university or company, for example. To do this for a R Markdown document, you will need to do three things:</p>
+<ul>
+<li>create a separate .css file,<br />
+</li>
+<li>have/create an image, made suitably transparent,<br />
+</li>
+<li>change the YAML in the R Markdown document.</li>
+</ul>
+<p>You can create a css file in any text editor. In this example I’m calling it ‘custom.css’. Include these lines (my image is called <code>results.jpg</code>):</p>
+<pre class="css"><code>body{
+   background-image: url(&#39;results.jpg&#39;);
+   min-height: 500px;
+    /* Set background image to fixed (don&#39;t scroll along with the page) */
+    background-attachment: fixed;
+    background-position: right top;
+    /* Set the background image to no repeat */
+    background-repeat: no-repeat;
+    /* Scale the background image to be as large as possible */
+    background-size: cover;
+}</code></pre>
+<p>The image itself will need to be quite transparent. You can do that with imagemagick. On a mac terminal, the command is:</p>
+<pre class="bash"><code>convert IMAGE -fill white -colorize 50% NEW_IMAGE</code></pre>
+<p>After this, we just need to change our YAML at the top of the R Markdown document like so:</p>
+<pre class="r"><code>---
+title: &quot;R Notebooks&quot;
+output:
+  html_notebook:
+    css: custom.css
+---</code></pre>
+<p>You’ll have something interesting like this:</p>
+<p><img src = 'http://i.imgur.com/slwkLCg.png'></p>
+<p>This image could of course be anything, like a company logo, for example. You could also leave a large portion of it white to place the image in the corner or side of the screen.</p>
+</div>
+<div id="two-columns" class="section level2">
+<h2>Two columns</h2>
+<p>Another useful thing that we can do with css is create two columns, particularly useful in a presentation. In order to do that, add the following lines to the css file you’re using:</p>
+<pre class="css"><code>#left {
+  left:-8.33%;
+  text-align: left;
+  float: left;
+  width:50%;
+  z-index:-10;
+}
+
+#right {
+  left:31.25%;
+  top: 75px;
+  float: right;
+  text-align: right;
+  z-index:-10;
+  width:50%;
+}</code></pre>
+<p>When you want to use these columns in your R Markdown document, use them like so, with a bit of html:</p>
+<pre class="html"><code>&lt;div id=&quot;left&quot;&gt;
+  #content
+&lt;/div&gt;
+&lt;div id=&quot;right&quot;&gt;
+  #content
+&lt;/div&gt;
+</code></pre>
+<p>For example, this code:</p>
+<pre class="r"><code>&lt;div id=&quot;left&quot;&gt;
+$$y_i \backsim Normal(\mu_i, \sigma)$$
+$$\mu_i = \alpha + \beta x_i$$
+$$\sigma \backsim Uniform(0, 1)$$
+$$\beta \backsim Normal(0, 10)$$
+$$\alpha \backsim Normal(0, 10)$$
+&lt;/div&gt;
+
+&lt;div id=&quot;right&quot;&gt;
+- `Likelihood`
+- `Linear model`
+- `sigma prior`
+- `beta prior`
+- `alpha prior`
+&lt;/div&gt;</code></pre>
+<p>produces this:</p>
+<p><img src='http://i.imgur.com/Kpvf8mX.png'></p>
+<p>Likewise, an external css file can be used to change defaults. I think the default R code snippet text size is a little small in the R Notebooks, as is all the text in an R Notebook if you’re using them for presentations. You can easily change the defaults by putting:</p>
+<pre class="css"><code>body{ /* Normal  */
+   font-size: 16px;
+}
+code.r{ /* Code block */
+  font-size: 14px;
+}</code></pre>
+<p>in the css file, which will make the normal text and the R code text bigger. If you want to make all the text slightly bigger in the entire document without an external css file, you can just put <font> tags at the start and end of the R Markdown document:</p>
+<pre class="html"><code>&lt;font size=6&gt;
+# content
+&lt;/font&gt;</code></pre>
+<p>Similarly, bits of html can come in handy when you want to change little elements of the document. <code>&lt;br&gt;</code> will give you a vertical space, and using <code>&lt;bdi&gt;</code> tags can be useful for changing the style of particular words, especially useful for words that are presented as ‘code’ in back ticks. For example:</p>
+<pre class="html"><code>&lt;bdi style=&quot;color:#36648B&quot;&gt;`variable_1`&lt;/bdi&gt;.
+
+&lt;bdi style=&quot;font-size:70%;&quot;&gt;(**`?dplyr::select`**)&lt;/bdi&gt;
+</code></pre>
+<p>will make ‘variable_1’ appear in code-style text and be blue (<bdi style="color:#36648B"><code>variable_1</code></bdi>), whereas ‘?dplyr::select’ will be bold and 70% of the size that it would otherwise be. (<bdi style="font-size:70%;">(<strong><code>?dplyr::select</code></strong>)</bdi>)</p>
+</div>
+<div id="revealjs-logos" class="section level2">
+<h2>revealjs logos</h2>
+<p>The image of the two columns above was part of a revealjs presentation done in R Markdown. revealjs gives you really slick options for presentations, but can be a lot of extra work in terms of customizing the output. Logos, for example, which are so common (and necessary) in presentations, are not included by default and can be tricky and annoying to include.</p>
+<p>We can get what we want with a little html and some YAML options. In the example below, I used an external html file called <code>Logo_prefix.html</code>, which is referenced in the <code>includes:</code> section of the YAML header. The html file contains the following, which uses an image called <code>logo.png</code>. The size can be adjusted using the <code>style=&quot;&quot;</code> part below.</p>
+<pre class="html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+ &lt;div class=&quot;bottombar&quot;&gt;
+    &lt;h1 class=&quot;title&quot;&gt;&lt;/h1&gt;&lt;image class=&quot;logo&quot; src=&quot;logo.png&quot; style=&quot;width:180px; height:85px;&quot;&gt;
+&lt;/div&gt;
+&lt;/html&gt;</code></pre>
+<p>And the RMarkdown YAML I used (for a course in statistics in R in Portuguese; the 2017-06-02 is a nice trick to put the current date on the presentation):</p>
+<pre class="r"><code>---
+title: &quot;Introdução a estatística no `R`, Dia 2&quot;
+author: &quot;Robert McDonnell&quot;
+date: &quot;`r Sys.Date()`&quot;
+output:
+  revealjs::revealjs_presentation:
+    theme: sky
+    highlight: pygments
+    css: custom.css
+    includes:
+      before_body: Logo_prefix.html
+---</code></pre>
+<p>This includes a small logo in the upper right corner of every slide. To get this to work properly, you will need to dig into the css of the particular revealjs theme that you are using (here I’m using sky), I can’t even remember exactly how I did that… like I said, customizing revealjs can be annoying.</p>
+</div>

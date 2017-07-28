@@ -1,0 +1,104 @@
+---
+title: Write your thesis or paper in R Markdown!
+author: Robert McDonnell
+date: '2016-04-15'
+categories:
+  - R
+  - R Markdown
+tags: []
+description: ''
+featured: 'rmark.png'
+featuredalt: ''
+featuredpath: '/images'
+linktitle: ''
+---
+
+
+
+<p> </p>
+<p>There are many reasons why you would want to use some variant of Markdown for writing, and indeed, posts are common on the net as to why you should.<sup id="a1"><a href="#fn1">1</a></sup> A simple summary of the reasons are that Markdown is: 1) easy; 2) easy; 3) yup, you guessed it – it’s easy.</p>
+<p>One variant of Markdown is R Markdown, developed by the <a href="https://www.rstudio.com/">RStudio</a> team, and in particular the genius that is <a href="http://yihui.name/knitr/">Yihui Xie</a>, creator of the <code>knitr</code> R package. R Markdown is pretty much like regular Markdown, except you get a whole load of nice extra features, including the ability to run code chunks, produce .pdfs and presentations, and even .docx (if you really, really want to<sup id="a2"><a href="#fn2">2</a></sup>). Indeed, the ioslides presentation format lets you use the power of html and css to make browser-based presentations.</p>
+<p>But surely academic papers require certain formats, and sometimes mathematical expressions and funny Greek letters? Well, sure. Academic papers, particularly theses, often have set formats that you must adhere to. And since Markdown is quite a simple language, it doesn’t have the advanced power of <span class="math inline">\(\LaTeX\)</span> to position things in specific ways.</p>
+<div id="latex-in-r-markdown" class="section level3">
+<h3><span class="math inline">\(\LaTeX\)</span> in R Markdown</h3>
+<p>Enter R Markdown! Although you might (depends on the Markdown) have to do something like <code>{% raw %}\\(\LaTeX\\){% endraw %}</code> to get the word <span class="math inline">\(\LaTeX\)</span> in your Markdown, with R Markdown it’s just <code>$ \LaTeX $</code>. I used Mathjax characters in my thesis, and all worked fine using this method (<a href="http://www.onemathematicalcat.org/MathJaxDocumentation/TeXSyntax.htm">here’s</a> a nice link showing all the possible characters you can create with Mathjax). Nice ‘n’ easy, lemon squeezy. Inline <span class="math inline">\(\LaTeX\)</span> expressions get one <code>$</code>, centred equations get two: <code>$$</code>, and both need the equivalent to finish the expression. For example, in my first <a href="http://robertmyles.github.io//post1.html">post</a>, I had the equation:</p>
+<p><span class="math display">\[y_{ij} = \beta_j\boldsymbol{x_i} - \alpha_j.\]</span></p>
+<p>In R Markdown, this is:</p>
+<pre><code>`$$ y_{ij} = \beta_j\boldsymbol{x_i} - \alpha_j.$$` </code></pre>
+<p>Simple!</p>
+<p>So that’s math and funny characters done. What else can we do in R Markdown?</p>
+</div>
+<div id="images" class="section level3">
+<h3>Images</h3>
+<p>Well, all the image-placement power of <span class="math inline">\(\LaTeX\)</span> is also available. So <code>\begin{figure}</code> (or subfigure and wrapfigure), <code>\centering</code>, <code>\includegraphics</code> and <code>\caption</code> all work as they should. I found minipage to be particularly helpful. You can use <code>\</code> with two spaces after it to organise blank space, or <code>\newpage</code> to force a new page.</p>
+<p>Of course, that supposing that you want to use <span class="math inline">\(\LaTeX\)</span> for images. R Markdown’s own syntax for images is quite simple: <code>![Caption](file.png)</code>, where ‘Caption’ is your image caption and ‘file.png’ your image file (you can use other formats, such as .pdf too). However, positioning may become a problem using this image-placing syntax. It’s worth taking the extra time to learn the <span class="math inline">\(\LaTeX\)</span> if you don’t know it.</p>
+</div>
+<div id="tables" class="section level3">
+<h3>Tables</h3>
+<p>Tables are a <em>little</em> annoying sometimes in any Markdown. It depends. If the simple one works for you, then great – they’re quick and easy. If you have to use grid tables, things take longer (for some reason, only grid tables worked for me sometimes). There’s a <a href="http://pandoc.org/README.html#tables">simple guide</a> on the pandoc site, since it is pandoc that is actually converting to and fro in all these different formats (pandoc is amazing). But a basic one is <em>really</em> simple (from the pandoc site):</p>
+<p> </p>
+<div class="figure">
+<img src="http://i.imgur.com/TcbAp2U.png" alt="Table" />
+<p class="caption">Table</p>
+</div>
+<p>The table numbers will automatically increment, and the caption is set after the <code>:</code> part. Indeed, <code>table</code> is not even needed, using <code>:</code> with give you a caption with <code>Table 1:</code>, for your first table in the document.</p>
+</div>
+<div id="code" class="section level3">
+<h3>Code</h3>
+<p>There may be a need for you to display code segments, particularly in a quantitative paper or thesis. Again, it’s very simple. In R Markdown, you do the following (I’m using <code>eval = FALSE</code> here because I don’t want the code chunk to be evaluated), and the block goes inside three back ticks on either end:</p>
+<pre><code>{r, eval = FALSE}  
+library(&quot;readr&quot;)
+data &lt;- read_csv(&quot;example.csv&quot;)
+data &lt;- data[1:6, ]
+</code></pre>
+<p>This useful for plotting simple graphs and things like that. The example I’ve shown <em>wouldn’t</em> be a particularly good idea, since R will load in <code>example.csv</code> every time you produce the pdf using the ‘knit’ button in RStudio. The <code>{r}</code> prt also has optional arguments, such as <code>eval</code>, which can be set to <code>TRUE</code> or <code>FALSE</code>, and tells R Markdown whether to evaluate the expression or not (useful for examples where you want to show the code but not run it).</p>
+</div>
+<div id="chapters-and-headings" class="section level3">
+<h3>Chapters and Headings</h3>
+<p>Chapters and Headings are laughably simple in any Markdown, and R Markdown is no exception. <code># Header 1</code> will create the largest-sized header, <code>## Header 2</code> a smaller one, and so on. To have these numbered, we’ll have to use another excellent feature of Markdown, the YAML block that goes on the top of the document.</p>
+</div>
+<div id="the-yaml-block" class="section level3">
+<h3>The YAML block</h3>
+<p>The YAML block is what makes your R Markdown document possibly really fancy. It’s here that the <span class="math inline">\(\LaTeX\)</span> packages are loaded, and here that you can specify various options that will have an impact on your document. So what the hell <em>is</em> a YAML block, anyway? Well, maybe the easiest way to explain that is to show you mine<sup id="a3"><a href="#fn3">3</a></sup> from my PhD <a href="%7B%7B%20site.url%20%7D%7D/assets/Explaining%20the%20Determinants%20of%20Foreign%20Policy%20Voting%20Behaviour%20in%20the%20Brazilian%20Houses%20of%20Legislature.pdf">thesis</a>. It starts and ends with <code>---</code>.</p>
+<pre class="r"><code>---
+title: &quot;Explaining the Determinants of Foreign Policy Voting Behaviour in the Brazilian Houses of Legislature, with a Focus on the Senate&quot;
+author: &quot;Robert Myles McDonnell&quot;
+date: &quot;&quot;
+fontsize: 12pt
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage{dcolumn}
+   - \usepackage{wrapfig}
+   - \usepackage{subcaption}
+   - \usepackage{caption}
+   - \usepackage[font=small,labelfont=bf]{caption}
+   - \hypersetup{colorlinks=false}
+documentclass: &quot;article&quot;
+output:
+  pdf_document:
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 7
+    latex_engine: pdflatex
+    number_sections: yes
+    toc: yes
+    toc_depth: 4
+    citation_package: &quot;natbib&quot;
+linestretch: 2
+mainfont: &quot;Linux Libertine O&quot;
+bibliography: ThesisLibrary.bib
+csl: american-political-science-association.csl
+biblio-style: apalike
+---</code></pre>
+<p>So, that’s quite extended, but maybe you won’t need all these things. One important thing to remember with the YAML block is that indentation <em>matters</em>. When you have something like <code>output:</code>, then the line <code>pdf document:</code> is <strong>two</strong> spaces indented. <code>fig_caption: yes</code> is <strong>two more</strong> spaces indented (four in total) and so are the other options to pdf_document. If you get your spacing wrong, it won’t work.</p>
+<p>Many of the options are self-explanatory: <code>linestretch</code> is line-spacing, for example. One important option is <code>toc</code> and its option <code>toc_depth</code>. This is the <strong>t</strong>able <strong>o</strong>f <strong>c</strong>ontents. <code>toc_depth</code> is telling R Markdown how many levels you’d like: Chapter 4.1, Chapter 4.1.1 etc. More advanced elements can be changed too. For example, this thesis had a <code>documentclass</code> of article, but you can write your own document class and therefore produce radically different documents. One example is an R Markdown <a href="https://github.com/danielkrizian/resume_template">version</a> of Friggeri’s popular CV template. Other examples are rapidly proliferating on the web. The RStudio team have a new R package <a href="https://github.com/rstudio/rticles">rticles</a> that has document templates for various academic journal styles. Load ’em up, and you’ve already got an easy R Markdown template for the journal in question. And for papers, enable the <code>abstract:</code> option in the YAML header, write your abstract there, and voilà! You’ve got yourself a nice abstract.</p>
+<p> </p>
+<p>So if writing your thesis (or a paper) in Microsoft Word or something similar sounds like an ordeal, and you’re really not such an expert on<span class="math inline">\(\LaTeX\)</span>, maybe you should consider doing it in R Markdown. It has all the easiness of Markdown, with a couple of nice extras that help you make a quality document. See my thesis if you don’t believe me! :wink:</p>
+<p> </p>
+<p>Update:<br />
+A colleague asked me how I produced the first few pages of my thesis, and I realised that I forgot to mention that you can include other documents, for example tex files, that may need to be part of your thesis. Many theses have strict guidelines for the introductory pages, which can be included in your R Markdown file as part of the YAML header section. The option is <code>includes</code>, and it has the sub-options <code>in_header</code>, <code>before_body</code> and <code>after body</code>. Like before, the spacing is meaningful in the YAML header, so these sub-options will need to be indented two spaces. For introductory pages of a thesis, your tex file will go in <code>before_body</code>. (I have to admit that this option never worked well for me, I simply merged the .pdf produced from the tex file and the .pdf produced from the R Markdown document with Preview in OS X, but for others, it seems to work fine.) See <a href="http://rmarkdown.rstudio.com/markdown_document_format.html">here</a> for examples. See <a href="https://github.com/danilofreire/kcl-thesis-template-markdown">here</a> for a Markdown template for King’s College London’s PhD guidelines, by <a href="http://danilofreire.com/">Danilo Freire</a>.</p>
+<p> </p>
+<p><b id="fn1">1</b> For example, <a href="http://markdown-guide.readthedocs.org/en/latest/basics.html">this cheatsheet</a> <a href="#a1">↩</a></p>
+<p><b id="fn2">2</b> In my experience, I think you’re just going to end up editing these in Word anyway so I don’t know that it’s worth the bother to do in RStudio. You can if you want, I suppose.<a href="#a2">↩</a></p>
+<p><b id="fn3">3</b> I’m including extra things here that I used over the process of making the thesis pdf, but it wasn’t what I used exactly in the end. I had some problems, that I can’t recall right now, with rendering bibliographical items so I switched to the default LaTeX renderer, pdflatex. Using this means you can’t use other fonts, like the Linux Libertine font above.<a href="#a3">↩</a> <link rel="image_src" href="http://i.imgur.com/vywFhKA.png?1" /></p>
+</div>

@@ -1,0 +1,332 @@
+---
+title: "Peace, Bread and Data!"
+date: "2017-02-19"
+custom_css: sickle.css
+categories:
+  - R
+  - Communism
+  - Political Economy
+tags:
+  - R
+description: ''
+featured: 'communist_party.jpg'
+featuredalt: ''
+featuredpath: '/images'
+---
+
+
+
+<p>I really like this image by <a href="https://www.threadless.com/product/383/the_communist_party">Tom Burns</a>.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> The liberal<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> in me appreciates making cheap fun of people who were horribly mistaken (Lenin; Marx, although I don’t mean to slight his contributions to social science), scum like Stalin, and Fidel Castro, who might have started out with a laudable takedown of a corrupt dictator, but who then became…a corrupt dictator, of course. The artist in me just loves the awesome colours. And it’s pretty funny.</p>
+<p>So? Well, since I like making plots in R, and I really like these colours, and I have an interest in the political economic side of it all… let’s make some graphs! Maybe we can see how Communist countries compare to the evil West on a series of socio-economic indicators.</p>
+<p>The colour scheme in this image is the following:</p>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="18%" />
+<col width="16%" />
+<col width="18%" />
+<col width="22%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>background</th>
+<th>cup</th>
+<th>dark red</th>
+<th>very dark red</th>
+<th>yellow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>hex</p></td>
+<td><p>#cf1f2e</p></td>
+<td><p>#d32434</p></td>
+<td><p>#a20414</p></td>
+<td><p>#991014</p></td>
+<td><p>#ffda85</p></td>
+</tr>
+</tbody>
+</table>
+<p>We can use these hex values directly in the <code>ggplot()</code> function.</p>
+<p><a href="http://www.infoplease.com/ipa/A0933874.html">This</a> page has a list of former and currently communist countries (no way China is a communist country now, but anyway), and the World Bank <a href="http://data.worldbank.org/data-catalog">data catalog</a> has a whole load of indicators we can use; the ones I use are available from <a href="https://github.com/RobertMyles/Various_R-Scripts/tree/master/data/Communist_data">this</a> GitHub repo.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<pre class="r"><code>library(stringr)
+library(lubridate)
+
+# this file has a &quot;region&quot; variable that I want:  
+gini &lt;- read_csv(&quot;https://raw.githubusercontent.com/RobertMyles/Various_R-Scripts/master/data/Communist_data/allginis_2013.csv&quot;) %&gt;% 
+  select(1, 3)
+
+# but this is the main data file:  
+wb &lt;- read_csv(&quot;https://raw.githubusercontent.com/RobertMyles/Various_R-Scripts/master/data/Communist_data/wb_data.csv&quot;) %&gt;% 
+  select(country = 1, 3, 5:14) %&gt;% 
+  filter(!is.na(country))
+
+colnames(wb)[3:12] &lt;- unlist(str_extract_all(colnames(wb)[3:12], &quot;^[0-9\\s]{4}&quot;))
+
+wb &lt;- left_join(wb, gini) %&gt;% 
+  distinct(.keep_all = T)
+rm(gini)
+
+# let&#39;s arrange it into &#39;long&#39; format, suitable for showing variation
+# over years. I&#39;ll also add an indicator variable for communist status:  
+wb &lt;- wb %&gt;%  
+  select(-`2016`) %&gt;% 
+  gather(year, Value, `2007`:`2015`) %&gt;%
+  mutate(Value = as.numeric(Value)) %&gt;% 
+  spread(`Series Name`, value = Value) %&gt;% 
+  mutate(year = parse_date_time(year, &quot;Y&quot;),
+         communist = ifelse(
+           country %in% current, &quot;Communist&quot;, 
+           ifelse(
+             country %in% former, &quot;Communist&quot;, &quot;Evil Kapitalist&quot;))) %&gt;%
+  select(-14) #NA column</code></pre>
+<p>Now we’ve got lots of interesting data to use. Let’s have a look at life expectancy.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<pre class="r"><code>ggplot(wb_l, aes(x = year, y = l_means)) +
+  # annotation straight away to put it behind everything:
+  annotation_custom(si, xmin = as.numeric(as.POSIXct(&#39;2006-01-01&#39;, 
+                                         origin = &#39;1970-01-01&#39;)),  
+                    xmax = as.numeric(as.POSIXct(&#39;2010-01-01&#39;, 
+                                         origin = &#39;1970-01-01&#39;)), 
+                    ymin = 53, ymax = 64) +
+  geom_line(aes(group = status, colour = communist), size = 0.8) +
+  geom_point(aes(colour = communist, shape = region), size = 4) +
+  theme_classic() +
+  theme(text = element_text(family = &quot;Kremlin&quot;),
+        panel.background = element_rect(fill = &quot;#cf1f2e&quot;),
+        axis.title = element_text(colour = &quot;#991014&quot;),
+        axis.text = element_text(colour = &quot;#991014&quot;)) +
+  scale_colour_manual(values = c(&quot;#ffda85&quot;, &quot;black&quot;)) +
+  guides(colour = guide_legend(title = &quot;System&quot;)) +
+  ylab(&quot;Life Expectancy&quot;)</code></pre>
+<p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-4-1.png" width="1152" /></p>
+<p>Ah, that font…<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a><br />
+Well, everybody’s life expectancy is going up, that’s good, but there’s a massive difference between communist and non-communist countries in Africa and Asia. Former communist countries do slightly better in Eastern Europe, although it’s pretty much even. That’s quite a notable trend over such a short time period, it’s a pity the data doesn’t go back further. This might also be nice as a boxplot:</p>
+<pre><code>## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database</code></pre>
+<pre><code>## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family not found in Windows font database</code></pre>
+<p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
+<p>Communist countries were/are well-known for having rather large armies. In the data I’ve taken from the World Bank, we have two variables for exploring this theme, <code>Armed forces personnel (% of total labor force)</code> and <code>Military expenditure (% of GDP)</code>. Let’s see how they rank:</p>
+<pre class="r"><code>wb %&gt;% mutate(year = as.character(year)) %&gt;% 
+  filter(year == &quot;2012-01-01&quot;, country != &quot;Arab World&quot;,
+         country != &quot;Middle East &amp; North Africa&quot;) %&gt;% 
+  select(country, `Military expenditure (% of GDP)`) %&gt;% 
+  arrange(desc(`Military expenditure (% of GDP)`)) %&gt;% head(n = 10)</code></pre>
+<pre><code>## # A tibble: 10 x 2
+##                 country `Military expenditure (% of GDP)`
+##                   &lt;chr&gt;                             &lt;dbl&gt;
+##  1                 Oman                         16.083359
+##  2          South Sudan                          9.530753
+##  3         Saudi Arabia                          7.697721
+##  4               Israel                          5.721890
+##  5 United Arab Emirates                          5.094394
+##  6               Jordan                          4.760655
+##  7           Azerbaijan                          4.723215
+##  8          Yemen, Rep.                          4.573884
+##  9              Algeria                          4.461327
+## 10        United States                          4.238745</code></pre>
+<p>Well, look at that. With the exception of the USA, and the less-of-an-exception of Algeria and South Sudan, these are all neighbours. Must be fun over there in the Middle East.<br />
+So what about our <bdi style="font-size: 0.8em; font-family:kremlin;">komrades</bdi>?</p>
+<pre><code>## # A tibble: 10 x 2
+##        country `Military expenditure (% of GDP)`
+##          &lt;chr&gt;                             &lt;dbl&gt;
+##  1  Azerbaijan                          4.723215
+##  2 Yemen, Rep.                          4.573884
+##  3        Cuba                          3.937705
+##  4      Angola                          3.593358
+##  5     Armenia                          3.583767
+##  6     Georgia                          3.104606
+##  7     Ukraine                          2.353437
+##  8     Vietnam                          2.156886
+##  9      Serbia                          2.095175
+## 10     Estonia                          1.895746</code></pre>
+<p>I’m not sure <em>any</em> of these can be really be classed as communist, perhaps stubborn ol’ Cuba. Perhaps the number of armed forces personnel will live up the stereotype.</p>
+<pre><code>## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database</code></pre>
+<p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<p>There we go! The Democratic People’s Republic of Korea hasn’t let us down in our hunt to confirm what we already want to find. Some surprises in here: Montenegro, Singapore. I’m guessing mandatory military service for makes of a certain age exists in these countries. Or maybe Montenegro <strong>really</strong> doesn’t like Greece.</p>
+<p>And how about GDP? Maybe it’s a bit unfair to compare these, since communism was supposedly against all that filthy wealth generation. But let’s Czech it out. If you’re re-creating these plots, remember that I’m using <code>readPNG()</code> and <code>rasterGrob()</code> to get the images ready for use with <code>annotation_custom()</code>.</p>
+<pre class="r"><code>ggplot(wbg, aes(x = year, y = gdp, colour = communist)) +
+   annotation_custom(st, xmin = as.numeric(as.POSIXct(&#39;2007-01-01&#39;, 
+                                         origin = &#39;1970-01-01&#39;)),  
+                    xmax = as.numeric(as.POSIXct(&#39;2010-01-01&#39;, 
+                                         origin = &#39;1970-01-01&#39;)),
+                    ymin = 70000, ymax = 110000) +
+  geom_line(aes(group = country)) +
+  theme_classic() + 
+  theme(text = element_text(family = &quot;Kremlin&quot;),
+        panel.background = element_rect(fill = &quot;#a20414&quot;),
+        axis.title = element_text(colour = &quot;#991014&quot;),
+        axis.text = element_text(colour = &quot;#991014&quot;)) +
+  scale_colour_manual(values = c(&quot;#ffda85&quot;, &quot;black&quot;)) +
+  guides(colour = guide_legend(title = &quot;System&quot;))</code></pre>
+<pre><code>## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database</code></pre>
+<pre><code>## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family not found in Windows font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family not found in Windows font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family not found in Windows font database</code></pre>
+<p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p>Unsurprisingly, the communist countries don’t compete well in terms of GDP per capita.</p>
+<p>How about other, less financial indicators, like adult literacy levels?</p>
+<p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
+<p>Still the pattern we noticed earlier: while there is a notable difference between communist and non-communist countries inside of regions, the regions themselves vary widely.</p>
+<div id="east-v-west-germany-final-battle" class="section level2">
+<h2>East v West Germany: <bdi style="font-family:kremlin;">FINAL BATTLE</bdi></h2>
+<p>Anybody who has been paying attention the “credibility revolution” in economics/political science will have seen it said that the ideal for any comparison is an experiment. “Natural” experiments (‘naturally’ occurring, i.e. not created by the researcher) are the closest we can get in many social scientific settings. Luckily for us, this topic has at least one A-grade natural experiment: the division of Germany into East and West, the former under Soviet control and the latter a liberal “capitalist” economy.</p>
+<p>For data on the comparison of these two economies, I use <a href="https://www.researchgate.net/profile/Pete_Mavrokordatos/publication/296467806_Germany_Twenty_Years_After_The_Union/links/56f13f5508aec9e096b31908/Germany-Twenty-Years-After-The-Union.pdf">this</a> paper, which gives me an excuse to use the pdftools package in R, in order to extract the data out of the pdf.</p>
+<pre class="r"><code>#library(pdftools)
+
+download.file(&quot;https://www.researchgate.net/profile/Pete_Mavrokordatos/publication/296467806_Germany_Twenty_Years_After_The_Union/links/56f13f5508aec9e096b31908/Germany-Twenty-Years-After-The-Union.pdf&quot;, destfile = &quot;e_w_germany.pdf&quot;, mode = &quot;wb&quot;)
+
+
+e_w &lt;- data_frame(Year = parse_date_time(seq(1980, 1989, 1), &quot;Y&quot;),
+                  East = c(201.9, 206, 205.3, 209.2, 215.2, 221.9, 
+                           225, 228.9, 231.3, 234),
+                  West = c(1251.6, 1252.8, 1241.1, 1263, 1298.4, 1325, 
+                           1356, 1376, 1427, 1479))
+
+de &lt;- readPNG(&quot;rmd_images/de.png&quot;)
+de &lt;- rasterGrob(de, interpolate=T) 
+wg &lt;- readPNG(&quot;rmd_images/wg_eagle.png&quot;)
+wg &lt;- rasterGrob(wg, interpolate=T) 
+eg &lt;- readPNG(&quot;rmd_images/eg.png&quot;)
+eg &lt;- rasterGrob(eg, interpolate=T) 
+
+# png of eagles
+ggplot(e_w, aes(x = Year)) +
+  theme_classic() + 
+  theme(text = element_text(family = &quot;Kremlin&quot;),
+        panel.background = element_rect(fill = &quot;black&quot;)) +
+  annotation_custom(de, xmin = -Inf, xmax = Inf,
+                    ymin = -Inf, ymax = Inf) +
+  annotation_custom(wg, 
+                    xmin = as.numeric(as.POSIXct(&#39;1987-01-01&#39;, 
+                                         origin = &#39;1970-01-01&#39;)),  
+                    xmax = as.numeric(as.POSIXct(&#39;1989-01-01&#39;, 
+                                         origin = &#39;1970-01-01&#39;)),
+                    ymin = 1000, ymax = 1500) +
+  annotation_custom(eg, 
+                    xmin = as.numeric(as.POSIXct(&#39;1987-01-01&#39;, 
+                                         origin = &#39;1970-01-01&#39;)),  
+                    xmax = as.numeric(as.POSIXct(&#39;1989-01-01&#39;, 
+                                         origin = &#39;1970-01-01&#39;)),
+                    ymin = 100, ymax = 700) +
+  geom_line(aes(y = East), colour = &quot;#ff0000&quot;, size = 1.3, linetype = 2) +
+  geom_line(aes(y = West), colour = &quot;#ff0000&quot;, size = 1.3, linetype = 2) +
+  ylab(&quot;Real GDP for East and West Germany\n Billions hated US dollars&quot;)</code></pre>
+<pre><code>## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family not found in Windows font database</code></pre>
+<pre><code>## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family not found in Windows font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family not found in Windows font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family not found in Windows font database</code></pre>
+<p><img src="/post/2017-02-19-communism_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><br></p>
+<p><bdi style="font-family:kremlin;color:#b22222">VICTORY TO EVIL WEST!!</bdi></p>
+<p><br></p>
+<p>As usual, the Economist has some of the best visualizations on the subject. We could <a href="https://robertmyles.github.io/re-creating-plots-from-the-economist-in-r.html">recreate this in R</a>, but let’s just use the original. It’s from <a href="http://www.economist.com/blogs/graphicdetail/2015/10/daily-chart-comparing-eastern-and-western-germany">this</a> article.</p>
+<div class="figure">
+<img src="http://i.imgur.com/lqnmr6y.png" />
+
+</div>
+<p>Well, one thing that we can be sure about is that the commies cracked some great <a href="http://www.prospectmagazine.co.uk/features/communist-jokes">jokes</a>. “Stalin himself cracked them, including this one about a visit from a Georgian delegation: They come, they talk to Stalin, and then they go, heading off down the Kremlin’s corridors. Stalin starts looking for his pipe. He can’t find it. He calls in Beria, the dreaded head of his secret police. ‘Go after the delegation, and find out which one took my pipe,’ he says. Beria scuttles off down the corridor. Five minutes later Stalin finds his pipe under a pile of papers. He calls Beria – ‘Look, I’ve found my pipe.’ ‘It’s too late,’ Beria says, ‘half the delegation admitted they took your pipe, and the other half died during questioning.’ :smile: <bdi style="font-family:kremlin;">GOOD TIMES!!</bdi></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>“Peace, Bread and Data!” I take from the Bolsheviks’ “Peace, Bread and Land!”.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>In an old-school <a href="http://deirdremccloskey.org/academics/index.php">Scottish sense</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>You can download the data and read it into R, or read directly from the “raw” version of the github page (i.e., <code>https://raw.githubusercontent.com/RobertMyles/Various_R-Scripts/</code>). I use <code>readr</code> from the <code>tidyverse</code> package for this, since it can read straight from an url of a csv with <code>read_csv</code>.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>The sickle I used as a grob with <code>annotate_custom</code>, in the same manner as the Rotten Tomatoes tomato on <a href="http://robertmyles.github.io//blog/brad_pitt_movies/">this</a> post<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>This can be downloaded from <a href="https://www.google.com/search?q=kremlin+font&amp;oq=kremlin+font&amp;aqs=chrome.0.69i59.2400j0j7&amp;sourceid=chrome&amp;ie=UTF-8">many</a> sources, as you can see from the code, it’s called “Kremlin”. I think it’s great.<a href="#fnref5">↩</a></p></li>
+</ol>
+</div>

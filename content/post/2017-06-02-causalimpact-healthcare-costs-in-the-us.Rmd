@@ -1,0 +1,144 @@
+---
+title: CausalImpact & Healthcare Costs in the US
+author: "Robert Myles MCDonnell"
+date: '2017-06-02'
+slug: causalimpact-healthcare-costs-in-the-us
+categories: [R, Healthcare, US, Causality]
+tags: []
+description: 'A quick look at the CausalImpact package in R, studying US healthcare costs over time'
+featured: ''
+featuredalt: ''
+featuredpath: 'https://mises.org/sites/default/files/styles/full_width/public/Holly1.png?itok=iDrzwxBU'
+linktitle: ''
+---
+
+
+[This](https://mises.org/blog/how-government-regulations-made-healthcare-so-expensive) article by Mike Holly on Mises.org interested me. I wasn't aware of the history of healthcare costs in the US, and it's quite surprising, especially the take-off in costs after the 1960s. Holly's argument is that the "U.S. 'health care cost crisis' didn’t start until 1965. The government increased demand with the passage of Medicare and Medicaid while restricting the supply of doctors and hospitals." In fact, I was quite impressed with this graph:  
+
+![](https://mises.org/sites/default/files/styles/full_width/public/Holly1.png?itok=iDrzwxBU)
+
+
+```{r, results = "hide", message = FALSE, warning = FALSE}
+x <- c("rvest", "dplyr", "tidyr", "ggplot2", "magrittr", "lubridate")
+lapply(x, require, character.only = TRUE) 
+```
+
+I've wanted an excuse to use Google's [CausalImpact](https://github.com/google/CausalImpact) package for a while now, so let's give it a shot using these data. The Consumer Price Index we can grab quickly, since it's widely available:  
+
+```{r}
+url <- "http://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/"
+
+cpi <- read_html(url) %>% 
+  html_node("table") %>% 
+  html_table() %>% 
+  dplyr::select(-X14:-X16) %>% 
+  filter(X1 != "Year") %>% 
+  set_colnames(c("Year", "m01", "m02", "m03", "m04", "m05", "m06", 
+                 "m07", "m08", "m09", "m10", "m11", "m12")) %>% 
+  mutate_all(as.numeric) %>% 
+  slice(-1) %>% 
+  gather(Month, Value, m01:m12) %>% 
+  mutate(Day = "01",
+         Month = gsub("m", "", Month),
+         Date = paste(Year, Month, Day, sep = "-"),
+         Date = parse_date_time(Date, "Ymd")) %>% 
+  dplyr::select(Date, Value) %>% arrange(Date) %>% filter(!is.na(Value)) #%>% 
+  #mutate(Value = (Value - mean(Value))/sd(Value))
+
+ggplot(cpi, aes(x = Date, y = Value)) +
+  geom_line(colour = "dodgerblue") +
+  theme_minimal() + ylab(NULL) + xlab(NULL)
+
+```
+
+
+
+```{r, message=FALSE, warning=FALSE, echo = FALSE}
+
+# url <- "https://data.bls.gov/pdq/SurveyOutputServlet"
+# 
+# 
+# 
+# params <- list(
+#   request_action = "get_data",
+#   reformat = "true",
+#   from_results_page = "true",
+#   from_year = "1935",
+#   to_year = "2009",
+#   Go.x = "4",
+#   Go.y = "6",
+#   initial_request = "false",
+#   data_tool = "latest_numbers",
+#   series_id = "CUUR0000SAM",
+#   years_option = "specific_years",
+#   output_view = "pct_12mths||||",
+#   original_include_graphs = "true",
+#   original_output_view = "pct_12mths||||",
+#   nnualAveragesRequested = "false",
+#   download_xlsx = "Download as an Excel File")
+
+
+
+library(readr)
+med <- read_csv("C:/Users/d840118/Downloads/CPIMEDSL.csv") %>% 
+  mutate(DATE = parse_date_time(DATE, "Ymd"))
+                  
+
+
+#medical <- httr::POST(url, body = params, encode = 'form') #%>% httr::content("parsed")
+#head(read.csv(textConnection(as.character(medical))))
+```
+
+Downloading the data for Medical costs from the US [Bureau of Labor Statistics](https://data.bls.gov/pdq/SurveyOutputServlet) let us plot the two side-by-side:  
+
+```{r}
+ggplot() +
+  geom_line(data = dplyr::filter(cpi, Date >= "1947-01-01"), aes(x = Date, y = Value),
+            colour = "dodgerblue") +
+  geom_line(data = med, aes(x = DATE, y = CPIMEDSL), colour = "firebrick") +
+  theme_minimal() + ylab(NULL) + xlab(NULL) +
+  annotate("text", label = "Medical care price index", y = 300, 
+           x = as.POSIXct("1993-01-01"), colour = "firebrick") +
+  annotate("text", label = "Consumer price index", y = 110, 
+           x = as.POSIXct("1999-01-01"), colour = "dodgerblue")
+
+```
+
+
+Certainly looks similar, although not quite as dramatic (slightly different take-off points too, in the split). And Holly seems to have divided the numbers on the y-axis by 10 or something like that. Nonetheless, it looks like we're dealing with the same data. So now let's impact that thang.  
+
+
+
+```{r, message=FALSE, warning = FALSE}
+
+library(CausalImpact)
+
+cpi <- cpi %>% 
+  filter(Date >= "1947-01-01") %>% 
+  rename(cpi = Value)
+
+med <- med %>%
+  rename(Date = DATE, med = CPIMEDSL)
+
+series <- full_join(med, cpi) %>% filter(!is.na(cpi))
+
+pre_period <- c(1, 449)
+post_period <- c(450, 843)
+
+impact <- CausalImpact(series[, 2:3], pre_period, post_period)
+plot(impact)
+
+```
+
+
+I won't dare attempt to draw *causal* conclusions (my DAG/Judea Pearl-loving friends would never forgive me). I'll just say "interesting".  
+
+`CausalImpact` also has a summary function which prints out a report! Let's have a look:  
+
+```{r}
+summary(impact, "report")
+```
+
+
+
+Ooh, very fancy.

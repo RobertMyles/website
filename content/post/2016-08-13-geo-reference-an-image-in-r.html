@@ -1,0 +1,32 @@
+---
+title: Geo-reference an image in R
+date: "2016-08-13"
+tags: [R, geo-reference]
+comments: true
+thumbnail: 
+share: true
+categories: [R]
+---
+
+
+
+<p>R is actually great for working with spatial data (for example, see <a href="http://spatial.ly/2012/03/mapped-british-shipping-1750-1800/">here</a> and <a href="https://pakillo.github.io/R-GIS-tutorial/#gmap">here</a> for fantastic graphs and maps made with R), however, you often need data that is <em>actually spatial</em> to get started! What do you do if you have an image, a map, let’s say, that is not geo-referenced in any way?<br />
+The regular answer to this problem is to use software such as <a href="http://www.qgis.com/">QGIS</a> to manually enter GPS coordinates, with the <a href="http://www.gps-coordinates.net/">help</a> of Google Maps or something similar. But R can be used for this too, and it’s quite easy to do.</p>
+<p>First, we load some necessary packages. Here, I’m working with <code>.tiff</code> files that I will change into Geo-tiffs. For other formats, you will need some other packages (such as <code>png</code>, for example).</p>
+<pre class="r"><code>library(raster)
+library(rgdal)</code></pre>
+<p>Next, we read in the non-spatial image using the <code>raster</code> command. By plotting this in RStudio, the image can be cropped in the preview window, if you want to crop it down the area of interest. This is also useful if the image came with extra, non-map parts (logos etc.).</p>
+<pre class="r"><code>Map &lt;- raster(&quot;1.tiff&quot;)  
+Map
+plot(Map)
+map2 &lt;- crop(Map, drawExtent(show = TRUE, col = &quot;red&quot;)) 
+plot(map2)</code></pre>
+<p>Now we can enter in the maximal points of the image, xmin/xmax and ymin/ymax, respectively. These coordinates refer to an area of São Paulo, Brazil. The x-axis is longitude, the y-axis latitude. You can get the coordinates from <a href="http://www.gps-coordinates.net/">www.gps-coordinates.net</a> for the area you need. We also need to tell R what type of map projection we are going to write into the image. Here we’ll use <code>&quot;+proj=longlat +datum=WGS84&quot;</code>.</p>
+<pre class="r"><code>xmin(map2) &lt;- -46.67449772357941 
+xmax(map2) &lt;- -46.524503231048584 
+ymin(map2) &lt;- -23.638627166908787
+ymax(map2) &lt;- -23.517227011061372
+crs(map2) &lt;- &quot;+proj=longlat +datum=WGS84&quot;</code></pre>
+<p>This part is the main piece of work. But after it’s done, you’ve got yourself a geo-referenced image. Here, we’ll write it to the geo-tiff format I mentioned earlier.</p>
+<pre class="r"><code>writeRaster(map1, &quot;Gmap1.tiff&quot;, &quot;GTiff&quot;)</code></pre>
+<p>Simple! :smiling_imp:</p>

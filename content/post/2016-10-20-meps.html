@@ -1,0 +1,187 @@
+---
+title: "Theme-Specific Voting in the European Parliament"
+date: "2016-10-20"
+share: true
+categories: [R, Political Science]
+excerpt: "Create ideal points for MEPs on each topic that they vote on"
+tags: [R, EU, rstan]
+comments: true
+featured: 'meps.png'
+featuredpath: '/images'
+---
+
+
+
+<p>Since it’s <a href="http://ec.europa.eu/eurostat/web/ess/european-statistics-day">European Statistics Day</a>, I thought I would make a quick post showing how to utilise some of the data that we have on the European Union in R. In particular, I will use European Parliament voting data from Simon Hix’s <a href="http://personal.lse.ac.uk/hix/HixNouryRolandEPdata.HTM">website</a>. The data is freely available, so by copying and pasting the code below, you will be able to recreate the analysis I’ve done here.</p>
+<p>We’re going to be using <a href="http://mc-stan.org/">Stan</a> to make theme-specific ideal points for members of the European Parliament. You will need to install Stan and a C++ compiler to replicate the analysis.</p>
+<p>First, let’s load the R packages that we’re going to use. If you don’t have any of these, you will need to install them first, using either <code>install.packages(&quot;name of package&quot;)</code> or by means of the ‘install’ button on the Packages window of the RStudio IDE.</p>
+<pre class="r"><code>library(data.table)
+library(tidyverse)
+library(dtplyr)
+library(rstan)
+library(stringi)</code></pre>
+<p>After you download the data from Hix’s website, we can import it into R. I will then merge everything together.</p>
+<pre class="r"><code>rm(list = ls())
+
+eu4 &lt;- as_tibble(fread(&quot;~/Downloads/ep6/RCVS2004Full.csv&quot;, header=T))
+eu5 &lt;- as_tibble(fread(&quot;~/Downloads/ep6/RCVS2005Full.csv&quot;, header = T))
+eu6 &lt;- as_tibble(fread(&quot;~/Downloads/ep6/RCVS2006Full.csv&quot;, header = T))
+eu7 &lt;- as_tibble(fread(&quot;~/Downloads/ep6/RCVS2007Full.csv&quot;, header = T))
+eu8 &lt;- as_tibble(fread(&quot;~/Downloads/ep6/RCVS2008Full.csv&quot;, header = T))
+eu9 &lt;- as_tibble(fread(&quot;~/Downloads/ep6/RCVS2009Full.csv&quot;, header = T))
+
+eu &lt;- eu4 %&gt;%
+  full_join(eu5) %&gt;%
+  full_join(eu6) %&gt;%
+  full_join(eu7) %&gt;%
+  full_join(eu8) %&gt;%
+  full_join(eu9) %&gt;%
+  select(-V1) %&gt;%
+  rename(voter = `Vote ID`) %&gt;%
+  mutate(voter = stri_trans_general(voter, &quot;Latin-ASCII&quot;))
+
+rm(eu4, eu5, eu6, eu7, eu8, eu9)</code></pre>
+<p>Now we have a data frame of each of the 940 legislators in the database, and their votes on 6200 votes. Next we’ll create some id variables that we will use when we send the data to Stan.</p>
+<pre class="r"><code>EU &lt;- gather(eu, vote_id, vote, `1`:`6200`) %&gt;%
+  mutate(vote_id = as.numeric(vote_id),
+         voter_id = as.numeric(as.factor(voter)))
+head(EU)</code></pre>
+<p>Now we have each voter (the M.E.P., <code>voter</code>), the id of the bill being voted on (<code>vote_id</code>), how the individual voted (<code>vote</code>) and the id of each voter. In these data, 1 is a ‘yes’ vote, while 0 is ‘no’. The full list from Hix’s website contains the following info:</p>
+<pre><code>The codes for the MEP vote decisions are as follows:
+EP1, EP2 and EP5: 1=Yes, 2=No, 3=Abstain, 4=Present but did not vote, 0=Absent, 5=Not an MEP
+EP3 and EP4: 1 = Yes, 2 = No, 3 = Abstain, 4 = Present but did not vote, 0 = either Absent or Not an MEP</code></pre>
+<p>Hix &amp; co. also provide us with information on the specific policy area for each vote. We can import it, tidy it up a little and merge it to the data we have.</p>
+<pre class="r"><code>theme &lt;- as_tibble(fread(&quot;~/Downloads/ep6/vc.csv&quot;))
+
+theme &lt;- theme %&gt;%
+  rename(vote_id = `Vote Id`) %&gt;%
+  select(vote_id, Title, `Policy Area`, Result) %&gt;%
+  rename(topic = `Policy Area`) %&gt;%
+  mutate(topic_id = as.numeric(as.factor(topic)))
+
+rollcalls &lt;- full_join(EU, theme) %&gt;%
+  mutate(vote = ifelse(vote==1, 1, ifelse(vote==0, 0, NA))) %&gt;%
+  filter(!is.na(vote))</code></pre>
+<p>Next, we need to prepare the data for Stan. Our model is a basic <a href="https://www.cs.princeton.edu/courses/archive/fall09/cos597A/papers/ClintonJackmanRivers2004.pdf">2-parameter Item-Response theory model</a> often used for <a href="http://robertmyles.github.io/Bayesian-IRT-in-R-and-Stan.html">creating ideal points</a>. We write this in the Stan modelling language and save it as a string in R. In mathematical notation, the model is:</p>
+<p><span class="math display">\[y_{ijk} = \beta_j \theta_{ik} - \alpha_j,\]</span></p>
+<p>where <em>i</em> is an index of voters, <em>j</em> an index of votes, and <em>k</em> an index of topics. <span class="math inline">\(\theta_{ik}\)</span> is our main object of interest: the ideal point of MEP <em>i</em> on topic <em>k</em>.</p>
+<p>For those not familiar with Stan, the following Stan code has a <code>data</code> block, in which we declare what our variables are and their type (these are created in the section after). Then we have a parameters block where we declare our parameters.</p>
+<p>Lastly, we have the model block where we have our model and the priors for each parameter. In an IRT model like this, we need to constrain the ideal points of at least 2 legislators. Since I am not an expert on these MEPs, I am just going to do this for the first two in the database (<code>theta[1]</code> and <code>theta[2]</code>).</p>
+<pre class="r"><code>mep_model &lt;- &quot;
+data {
+  int&lt;lower=1&gt; J;               //MEPs
+  int&lt;lower=1&gt; M;               //Proposals
+  int&lt;lower=1&gt; K;               //no. of topics
+  int&lt;lower=1&gt; N;               //no. of observations
+  vector[K] m0;                 // prior mean for theta
+  cov_matrix[K] M0;             // prior covar. for theta
+  int&lt;lower=1, upper=J&gt; j[N];   //MEP for observation n
+  int&lt;lower=1, upper=M&gt; m[N];   //proposal for observation n
+  int&lt;lower=1, upper=K&gt; k[N];   //topic for observation n
+  int&lt;lower=0, upper=1&gt; Y[N];   //vote of observation n
+}
+parameters {
+  real alpha[M];
+  real beta[M];
+  vector[K] theta[J];
+}
+model {
+  beta ~ normal(0, 10);
+  alpha ~ normal(0, 10);
+  for (n in 1:N)
+  Y[n] ~ bernoulli_logit(theta[j[n], k[n]]*beta[m[n]] - alpha[m[n]]);
+  theta ~ multi_normal(m0, M0);
+  theta[1,1] ~ normal(1, .01);
+  theta[2,1] ~ normal(-1, .01);
+}&quot;</code></pre>
+<p>Above, we have variables declared in our Stan model. Here, I define these objects in R. All of this then goes as a list to Stan.</p>
+<pre class="r"><code>library(rstan)
+
+N &lt;- nrow(rollcalls)
+M &lt;- max(rollcalls$vote_id)
+K &lt;- max(rollcalls$topic_id)
+J &lt;- max(rollcalls$voter_id)
+Y &lt;- rollcalls$vote
+m &lt;- rollcalls$vote_id
+k &lt;- rollcalls$topic_id
+j &lt;- rollcalls$voter_id
+
+# Mean and Covariances for theta
+m0 &lt;- rep(0, times=K)
+M0 &lt;- matrix(0, K, K)
+diag(M0) &lt;- 1
+
+stan_data &lt;- list(J=J, N=N, M=M, j=j,
+                  Y=Y, m=m, K=K, k=k,
+                  m0=m0, M0=M0)</code></pre>
+<p>Next, we run our model with Stan. Here I use Stan’s new <a href="">ADVI</a> feature, but the Stan folks don’t recommend this for inference. However, for a blog post it’s okay :smile:.</p>
+<p>ADVI is much faster than the already comparatively fast NUTS sampling that Stan does. Here we have a lot of data, though, so this next part will take <strong>a few hours</strong> to run. If you don’t fancy waiting so long, subset the data (maybe choose just one year) and run the Stan code on the smaller dataset.</p>
+<pre class="r"><code>Stan_Model &lt;- stan_model(model_name = &quot;meps&quot;, model_code = mep_model)
+
+Res1 &lt;- vb(Stan_Model, data = stan_data, seed = 1234,
+          init = &quot;random&quot;)</code></pre>
+<p>So one thing that we could do with the estimates from this model is plot the ideal points of an MEP as they vary over the themes that he/she voted on.</p>
+<p>What we will do is extract the elements of the summary that we want and then create the summary that we need to start making figures.</p>
+<pre class="r"><code>summary &lt;- list(summary(Res1, pars=&quot;theta&quot;))
+summary &lt;- summary[[1]][1]
+summary &lt;- as_data_frame(summary[[1]]) %&gt;%
+  mutate(names = theta_names,
+         voters = rep(unique(rollcalls$voter), each=21),
+         index = as.character(str_extract_all(names, &quot;\\.[0-9]*$&quot;)),
+         index = gsub(&quot;\\.&quot;, &quot;&quot;, index),
+         index = as.integer(index))
+
+topics &lt;- unique(rollcalls$topic)
+index &lt;- unique(summary$index)
+topic_index &lt;- tibble(topic = topics, index = index)
+
+mep_summary &lt;- full_join(summary, topic_index) %&gt;%
+  select(-c(names, index))</code></pre>
+<p>The following graphs are of Adamos Adamou and Filip Adwent, for the simple reason that they are the first names in the database. First, we create a plot for Adamou and then for Adwent, then we combine them. In the following code, I customize the font, but none of that is necessary.</p>
+<pre class="r"><code>adamou &lt;- mep_summary %&gt;% filter(voters==&quot;ADAMOU, Adamos&quot;)
+
+
+ggplot(adamou, aes(x = mean, y = topic)) +
+  geom_segment(aes(yend = topic), color = &quot;#104E8B&quot;,
+               xend = 0, alpha = 0.3) +
+  geom_point(size = 4, color = &quot;#104E8B&quot;) + theme_bw() +
+  theme(legend.position = &quot;none&quot;, axis.title.y = element_blank(),
+        axis.title.x = element_text(family = &quot;Georgia&quot;, face=&#39;bold&#39;),
+        axis.text.y = element_text(family = &quot;Georgia&quot;, size = 12),
+        axis.text.x = element_text(family = &quot;Georgia&quot;, size = 12)) +
+  xlab(&quot;Ideal Points, Adamos Adamou&quot;) +
+  geom_vline(xintercept = 0, linetype = &quot;dashed&quot;)</code></pre>
+<p><img src="http://i.imgur.com/C4zpATc.png"></p>
+<pre class="r"><code>adwent &lt;- mep_summary %&gt;% filter(voters==&quot;ADWENT, Filip&quot;)
+
+
+ggplot(adwent, aes(x = mean, y = topic)) +
+  geom_segment(aes(yend = topic), color = &quot;#8B1A1A&quot;,
+               xend = 0, alpha = 0.3) +
+  geom_point(size = 4, color = &quot;#8B1A1A&quot;) + theme_bw() +
+  theme(legend.position = &quot;none&quot;, axis.title.y = element_blank(),
+        axis.title.x = element_text(family = &quot;Georgia&quot;, face=&#39;bold&#39;),
+        axis.text.y = element_text(family = &quot;Georgia&quot;, size = 12),
+        axis.text.x = element_text(family = &quot;Georgia&quot;, size = 12)) +
+  xlab(&quot;Ideal Points, Filip Adwent&quot;) +
+  geom_vline(xintercept = 0, linetype = &quot;dashed&quot;)</code></pre>
+<p><img src="http://i.imgur.com/gKFgL5L.png"></p>
+<p>We can put these two together and see how they compare:</p>
+<pre class="r"><code>ggplot(adamou, aes(x = mean, y = topic)) +
+  geom_segment(aes(yend = topic), color = &quot;#104E8B&quot;,
+               xend = 0, alpha = 0.3) +
+  geom_segment(data = adwent, aes(yend = topic),
+               xend = 0, colour = &quot;#8B1A1A&quot;,
+               alpha = 0.3) +
+  geom_point(size = 4, color = &quot;#104E8B&quot;) + theme_bw() +
+  theme(legend.position = &quot;none&quot;, axis.title.y = element_blank(),
+        axis.title.x = element_text(family = &quot;Georgia&quot;, face=&#39;bold&#39;),
+        axis.text.y = element_text(family = &quot;Georgia&quot;, size = 12),
+        axis.text.x = element_text(family = &quot;Georgia&quot;, size = 12)) +
+  xlab(&quot;Ideal Points, Adamos Adamou &amp; Filip Adwent&quot;) +
+  geom_point(data = adwent, aes(x = mean, y =topic),
+             size = 4, color = &quot;#8B1A1A&quot;) +
+  geom_vline(xintercept = 0, linetype = &quot;dashed&quot;)</code></pre>
+<p><img src="http://i.imgur.com/kBq6WGv.png"></p>
+<p>And of course you can customise these ggplot figures any way you like.</p>
+<p>Happy European Statistics Day! :dancers:</p>

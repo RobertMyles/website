@@ -1,0 +1,92 @@
+---
+title: CausalImpact & Healthcare Costs in the US
+author: "Robert Myles MCDonnell"
+date: '2017-06-02'
+slug: causalimpact-healthcare-costs-in-the-us
+categories: [R, Healthcare, US, Causality]
+tags: []
+description: 'A quick look at the CausalImpact package in R, studying US healthcare costs over time'
+featured: ''
+featuredalt: ''
+featuredpath: 'https://mises.org/sites/default/files/styles/full_width/public/Holly1.png?itok=iDrzwxBU'
+linktitle: ''
+---
+
+
+
+<p><a href="https://mises.org/blog/how-government-regulations-made-healthcare-so-expensive">This</a> article by Mike Holly on Mises.org interested me. I wasn’t aware of the history of healthcare costs in the US, and it’s quite surprising, especially the take-off in costs after the 1960s. Holly’s argument is that the “U.S. ‘health care cost crisis’ didn’t start until 1965. The government increased demand with the passage of Medicare and Medicaid while restricting the supply of doctors and hospitals.” In fact, I was quite impressed with this graph:</p>
+<div class="figure">
+<img src="https://mises.org/sites/default/files/styles/full_width/public/Holly1.png?itok=iDrzwxBU" />
+
+</div>
+<pre class="r"><code>x &lt;- c(&quot;rvest&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;ggplot2&quot;, &quot;magrittr&quot;, &quot;lubridate&quot;)
+lapply(x, require, character.only = TRUE) </code></pre>
+<p>I’ve wanted an excuse to use Google’s <a href="https://github.com/google/CausalImpact">CausalImpact</a> package for a while now, so let’s give it a shot using these data. The Consumer Price Index we can grab quickly, since it’s widely available:</p>
+<pre class="r"><code>url &lt;- &quot;http://www.usinflationcalculator.com/inflation/consumer-price-index-and-annual-percent-changes-from-1913-to-2008/&quot;
+
+cpi &lt;- read_html(url) %&gt;% 
+  html_node(&quot;table&quot;) %&gt;% 
+  html_table() %&gt;% 
+  dplyr::select(-X14:-X16) %&gt;% 
+  filter(X1 != &quot;Year&quot;) %&gt;% 
+  set_colnames(c(&quot;Year&quot;, &quot;m01&quot;, &quot;m02&quot;, &quot;m03&quot;, &quot;m04&quot;, &quot;m05&quot;, &quot;m06&quot;, 
+                 &quot;m07&quot;, &quot;m08&quot;, &quot;m09&quot;, &quot;m10&quot;, &quot;m11&quot;, &quot;m12&quot;)) %&gt;% 
+  mutate_all(as.numeric) %&gt;% 
+  slice(-1) %&gt;% 
+  gather(Month, Value, m01:m12) %&gt;% 
+  mutate(Day = &quot;01&quot;,
+         Month = gsub(&quot;m&quot;, &quot;&quot;, Month),
+         Date = paste(Year, Month, Day, sep = &quot;-&quot;),
+         Date = parse_date_time(Date, &quot;Ymd&quot;)) %&gt;% 
+  dplyr::select(Date, Value) %&gt;% arrange(Date) %&gt;% filter(!is.na(Value)) #%&gt;% 
+  #mutate(Value = (Value - mean(Value))/sd(Value))
+
+ggplot(cpi, aes(x = Date, y = Value)) +
+  geom_line(colour = &quot;dodgerblue&quot;) +
+  theme_minimal() + ylab(NULL) + xlab(NULL)</code></pre>
+<p><img src="/post/2017-06-02-causalimpact-healthcare-costs-in-the-us_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Downloading the data for Medical costs from the US <a href="https://data.bls.gov/pdq/SurveyOutputServlet">Bureau of Labor Statistics</a> let us plot the two side-by-side:</p>
+<pre class="r"><code>ggplot() +
+  geom_line(data = dplyr::filter(cpi, Date &gt;= &quot;1947-01-01&quot;), aes(x = Date, y = Value),
+            colour = &quot;dodgerblue&quot;) +
+  geom_line(data = med, aes(x = DATE, y = CPIMEDSL), colour = &quot;firebrick&quot;) +
+  theme_minimal() + ylab(NULL) + xlab(NULL) +
+  annotate(&quot;text&quot;, label = &quot;Medical care price index&quot;, y = 300, 
+           x = as.POSIXct(&quot;1993-01-01&quot;), colour = &quot;firebrick&quot;) +
+  annotate(&quot;text&quot;, label = &quot;Consumer price index&quot;, y = 110, 
+           x = as.POSIXct(&quot;1999-01-01&quot;), colour = &quot;dodgerblue&quot;)</code></pre>
+<p><img src="/post/2017-06-02-causalimpact-healthcare-costs-in-the-us_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Certainly looks similar, although not quite as dramatic (slightly different take-off points too, in the split). And Holly seems to have divided the numbers on the y-axis by 10 or something like that. Nonetheless, it looks like we’re dealing with the same data. So now let’s impact that thang.</p>
+<pre class="r"><code>library(CausalImpact)
+
+cpi &lt;- cpi %&gt;% 
+  filter(Date &gt;= &quot;1947-01-01&quot;) %&gt;% 
+  rename(cpi = Value)
+
+med &lt;- med %&gt;%
+  rename(Date = DATE, med = CPIMEDSL)
+
+series &lt;- full_join(med, cpi) %&gt;% filter(!is.na(cpi))
+
+pre_period &lt;- c(1, 449)
+post_period &lt;- c(450, 843)
+
+impact &lt;- CausalImpact(series[, 2:3], pre_period, post_period)
+plot(impact)</code></pre>
+<p><img src="/post/2017-06-02-causalimpact-healthcare-costs-in-the-us_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>I won’t dare attempt to draw <em>causal</em> conclusions (my DAG/Judea Pearl-loving friends would never forgive me). I’ll just say “interesting”.</p>
+<p><code>CausalImpact</code> also has a summary function which prints out a report! Let’s have a look:</p>
+<pre class="r"><code>summary(impact, &quot;report&quot;)</code></pre>
+<pre><code>## Analysis report {CausalImpact}
+## 
+## 
+## During the post-intervention period, the response variable had an average value of approx. 278.22. By contrast, in the absence of an intervention, we would have expected an average response of 175.58. The 95% interval of this counterfactual prediction is [163.22, 185.00]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is 102.64 with a 95% interval of [93.22, 115.00]. For a discussion of the significance of this effect, see below.
+## 
+## Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 109.62K. By contrast, had the intervention not taken place, we would have expected a sum of 69.18K. The 95% interval of this prediction is [64.31K, 72.89K].
+## 
+## The above results are given in terms of absolute numbers. In relative terms, the response variable showed an increase of +58%. The 95% interval of this percentage is [+53%, +65%].
+## 
+## This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect (102.64) to the original goal of the underlying intervention.
+## 
+## The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.001). This means the causal effect can be considered statistically significant.</code></pre>
+<p>Ooh, very fancy.</p>

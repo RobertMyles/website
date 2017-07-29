@@ -26,7 +26,7 @@ library(ggplot2)
 ```
 
 
-While rising prisoner numbers are not news in the United States, we can take a look at other parts of the world using the `wpb_table()` function and specifying the region or country of interest (using a single country as an argument returns a les useful table -- we recommend requesting a region). We can have a look at Western Europe. Could the Social-Democratic EU be showing similar patterns?  In the following code, i download the data for Europe and filter it to have the selection of countries I want.    
+While rising prisoner numbers are not news in the United States, we can take a look at other parts of the world using the `wpb_table()` function and specifying the region or country of interest (using a single country as an argument returns a les useful table -- we recommend requesting a region). We can have a look at Western Europe. Could the Social-Democratic EU be showing similar patterns?  In the following code, I download the data for Europe and filter it to have the selection of countries I want.    
 
 ```{r}
 westeros <- wpb_table(region = "Europe") %>% 

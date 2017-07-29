@@ -2,237 +2,291 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Robert Myles McDonnell</title>
-    <link>https://robertmylesmcdonnell.netlify.com/categories/</link>
+    <link>/categories/</link>
     <description>Recent content in Categories on Robert Myles McDonnell</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 21 May 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://robertmylesmcdonnell.netlify.com/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Bayesian Statistics</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/bayesian-statistics/</link>
+      <link>/categories/bayesian-statistics/</link>
       <pubDate>Sat, 21 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/bayesian-statistics/</guid>
+      <guid>/categories/bayesian-statistics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BitCoin</title>
+      <link>/categories/bitcoin/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/bitcoin/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Brazil</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/brazil/</link>
+      <link>/categories/brazil/</link>
       <pubDate>Sat, 18 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/brazil/</guid>
+      <guid>/categories/brazil/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Carnaval</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/carnaval/</link>
+      <link>/categories/carnaval/</link>
       <pubDate>Sat, 18 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/carnaval/</guid>
+      <guid>/categories/carnaval/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Causality</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/causality/</link>
+      <link>/categories/causality/</link>
       <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/causality/</guid>
+      <guid>/categories/causality/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Communism</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/communism/</link>
+      <link>/categories/communism/</link>
       <pubDate>Sun, 19 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/communism/</guid>
+      <guid>/categories/communism/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Eurozone</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/eurozone/</link>
+      <link>/categories/eurozone/</link>
       <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/eurozone/</guid>
+      <guid>/categories/eurozone/</guid>
       <description></description>
     </item>
     
     <item>
       <title>France</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/france/</link>
+      <link>/categories/france/</link>
       <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/france/</guid>
+      <guid>/categories/france/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Germany</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/germany/</link>
+      <link>/categories/germany/</link>
       <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/germany/</guid>
+      <guid>/categories/germany/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ggplot2</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/ggplot2/</link>
+      <link>/categories/ggplot2/</link>
       <pubDate>Thu, 29 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/ggplot2/</guid>
+      <guid>/categories/ggplot2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GitHub</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/github/</link>
+      <link>/categories/github/</link>
       <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/github/</guid>
+      <guid>/categories/github/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Healthcare</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/healthcare/</link>
+      <link>/categories/healthcare/</link>
       <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/healthcare/</guid>
+      <guid>/categories/healthcare/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/hugo/</link>
+      <link>/categories/hugo/</link>
       <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/hugo/</guid>
+      <guid>/categories/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IRT</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/irt/</link>
+      <link>/categories/irt/</link>
       <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/irt/</guid>
+      <guid>/categories/irt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ideal Points</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/ideal-points/</link>
+      <link>/categories/ideal-points/</link>
       <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/ideal-points/</guid>
+      <guid>/categories/ideal-points/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ireland</title>
+      <link>/categories/ireland/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/ireland/</guid>
       <description></description>
     </item>
     
     <item>
       <title>JAGS</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/jags/</link>
+      <link>/categories/jags/</link>
       <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/jags/</guid>
+      <guid>/categories/jags/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Metal</title>
+      <link>/categories/metal/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/metal/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OSX</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/osx/</link>
+      <link>/categories/osx/</link>
       <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/osx/</guid>
+      <guid>/categories/osx/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Political Economy</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/political-economy/</link>
+      <link>/categories/political-economy/</link>
       <pubDate>Sun, 19 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/political-economy/</guid>
+      <guid>/categories/political-economy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Political Science</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/political-science/</link>
+      <link>/categories/political-science/</link>
       <pubDate>Thu, 20 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/political-science/</guid>
+      <guid>/categories/political-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Prisons</title>
+      <link>/categories/prisons/</link>
+      <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/prisons/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/r/</link>
-      <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
+      <link>/categories/r/</link>
+      <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/r/</guid>
+      <guid>/categories/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R Markdown</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/r-markdown/</link>
+      <link>/categories/r-markdown/</link>
       <pubDate>Mon, 02 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/r-markdown/</guid>
+      <guid>/categories/r-markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Selenium</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/selenium/</link>
+      <link>/categories/selenium/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/selenium/</guid>
+      <guid>/categories/selenium/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Stan</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/stan/</link>
+      <link>/categories/stan/</link>
       <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/stan/</guid>
+      <guid>/categories/stan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Text analysis</title>
+      <link>/categories/text-analysis/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/text-analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TidyRSS</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/tidyrss/</link>
+      <link>/categories/tidyrss/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/tidyrss/</guid>
+      <guid>/categories/tidyrss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Time-series</title>
+      <link>/categories/time-series/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/time-series/</guid>
       <description></description>
     </item>
     
     <item>
       <title>US</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/us/</link>
+      <link>/categories/us/</link>
       <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/us/</guid>
+      <guid>/categories/us/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Webscraping</title>
-      <link>https://robertmylesmcdonnell.netlify.com/categories/webscraping/</link>
+      <link>/categories/webscraping/</link>
       <pubDate>Fri, 05 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/categories/webscraping/</guid>
+      <guid>/categories/webscraping/</guid>
       <description></description>
     </item>
     

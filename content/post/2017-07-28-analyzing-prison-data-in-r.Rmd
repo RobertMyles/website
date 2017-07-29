@@ -9,7 +9,7 @@ tags: []
 
 My good friend [Danilo Freire](http://danilofreire.com) and I have just finished a little R data package, called [prisonbrief](http://danilofreire.com/prisonbrief/). We hope that it will be useful for R users, particularly researchers in the area, since this is still a much understudied topic. Why does prison population change? In many countries, it is rising, and has been for some time, and the determinants of this rise are still not well understood. All the data in the package come from the fantastic [World Prison Brief](http://www.prisonstudies.org/) website -- we thank them for making these data available. You can contribute to the project [here](http://www.prisonstudies.org/about-us).  
 
-With that in mind, I thought I'd give a quick introduction to the package here on my blog. This is also the first time I've used netlify & blogdown instead of github pages (the subject of a future post, I'm sure). Anyway, the package is on CRAN, so it's easily installed:  
+With that in mind, I thought I'd give a quick introduction to the package here on my blog. This is also the first time I've used netlify & blogdown instead of github pages (the subject of a future post, I'm sure). Anyway, the package is on CRAN, so it's easily installed:    
 
 ```{r, eval = FALSE}
 install.packages("prisonbrief")
@@ -26,7 +26,7 @@ library(ggplot2)
 ```
 
 
-While rising prisoner numbers are not news in the United States, we can take a look at other parts of the world using the `wpb_table()` function and specifying the region or country of interest (using a single country as an argument returns a les useful table -- we recommend requesting a region). We can have a look at Western Europe. Could the Social-Democratic EU be showing similar patterns?  
+While rising prisoner numbers are not news in the United States, we can take a look at other parts of the world using the `wpb_table()` function and specifying the region or country of interest (using a single country as an argument returns a les useful table -- we recommend requesting a region). We can have a look at Western Europe. Could the Social-Democratic EU be showing similar patterns?  In the following code, i download the data for Europe and filter it to have the selection of countries I want.    
 
 ```{r}
 westeros <- wpb_table(region = "Europe") %>% 
@@ -41,7 +41,7 @@ westeros <- wpb_table(region = "Europe") %>%
 ```
 
 
-Let's combine these data with the table of the USA:  
+Let's combine these data with the table of the USA. Then we can graph the prison population rate.  
 
 ```{r, message=FALSE, warning=FALSE}
 usa <- wpb_table(region = "North America") %>% 

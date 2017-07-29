@@ -16,7 +16,7 @@ tags: []
 library(prisonbrief)
 library(dplyr)
 library(ggplot2)</code></pre>
-<p>While rising prisoner numbers are not news in the United States, we can take a look at other parts of the world using the <code>wpb_table()</code> function and specifying the region or country of interest (using a single country as an argument returns a les useful table – we recommend requesting a region). We can have a look at Western Europe. Could the Social-Democratic EU be showing similar patterns?</p>
+<p>While rising prisoner numbers are not news in the United States, we can take a look at other parts of the world using the <code>wpb_table()</code> function and specifying the region or country of interest (using a single country as an argument returns a les useful table – we recommend requesting a region). We can have a look at Western Europe. Could the Social-Democratic EU be showing similar patterns? In the following code, i download the data for Europe and filter it to have the selection of countries I want.</p>
 <pre class="r"><code>westeros &lt;- wpb_table(region = &quot;Europe&quot;) %&gt;% 
   filter(country %in%  c(&quot;Italy&quot;, &quot;Portugal&quot;, &quot;Spain&quot;,
                         &quot;Iceland&quot;, &quot;Belgium&quot;, &quot;France&quot;,
@@ -26,7 +26,7 @@ library(ggplot2)</code></pre>
                         &quot;Ireland, Republic of&quot;,
                         &quot;Germany&quot;, &quot;Sweden&quot;, &quot;Denmark&quot;, 
                         &quot;Norway&quot;, &quot;Netherlands&quot;))</code></pre>
-<p>Let’s combine these data with the table of the USA:</p>
+<p>Let’s combine these data with the table of the USA. Then we can graph the prison population rate.</p>
 <pre class="r"><code>usa &lt;- wpb_table(region = &quot;North America&quot;) %&gt;% 
   filter(country == &quot;United States of America&quot;)
 

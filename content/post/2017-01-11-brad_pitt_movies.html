@@ -73,7 +73,7 @@ ggplot(movies, aes(x = RATING)) +
 <p>(You can get the tomato image from <a href="http://static.tvtropes.org/pmwiki/pub/images/rotten_tomatoes_8290.jpg">here</a>. Convert it to png and strip out (most of) the white background using <a href="https://www.imagemagick.org/script/index.php">ImageMagick</a> – the command on a mac is <code>convert rotten_tomatoes.jpg -transparent white tomato.png</code>.)</p>
 <p>Not so bad! Got some not-so-greats, but quite a lot of highly rated movies. I’m surprised, actually. In fact the mean and median values are:</p>
 <pre class="r"><code>mean(movies$RATING)</code></pre>
-<pre><code>## [1] 0.6538776</code></pre>
+<pre><code>## [1] 0.6540816</code></pre>
 <pre class="r"><code>median(movies$RATING)</code></pre>
 <pre><code>## [1] 0.7</code></pre>
 <p>I wonder if his movies have gotten better? I was always under the impression that Brad Pitt was an actor who, like Leonardo DiCaprio, actually learned to act over time, instead of already being a talented actor when he started. Fair credit to them, though, they could have just rested on their laurels after they first became famous.</p>

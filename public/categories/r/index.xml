@@ -6,10 +6,19 @@
     <description>Recent content in R on Robert Myles McDonnell</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Sep 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://robertmylesmcdonnell.netlify.com/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lil&#39; Packages Pt.1: tidyRSS</title>
+      <link>https://robertmylesmcdonnell.netlify.com/2017/09/07/lil-packages-pt-1/</link>
+      <pubDate>Thu, 07 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://robertmylesmcdonnell.netlify.com/2017/09/07/lil-packages-pt-1/</guid>
+      <description>A couple of months ago, I got quite into making R packages. Well, I got specifically into making little R packages - that is, packages that basically do one thing, or are some type of wrapper for importing data from an API into R. I like these little packages. First of all, I think it’s great when you don’t have to trawl around the internet looking for data, only to find out it’s .</description>
+    </item>
     
     <item>
       <title>Analyzing Prison Data in R</title>

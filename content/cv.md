@@ -15,7 +15,7 @@ date: "2016-05-05T21:48:51-07:00"
 
 ### Data Scientist, Avanade, São Paulo
 
-I currently work for Avanade in the São Paulo office.
+I currently work for Avanade in the São Paulo office. So far, I've been working on integrating R into larger applications, with Microsoft Azure and the .NET framework. 
 
 ### São Paulo City Council
 - 03/2017 — 07/2017
@@ -84,6 +84,7 @@ I think that I have a very high level of writing ability, as I have shown in aca
 
 - Advanced knowledge of R and RMarkdown (for documents and my website, and I wrote my PhD thesis in it). I am the author of the [tidyRSS](https://github.com/RobertMyles/congressbr) tidyRSS) R package, one of the authors of [congressbr](https://github.com/RobertMyles/congressbr) and I have contributed to several other R packages: ([updateR](https://github.com/AndreaCirilloAC/updateR), [bRasilLegis](https://github.com/leobarone/bRasilLegis), [electionsBR](https://github.com/silvadenisson/electionsBR)). On my github page, I have made available many R code snippets of various functions and tips & tricks that I have found useful, and that I hope will help others.
 - Intermediate knowledge of Python, LaTeX, html, CSS, and basic knowledge of SPSS and Stata. I also have experience with the MS Office suite and the Mac equivalents.
+- Beginner in C# and JavaScript. 
 - I also post R code snippets on my blog, showing readers how to create intricate plots or run various analyses in R. These posts have featured on the popular online R magazine RWeekly (https://rweekly.org; Issue 21, “R in Real World”); they are shared on the popular [R-Bloggers](https://www.r-bloggers.com/) site and they have also been shared on R users groups on social media.
 
 &nbsp;

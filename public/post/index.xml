@@ -45,7 +45,7 @@
       
       <guid>https://robertmylesmcdonnell.netlify.com/2017/04/23/a-tale-of-two-eurozones/</guid>
       <description>This Guardian article on the prospective French President Macron got me thinking, especially this passage:
- France’s economic performance in recent years has been underwhelming, especially when compared to that of Germany. Fifteen years ago, the eurozone’s two biggest countries enjoyed comparable living standards. Today, Germany’s are almost a fifth higher than those in France. Likewise, at the time when euro notes and coins were introduced in 2002, French and German unemployment rates were both around 8%.</description>
+France’s economic performance in recent years has been underwhelming, especially when compared to that of Germany. Fifteen years ago, the eurozone’s two biggest countries enjoyed comparable living standards. Today, Germany’s are almost a fifth higher than those in France. Likewise, at the time when euro notes and coins were introduced in 2002, French and German unemployment rates were both around 8%.</description>
     </item>
     
     <item>
@@ -120,7 +120,7 @@ Since April or so of last year, I’ve had a personal website on GitHub pages, w
       
       <guid>https://robertmylesmcdonnell.netlify.com/2017/01/02/tips-and-tricks-for-r-markdown-html/</guid>
       <description>Here are a couple of little tips and tricks that I’ve picked up for use with RMarkdown html documents (including presentations and notebooks). This post is aimed at the R user who doesn’t know much, if anything, about html and css.
-Background images Sometimes it’s useful (or just nice) to have a background image of some sort in a presentation or notebook. This could be the logo of your university or company, for example.</description>
+Background imagesSometimes it’s useful (or just nice) to have a background image of some sort in a presentation or notebook. This could be the logo of your university or company, for example.</description>
     </item>
     
     <item>
@@ -168,7 +168,7 @@ So, what can we do with it?</description>
       <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</guid>
-      <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*  The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
+      <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
     </item>
     
     <item>
@@ -217,11 +217,11 @@ Perhaps the most straightforward way is to use rvest, in tandem with other packa
       
       <guid>https://robertmylesmcdonnell.netlify.com/2016/04/27/web-navigation-in-r-with-rselenium/</guid>
       <description>It goes almost without saying that the internet itself is the richest database available to us. From a 2014 blog post, it was claimed that every minute :
- Facebook users share nearly 2.5 million pieces of content.
- Twitter users tweet nearly 300,000 times.
- Instagram users post nearly 220,000 new photos.
- YouTube users upload 72 hours of new video content.
- Apple users download nearly 50,000 apps.</description>
+Facebook users share nearly 2.5 million pieces of content.
+Twitter users tweet nearly 300,000 times.
+Instagram users post nearly 220,000 new photos.
+YouTube users upload 72 hours of new video content.
+Apple users download nearly 50,000 apps.</description>
     </item>
     
     <item>
@@ -241,6 +241,15 @@ One variant of Markdown is R Markdown, developed by the RStudio team, and in par
       
       <guid>https://robertmylesmcdonnell.netlify.com/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</guid>
       <description>Anybody who has ever tried to run even a moderately-sized Bayesian IRT model in R (for ideal points as in the political science literature, or otherwise) will know that these models can take a long time. It’s not R’s fault: these are usually big models with lots of parameters, and naturally take longer.1 Not to mention the fact that Bayesian computation is more computationally intense than other methods. Historically (okay, I’m talking about the last twenty years, maybe ‘historically’ is a little strong), the sampling software BUGS (Bayesian Inference Using Gibbs Sampling) and then JAGS were used to run Bayesian models (JAGS is still pretty common, and BUGS too, though not as much).</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://robertmylesmcdonnell.netlify.com/1/01/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://robertmylesmcdonnell.netlify.com/1/01/01/</guid>
+      <description>Lil’ Packages Pt.2: cepRcode{white-space: pre;}pre:not([class]) {background-color: white;}if (window.hljs &amp;&amp; document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) {window.setTimeout(function() {hljs.initHighlighting();}, 0);}h1 {font-size: 34px;}h1.title {font-size: 38px;}h2 {font-size: 30px;}h3 {font-size: 24px;}h4 {font-size: 18px;}h5 {font-size: 16px;}h6 {font-size: 12px;}.</description>
     </item>
     
   </channel>

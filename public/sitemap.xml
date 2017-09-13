@@ -143,6 +143,10 @@
   </url>
   
   <url>
+    <loc>https://robertmylesmcdonnell.netlify.com/1/01/01/</loc>
+  </url>
+  
+  <url>
     <loc>https://robertmylesmcdonnell.netlify.com/categories/bayesian-statistics/</loc>
     <lastmod>2016-05-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -209,25 +213,25 @@
   </url>
   
   <url>
-    <loc>https://robertmylesmcdonnell.netlify.com/categories/ggplot2/</loc>
-    <lastmod>2016-12-29T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://robertmylesmcdonnell.netlify.com/tags/ggplot2/</loc>
     <lastmod>2017-01-11T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://robertmylesmcdonnell.netlify.com/categories/github/</loc>
-    <lastmod>2017-02-01T00:00:00+00:00</lastmod>
+    <loc>https://robertmylesmcdonnell.netlify.com/categories/ggplot2/</loc>
+    <lastmod>2016-12-29T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://robertmylesmcdonnell.netlify.com/tags/github/</loc>
+    <lastmod>2017-02-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://robertmylesmcdonnell.netlify.com/categories/github/</loc>
     <lastmod>2017-02-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -293,14 +297,14 @@
   </url>
   
   <url>
-    <loc>https://robertmylesmcdonnell.netlify.com/categories/r/</loc>
-    <lastmod>2017-09-07T00:00:00+00:00</lastmod>
+    <loc>https://robertmylesmcdonnell.netlify.com/tags/r/</loc>
+    <lastmod>2017-02-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://robertmylesmcdonnell.netlify.com/tags/r/</loc>
-    <lastmod>2017-02-19T00:00:00+00:00</lastmod>
+    <loc>https://robertmylesmcdonnell.netlify.com/categories/r/</loc>
+    <lastmod>2017-09-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

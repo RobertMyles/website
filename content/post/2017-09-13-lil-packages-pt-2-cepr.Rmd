@@ -7,7 +7,7 @@ categories: [R]
 tags: []
 ---
 
-Part 2 of my Lil' Packages series takes a quick look at [cepR](https://github.com/RobertMyles/cepR), an R package for acessing and using Brazilian postal code data. Since Brazil (a) is huge, and (b) often lacks reliable data (or compatible data across databases of the same thing), the 'cep' (*Código de Endereçamento Postal*) is a useful way to join datasets or to use as a base for geographical analyses of Brazil. This package utilizes the marvellous [CEP Aberto API](http://cepaberto.com/), so it's thanks to their great work that I was able to bring it to R.   
+Part 2 of my Lil' Packages series takes a quick look at [cepR](https://github.com/RobertMyles/cepR), an R package for acessing and using Brazilian postal code data. Since Brazil (a) is huge, and (b) often lacks reliable data (or compatible data across databases of the same thing), the 'cep' (*CÃ³digo de EndereÃ§amento Postal*) is a useful way to join datasets or to use as a base for geographical analyses of Brazil. This package utilizes the marvellous [CEP Aberto API](http://cepaberto.com/), so it's thanks to their great work that I was able to bring it to R.^[Also thanks to Danilo Freire, who helped with the docs for cepR.]   
 
 ## Why?
 
@@ -40,7 +40,7 @@ Sys.sleep(3)
 extrema <- busca_cidade(estado = "MG", cidade = "Extrema", token = token)
 ```
 
-You can do various things with the info from CEP Aberto, but since we all like maps, let's make one. I'll make one of some of the beaches I've visited while in Brazil, and one mountain region I went to when I foolishly decided to go rafting without knowing very much Portuguese ("Esquerda, esquerda!!", "What?"). First, let's get the data (you might want to leave a few seconds in between these calls to the API). Not all of these will be exact, for example, Porto de Galinhas is not a city, so the closest we have is Ipojuca (it does have a CEP though, but the API is still developing. Some parts of the country, like São Paulo state, have complete CEP codes for the entire state). Likewise, Tamandaré is *close* to Praia dos Carneiros (go here, it's paradise).  
+You can do various things with the info from CEP Aberto, but since we all like maps, let's make one. I'll make one of some of the beaches I've visited while in Brazil, and one mountain region I went to when I foolishly decided to go rafting without knowing very much Portuguese ("Esquerda, esquerda!!", "What?"). First, let's get the data (you might want to leave a few seconds in between these calls to the API). Not all of these will be exact, for example, Porto de Galinhas is not a city, so the closest we have is Ipojuca (it does have a CEP though, but the API is still developing. Some parts of the country, like SÃ£o Paulo state, have complete CEP codes for the entire state). Likewise, TamandarÃ© is *close* to Praia dos Carneiros (go here, it's paradise).  
 ```{r, eval = F}
 library(cepR)
 
@@ -73,4 +73,8 @@ ggplot(beaches) +
 
 ```
 
-So that's where I've been! `r emo::ji("sunny")`
+So that's where I've been! `r emo::ji("sunny")`.   
+
+<br> 
+
+If you actually have CEP codes, you can also use the package to search for details given the CEP code. 

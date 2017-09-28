@@ -7,7 +7,7 @@ theme = "hugo-future-imperfect"
 googleAnalytics = "UA-76482767-2"
 disqusShortname = "rob-gitblog"
 enableEmoji =  true
-ignoreFiles = ["\\.Rmarkdown$", "_files$", "_cache$"] #"\\.Rmd$",
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"

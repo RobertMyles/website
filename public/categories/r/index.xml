@@ -225,6 +225,16 @@ Perhaps the most straightforward way is to use rvest, in tandem with other packa
     </item>
     
     <item>
+      <title>Write your thesis or paper in R Markdown!</title>
+      <link>https://robertmylesmcdonnell.netlify.com/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</link>
+      <pubDate>Fri, 15 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://robertmylesmcdonnell.netlify.com/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</guid>
+      <description>There are many reasons why you would want to use some variant of Markdown for writing, and indeed, posts are common on the net as to why you should.1 A simple summary of the reasons are that Markdown is: 1) easy; 2) easy; 3) yup, you guessed it – it’s easy.
+One variant of Markdown is R Markdown, developed by the RStudio team, and in particular the genius that is Yihui Xie, creator of the knitr R package.</description>
+    </item>
+    
+    <item>
       <title>Stan or JAGS for Bayesian ideal-point IRT?</title>
       <link>https://robertmylesmcdonnell.netlify.com/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</link>
       <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>

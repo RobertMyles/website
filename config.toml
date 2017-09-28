@@ -4,10 +4,10 @@ paginate = 3
 languageCode = "en-us"
 title = "Robert Myles McDonnell"
 theme = "hugo-future-imperfect"
-googleAnalytics = "76482767"
+googleAnalytics = "UA-76482767-2"
 disqusShortname = "rob-gitblog"
 enableEmoji =  true
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmarkdown$", "_files$", "_cache$"] #"\\.Rmd$",
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"

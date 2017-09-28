@@ -2,239 +2,328 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Robert Myles McDonnell</title>
-    <link>https://robertmylesmcdonnell.netlify.com/</link>
+    <link>/</link>
     <description>Recent content on Robert Myles McDonnell</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Sep 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 Sep 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://robertmylesmcdonnell.netlify.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Inhaling/Boozing Earth</title>
+      <link>/2017/09/27/inhaling-boozing-earth/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/09/27/inhaling-boozing-earth/</guid>
+      <description>This post got lost mysteriously when I transitioned to Netlify – just reposting. It was originally from June 2017.
+After seeing Nadieh Bremer’s great Breathing Earth infographic, I thought it would be cool to recreate it in R, as you do. Then I saw that it was made from lots of tif files…hmmm. I did some work with those before, ain’t doin it again voluntarily, no thanks.
+So then I started thinking about something else that would be (kind of) similar and interesting.</description>
+    </item>
+    
+    <item>
+      <title>Rating R Packages</title>
+      <link>/2017/09/27/rating-r-packages/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/09/27/rating-r-packages/</guid>
+      <description>The new rOpenSci package packagemetrics is a new ‘meta’ package for R with info on packages: dependencies, how long issues take to be resolved, how many watchers on GitHub, and more. Let’s take a look at a few packages I use and some of my own. Install:
+install.packages(&amp;quot;formattable&amp;quot;) devtools::install_github(&amp;quot;ropenscilabs/packagemetrics&amp;quot;) Then load the packages we’re going to use (I liked the table they have in their README, so I thought I’d keep with that style):</description>
+    </item>
+    
+    <item>
+      <title>UK ELECTIONS 2017</title>
+      <link>/2017/09/27/uk-elections-2017/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/09/27/uk-elections-2017/</guid>
+      <description>This post got lost mysteriously when I transitioned to Netlify – just reposting. It was originally from June 2017.
+This post is a quickie to show how we can visualize the UK election results with just a few lines of R code. (Really, very few). 1
+We can load in our usual tidyverse tools, along with a handy little data package, parlitools.
+library(readr) library(dplyr) library(ggplot2) library(parlitools) library(sf) Thanks to this R Bloggers post, we have the data (the UK Electoral Commission must have it up by now anyway), so visualizing it is very easy:</description>
+    </item>
+    
+    <item>
+      <title>HUMAN CAPITAL INDEX MAPS</title>
+      <link>/2017/09/26/human-capital-index-maps/</link>
+      <pubDate>Tue, 26 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/09/26/human-capital-index-maps/</guid>
+      <description>This post got lost mysteriously when I transitioned to Netlify – just reposting. It was originally from June 2017.
+I’m not too sure that the Human Capital Index is a reliable measure of what it’s supposed to measure, but I’m convinced by Deirdre McCloskey’s eloquent arguments that it is Human Capital, or ingenuity, in less dry terms, that has made the modern world (in conjunction with freedom and some basic legal structures).</description>
+    </item>
+    
+    <item>
+      <title>Women in Power</title>
+      <link>/2017/09/19/women-in-power/</link>
+      <pubDate>Tue, 19 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/09/19/women-in-power/</guid>
+      <description>library(dplyr); library(readxl) columns &amp;lt;- c(&amp;quot;Country&amp;quot;, &amp;quot;Overall Index&amp;quot;, &amp;quot;Overall Rank&amp;quot;, &amp;quot;Economic Participation &amp;amp; Opportunity&amp;quot;, &amp;quot;Eco Rank&amp;quot;, &amp;quot;Educational Attainment&amp;quot;, &amp;quot;Edu Rank&amp;quot;, &amp;quot;Health and Survival&amp;quot;, &amp;quot;Health Rank&amp;quot;, &amp;quot;Political Empowerment&amp;quot;, &amp;quot;Poli Rank&amp;quot;) df &amp;lt;- read_excel(&amp;quot;/Users/robert/Downloads/WEF_GGGR_Dataset_2016.xlsx&amp;quot;, sheet = 2, skip = 3, col_names = columns) library(ggplot2); library(tidyr); library(extrafont) #font_import() #loadfonts() df %&amp;gt;% ggplot(aes(x = `Health and Survival`)) + geom_density() df %&amp;gt;% gather(key = &amp;quot;Index Type&amp;quot;, value = &amp;quot;Value&amp;quot;, `Economic Participation &amp;amp; Opportunity`, `Educational Attainment`, `Health and Survival`, `Political Empowerment`) %&amp;gt;% { ggplot(.</description>
+    </item>
+    
+    <item>
       <title>Lil&#39; Packages Pt.2: cepR</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/09/13/lil-packages-pt-2-cepr/</link>
+      <link>/2017/09/13/lil-packages-pt-2-cepr/</link>
       <pubDate>Wed, 13 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/09/13/lil-packages-pt-2-cepr/</guid>
+      <guid>/2017/09/13/lil-packages-pt-2-cepr/</guid>
       <description>Part 2 of my Lil’ Packages series takes a quick look at cepR, an R package for acessing and using Brazilian postal code data. Since Brazil (a) is huge, and (b) often lacks reliable data (or compatible data across databases of the same thing), the ‘cep’ (Código de Endereçamento Postal) is a useful way to join datasets or to use as a base for geographical analyses of Brazil. This package utilizes the marvellous CEP Aberto API, so it’s thanks to their great work that I was able to bring it to R.</description>
     </item>
     
     <item>
       <title>Lil&#39; Packages Pt.1: tidyRSS</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/09/07/lil-packages-pt-1/</link>
+      <link>/2017/09/07/lil-packages-pt-1/</link>
       <pubDate>Thu, 07 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/09/07/lil-packages-pt-1/</guid>
+      <guid>/2017/09/07/lil-packages-pt-1/</guid>
       <description>A couple of months ago, I got quite into making R packages. Well, I got specifically into making little R packages - that is, packages that basically do one thing, or are some type of wrapper for importing data from an API into R. I like these little packages. First of all, I think it’s great when you don’t have to trawl around the internet looking for data, only to find out it’s .</description>
     </item>
     
     <item>
       <title>Analyzing Prison Data in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/07/28/analyzing-prison-data-in-r/</link>
+      <link>/2017/07/28/analyzing-prison-data-in-r/</link>
       <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/07/28/analyzing-prison-data-in-r/</guid>
+      <guid>/2017/07/28/analyzing-prison-data-in-r/</guid>
       <description>My good friend Danilo Freire and I have just finished a little R data package, called prisonbrief. We hope that it will be useful for R users, particularly researchers in the area, since this is still a much understudied topic. Why does prison population change? In many countries, it is rising, and has been for some time, and the determinants of this rise are still not well understood. All the data in the package come from the fantastic World Prison Brief website – we thank them for making these data available.</description>
     </item>
     
     <item>
       <title>CausalImpact &amp; Healthcare Costs in the US</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/06/02/causalimpact-healthcare-costs-in-the-us/</link>
+      <link>/2017/06/02/causalimpact-healthcare-costs-in-the-us/</link>
       <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/06/02/causalimpact-healthcare-costs-in-the-us/</guid>
+      <guid>/2017/06/02/causalimpact-healthcare-costs-in-the-us/</guid>
       <description>This article by Mike Holly on Mises.org interested me. I wasn’t aware of the history of healthcare costs in the US, and it’s quite surprising, especially the take-off in costs after the 1960s. Holly’s argument is that the “U.S. ‘health care cost crisis’ didn’t start until 1965. The government increased demand with the passage of Medicare and Medicaid while restricting the supply of doctors and hospitals.” In fact, I was quite impressed with this graph:</description>
     </item>
     
     <item>
+      <title>Inhaling Earth</title>
+      <link>/2017/05/22/inhaling-earth/</link>
+      <pubDate>Mon, 22 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/05/22/inhaling-earth/</guid>
+      <description>After seeing Nadieh Bremer’s great Breathing Earth infographic, I thought it would be cool to recreate it in R, as you do. Then I saw that it was made from lots of tif files…hmmm. I did some work with those before, ain’t doin it again voluntarily, no thanks.
+So then I started thinking about something else that would be (kind of) similar and interesting. I saw the sf package and its interesting geom_sf() recently, and so I thought it would be a nice opportunity to try that out.</description>
+    </item>
+    
+    <item>
       <title>Robert Myles McDonnell</title>
-      <link>https://robertmylesmcdonnell.netlify.com/other/</link>
+      <link>/other/</link>
       <pubDate>Mon, 01 May 2017 21:48:51 -0700</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/other/</guid>
+      <guid>/other/</guid>
       <description> One Hand on the Bottle OHOTB was a band I had some years ago, with some talented musician friends. Phil Coyle played bass, Holly Pereira played guitar and sang, Tom Mulrooney played bass, John Mac Naeidhe pplayed keyboards and weird sounds, Sean McDonnell played drums and Rudy played percussion. We recorded an album in Fastlane Studios in Donabate, Dublin, in 2008. Here it is:
  </description>
     </item>
     
     <item>
       <title>A Tale of Two Eurozones</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/04/23/a-tale-of-two-eurozones/</link>
+      <link>/2017/04/23/a-tale-of-two-eurozones/</link>
       <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/04/23/a-tale-of-two-eurozones/</guid>
+      <guid>/2017/04/23/a-tale-of-two-eurozones/</guid>
       <description>This Guardian article on the prospective French President Macron got me thinking, especially this passage:
  France’s economic performance in recent years has been underwhelming, especially when compared to that of Germany. Fifteen years ago, the eurozone’s two biggest countries enjoyed comparable living standards. Today, Germany’s are almost a fifth higher than those in France. Likewise, at the time when euro notes and coins were introduced in 2002, French and German unemployment rates were both around 8%.</description>
     </item>
     
     <item>
+      <title>tidy-forecasting BitCoin prices</title>
+      <link>/2017/04/23/tidy-forecasting-bitcoin-prices/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/04/23/tidy-forecasting-bitcoin-prices/</guid>
+      <description>library(tidyverse) library(forecast) Cryptocurrencies are becoming an interest of mine, since I’ve got friends who talk about them all the time. So I thought it might be interesting to have a look at a time series of BitCoin, and use the opportunity to do some tidyverse-style time series analysis, in the spirit of this great post. The data are availbale from http://www.coindesk.com/price/. Click on Select All &amp;gt; Export to download the data.</description>
+    </item>
+    
+    <item>
       <title>TFW you have to copy and paste something into R...</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/04/22/tfw-you-have-to-copy-and-paste-something-into-r.../</link>
+      <link>/2017/04/22/tfw-you-have-to-copy-and-paste-something-into-r.../</link>
       <pubDate>Sat, 22 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/04/22/tfw-you-have-to-copy-and-paste-something-into-r.../</guid>
+      <guid>/2017/04/22/tfw-you-have-to-copy-and-paste-something-into-r.../</guid>
       <description>From time to time, you might need to copy and paste something into R and turn it into a character string. Maybe it’s something from the output of an error message, or from someone else’s malformed data, or something copied from a document or the internet. If it’s something small, then it’s usually OK to just manually insert &amp;quot;&amp;quot; around the strings and , between them. For something large, that’s just a nightmare.</description>
     </item>
     
     <item>
       <title>Update R from inside R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/03/16/update-r-from-inside-r/</link>
+      <link>/2017/03/16/update-r-from-inside-r/</link>
       <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/03/16/update-r-from-inside-r/</guid>
+      <guid>/2017/03/16/update-r-from-inside-r/</guid>
       <description>I was just about to update R a while ago when I thought to myself that there must be a way to do this inside of R (RStudio, I mean). A quick Google search brought me to the installr package. Very nice, but I use a Mac. Hmmm…
 A bit more searching and I found Andrea Cirillo’s updateR package, which was made for OS X, fantastic. I tried it out, and although it worked great, I still had to leave RStudio to check to see if the latest version installed.</description>
     </item>
     
     <item>
+      <title>Dublin House Prices with R</title>
+      <link>/2017/02/28/dublin-house-prices-with-r/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/02/28/dublin-house-prices-with-r/</guid>
+      <description>library(RSelenium) #system2(&amp;quot;java&amp;quot;, args = c(&amp;quot;-jar&amp;quot;, &amp;quot;/Users/robert/R/selenium-server-standalone-2.53.1.jar&amp;quot;)) first &amp;lt;- &amp;quot;body &amp;gt; div.jcf-select-drop.jcf-select-search-select.jcf-select-ng-hide.jcf-select-ng-pristine.jcf-select-ng-valid.jcf-select-jcf-hidden.jcf-unselectable &amp;gt; div &amp;gt; span &amp;gt; div &amp;gt; span&amp;quot; </description>
+    </item>
+    
+    <item>
+      <title>text analysis of metal lyrics in R</title>
+      <link>/2017/02/28/text-analysis-of-metal-lyrics-in-r/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/02/28/text-analysis-of-metal-lyrics-in-r/</guid>
+      <description>library(tidyverse) metal &amp;lt;- data_frame(Title = c(&amp;quot;South of Heaven&amp;quot;, &amp;quot;Seasons in the Abyss&amp;quot;, &amp;quot;Raining Blood&amp;quot;, &amp;quot;Live Undead&amp;quot;, &amp;quot;Angel of Death&amp;quot;, &amp;quot;Cowboys From Hell&amp;quot;, &amp;quot;Five Minutes Alone&amp;quot;, &amp;quot;War Nerve&amp;quot;, &amp;quot;Goddamn Electric&amp;quot;, &amp;quot;Walk&amp;quot;, &amp;quot;Master of Puppets&amp;quot;, &amp;quot;Blackened&amp;quot;, &amp;quot;Sad But True&amp;quot;, &amp;quot;Fade to Black&amp;quot;, &amp;quot;Battery&amp;quot;, &amp;quot;I am the Black Wizards&amp;quot;, &amp;quot;Inno A Satana&amp;quot;, &amp;quot;The Prophet&amp;quot;, &amp;quot;Thus Spake the Night Spirit&amp;quot;, &amp;quot;Ye Entrancemperium&amp;quot;, &amp;quot;Black Seeds of Vengeance&amp;quot;, &amp;quot;Masturbating the War God&amp;quot;, &amp;quot;To Dream of Ur&amp;quot;, &amp;quot;The Wind of Horus&amp;quot;, &amp;quot;Lashed to the Slave Stick&amp;quot;), Band = c(rep(&amp;quot;slayer&amp;quot;, 5), rep(&amp;quot;pantera&amp;quot;, 5), rep(&amp;quot;metallica&amp;quot;, 5), rep(&amp;quot;emperor&amp;quot;, 5), rep(&amp;quot;nile&amp;quot;, 5)), Url = &amp;quot;https://genius.</description>
+    </item>
+    
+    <item>
       <title>Reflections on making my first R package</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/02/25/reflections-on-making-my-first-r-package/</link>
+      <link>/2017/02/25/reflections-on-making-my-first-r-package/</link>
       <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/02/25/reflections-on-making-my-first-r-package/</guid>
+      <guid>/2017/02/25/reflections-on-making-my-first-r-package/</guid>
       <description>This week I was working with some RSS feeds in R. You can parse these feeds directly with packages like XML or xml2, or use the rss package (not on CRAN) or the feedeR package (on CRAN). However, I noticed that both rss and feedeR return lists, which necessitates further work in R to get the data into a tidy format, and that both packages leave interesting data behind. With that in mind, I decided to make tidyRSS, a package for parsing these feeds and returning a tidy data frame to the user.</description>
     </item>
     
     <item>
       <title>Peace, Bread and Data!</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/02/19/peace-bread-and-data/</link>
+      <link>/2017/02/19/peace-bread-and-data/</link>
       <pubDate>Sun, 19 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/02/19/peace-bread-and-data/</guid>
+      <guid>/2017/02/19/peace-bread-and-data/</guid>
       <description>I really like this image by Tom Burns.1 The liberal2 in me appreciates making cheap fun of people who were horribly mistaken (Lenin; Marx, although I don’t mean to slight his contributions to social science), scum like Stalin, and Fidel Castro, who might have started out with a laudable takedown of a corrupt dictator, but who then became…a corrupt dictator, of course. The artist in me just loves the awesome colours.</description>
     </item>
     
     <item>
       <title>Carnaval!</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/02/18/carnaval/</link>
+      <link>/2017/02/18/carnaval/</link>
       <pubDate>Sat, 18 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/02/18/carnaval/</guid>
+      <guid>/2017/02/18/carnaval/</guid>
       <description>I’ve been getting more and more interested in web graphics, particularly d3. All of this of course depends on javascript, a language I don’t know very well. As a way to start learning it, I thought I’d give Shiny a go, as a bridge between R and javascript (I’ve since started a javascript course proper). I’ve been surprised by how simple and powerful Shiny is, although the problems I ran into I wasn’t able to solve.</description>
     </item>
     
     <item>
       <title>How to make a GitHub pages blog with RStudio and Hugo</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/</link>
+      <link>/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/</link>
       <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/</guid>
+      <guid>/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/</guid>
       <description>Update: for some people who may have some issues setting up the blog the way I’ve set out here, see Kate’s helpful comments below.
 Since April or so of last year, I’ve had a personal website on GitHub pages, where I keep this blog and a few other things. Setting it up was at times frustrating, but a good learning process (I especially picked up a lot of Git through that experience).</description>
     </item>
     
     <item>
       <title>Ranking Brad Pitt’s Movies in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html</link>
+      <link>/brad_pitt_movies.html</link>
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html</guid>
+      <guid>/brad_pitt_movies.html</guid>
       <description>So I saw this blog post, in which Pretty Famous ranked every one of Brad Pitt’s movies (I have no idea how I came across it, I’m not particularly a movie buff or a fan of Señor Pitt, but anyway). Then I wondered how easy/hard it would be to do something like that in R. Pretty Famous used a few sources, but here I’m going to stick to Rotten Tomatoes, since it’s a pretty well-known movie ratings site, maybe the most well-known.</description>
     </item>
     
     <item>
       <title>Tips and Tricks for R Markdown html</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/01/02/tips-and-tricks-for-r-markdown-html/</link>
+      <link>/2017/01/02/tips-and-tricks-for-r-markdown-html/</link>
       <pubDate>Mon, 02 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/01/02/tips-and-tricks-for-r-markdown-html/</guid>
+      <guid>/2017/01/02/tips-and-tricks-for-r-markdown-html/</guid>
       <description>Here are a couple of little tips and tricks that I’ve picked up for use with RMarkdown html documents (including presentations and notebooks). This post is aimed at the R user who doesn’t know much, if anything, about html and css.
 Background images Sometimes it’s useful (or just nice) to have a background image of some sort in a presentation or notebook. This could be the logo of your university or company, for example.</description>
     </item>
     
     <item>
       <title>Make a colour table in R with ggplot2</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/12/29/make-a-colour-table-in-r-with-ggplot2/</link>
+      <link>/2016/12/29/make-a-colour-table-in-r-with-ggplot2/</link>
       <pubDate>Thu, 29 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/12/29/make-a-colour-table-in-r-with-ggplot2/</guid>
+      <guid>/2016/12/29/make-a-colour-table-in-r-with-ggplot2/</guid>
       <description>I loved this R script from hdugan when I first saw it a while ago. The script makes a 2-page pdf of all the colors available in R, using R. Nice.
 The other day, I thought about making a tidyverse version of it, using dplyr to get the data ready and ggplot2 to visualize it. I won’t for a second pretend that this code is as short and tidy as the original, and in fact it may be a good example of when base R can be really useful, but anyway here it is.</description>
     </item>
     
     <item>
       <title>Suicides in Ireland</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/12/21/suicides-in-ireland/</link>
+      <link>/2016/12/21/suicides-in-ireland/</link>
       <pubDate>Wed, 21 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/12/21/suicides-in-ireland/</guid>
+      <guid>/2016/12/21/suicides-in-ireland/</guid>
       <description>The Irish radio station newstalk published this video the other day, in which director and actor Terry McMahon spoke out against the austerity programme running in Ireland since the aftermath of the financial crisis in 2008. Leaving aside his conflation of any type of business activity with immorality, McMahon claimed that “austerity is murder” and detailed some alarming facts about suicide numbers in Ireland, clearly linking the two (i.e., austerity = more suicide).</description>
     </item>
     
     <item>
       <title>Theme-Specific Voting in the European Parliament</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/10/20/theme-specific-voting-in-the-european-parliament/</link>
+      <link>/2016/10/20/theme-specific-voting-in-the-european-parliament/</link>
       <pubDate>Thu, 20 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/10/20/theme-specific-voting-in-the-european-parliament/</guid>
+      <guid>/2016/10/20/theme-specific-voting-in-the-european-parliament/</guid>
       <description>Since it’s European Statistics Day, I thought I would make a quick post showing how to utilise some of the data that we have on the European Union in R. In particular, I will use European Parliament voting data from Simon Hix’s website. The data is freely available, so by copying and pasting the code below, you will be able to recreate the analysis I’ve done here.
 We’re going to be using Stan to make theme-specific ideal points for members of the European Parliament.</description>
     </item>
     
     <item>
       <title>Map-making with R and electionsBR</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/10/09/map-making-with-r-and-electionsbr/</link>
+      <link>/2016/10/09/map-making-with-r-and-electionsbr/</link>
       <pubDate>Sun, 09 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/10/09/map-making-with-r-and-electionsbr/</guid>
+      <guid>/2016/10/09/map-making-with-r-and-electionsbr/</guid>
       <description>For those interested in Brazilian politics, there’s a great new package called electionsBR (those who understand Portuguese can find a post on it here). This package takes data from the Tribunal Superior Eleitoral and makes it available in a tidy format for users of R. Given my recent obsession with map-making, I think it’s only natural I’d want to make maps of Brazil with this package.1
 So, what can we do with it?</description>
     </item>
     
     <item>
       <title>Re-creating Plots from The Economist in R and ggplot2</title>
-      <link>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</link>
+      <link>/re-creating-plots-from-the-economist-in-r.html</link>
       <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</guid>
+      <guid>/re-creating-plots-from-the-economist-in-r.html</guid>
       <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*  The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
     </item>
     
     <item>
       <title>Geo-reference an image in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/08/13/geo-reference-an-image-in-r/</link>
+      <link>/2016/08/13/geo-reference-an-image-in-r/</link>
       <pubDate>Sat, 13 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/08/13/geo-reference-an-image-in-r/</guid>
+      <guid>/2016/08/13/geo-reference-an-image-in-r/</guid>
       <description>R is actually great for working with spatial data (for example, see here and here for fantastic graphs and maps made with R), however, you often need data that is actually spatial to get started! What do you do if you have an image, a map, let’s say, that is not geo-referenced in any way?
 The regular answer to this problem is to use software such as QGIS to manually enter GPS coordinates, with the help of Google Maps or something similar.</description>
     </item>
     
     <item>
       <title>Easier web scraping in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/08/05/easier-web-scraping-in-r/</link>
+      <link>/2016/08/05/easier-web-scraping-in-r/</link>
       <pubDate>Fri, 05 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/08/05/easier-web-scraping-in-r/</guid>
+      <guid>/2016/08/05/easier-web-scraping-in-r/</guid>
       <description>In an earlier post, I described some ways in which you can interact with a web browser using R and RSelenium. This is ideal when you need to access data through drop-down menus and search bars. However, working with RSelenium can be tricky. There are, of course, easier ways to get information from the internet using R.
 Perhaps the most straightforward way is to use rvest, in tandem with other packages of the Hadleyverse1, such as dplyr and tidyr for data preparation and cleaning after the webscrape.</description>
     </item>
     
     <item>
       <title>Bayesian IRT in R and Stan</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/05/21/bayesian-irt-in-r-and-stan/</link>
+      <link>/2016/05/21/bayesian-irt-in-r-and-stan/</link>
       <pubDate>Sat, 21 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/05/21/bayesian-irt-in-r-and-stan/</guid>
+      <guid>/2016/05/21/bayesian-irt-in-r-and-stan/</guid>
       <description>The code below on Stan is also available as an RPub webpage, if you’d rather work through the examples than read all of the post.
  One of the first areas where Bayesian modelling gained an entry point into the social sciences (and in particular political science) was in the area of legislator ideal points, with the use of the Item-Response Theory (IRT) models from the educational testing literature in psychology.</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>https://robertmylesmcdonnell.netlify.com/about/</link>
+      <link>/about/</link>
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/about/</guid>
+      <guid>/about/</guid>
       <description>I&amp;rsquo;m Robert McDonnell and I live in Brazil, in the hustle and bustle of São Paulo. I studied Fine Art (in NCAD in Dublin, Ireland), International Relations &amp;amp; Political Science (in DCU), and I did my PhD in International Relations in the University of São Paulo. My academic work has so far focused on Bayesian item-response models of legislative voting. Currently, I produce some research for the Getúlio Vargas Foundation, I&amp;rsquo;m developing some R packages, I give classes and courses on R and data analysis for IBPAD, and I do some freelance R consultancy.</description>
     </item>
     
     <item>
       <title>Research</title>
-      <link>https://robertmylesmcdonnell.netlify.com/research/</link>
+      <link>/research/</link>
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/research/</guid>
+      <guid>/research/</guid>
       <description>&amp;nbsp;&amp;nbsp;Formally Comparing Legislative Institutions - Brazilian Political Science Review, Issue 1, 2017. Available here.
 &amp;nbsp;&amp;nbsp;Explaining the Determinants of Foreign Policy Voting Behaviour in the Brazilian Houses of Legislature, with a Focus on the Senate - My PhD thesis, defended at the University of São Paulo in June 2016. You can download it here
 &amp;nbsp;&amp;nbsp;Measuring the effect of group-based voting in the United Nations General Assembly - with Danilo Freire, working paper.</description>
@@ -242,10 +331,10 @@ Perhaps the most straightforward way is to use rvest, in tandem with other packa
     
     <item>
       <title>Robert Myles McDonnell</title>
-      <link>https://robertmylesmcdonnell.netlify.com/cv/</link>
+      <link>/cv/</link>
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/cv/</guid>
+      <guid>/cv/</guid>
       <description>19/12/1980  +55 (11) 98282-8713  robertmylesmcdonnell@gmail.com &amp;nbsp; &amp;nbsp;
  Professional History Data Scientist, Avanade, São Paulo I currently work for Avanade in the São Paulo office. So far, I&amp;rsquo;ve been working on integrating R into larger applications, with Microsoft Azure and the .NET framework.
 São Paulo City Council  03/2017 — 07/2017 São Paulo Position: Director of DIPROJ; Data Science &amp;amp; Analystics Administration  In the Secretaria da Fazenda, I headed a team responsible for making accurate forecasts of data on public spending.</description>
@@ -253,19 +342,19 @@ São Paulo City Council  03/2017 — 07/2017 São Paulo Position: Director of DI
     
     <item>
       <title>Bayesian Stats -- Book Recommendations</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/05/03/bayesian-stats----book-recommendations/</link>
+      <link>/2016/05/03/bayesian-stats----book-recommendations/</link>
       <pubDate>Tue, 03 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/05/03/bayesian-stats----book-recommendations/</guid>
+      <guid>/2016/05/03/bayesian-stats----book-recommendations/</guid>
       <description>The first time I came across Bayes’ Theorem1, I must admit I was pretty confused. It was in Introductory Statistics by Neil A. Weiss, the course book in a statistics course I was taking at the time. Neither the logic of it nor the formula for it made much sense to me. For somebody new to probability, I was still trying to figure out what the hell \(P(A)\) actually meant.</description>
     </item>
     
     <item>
       <title>Web Navigation in R with RSelenium</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/04/27/web-navigation-in-r-with-rselenium/</link>
+      <link>/2016/04/27/web-navigation-in-r-with-rselenium/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/04/27/web-navigation-in-r-with-rselenium/</guid>
+      <guid>/2016/04/27/web-navigation-in-r-with-rselenium/</guid>
       <description>It goes almost without saying that the internet itself is the richest database available to us. From a 2014 blog post, it was claimed that every minute :
  Facebook users share nearly 2.5 million pieces of content.
  Twitter users tweet nearly 300,000 times.
@@ -276,20 +365,20 @@ São Paulo City Council  03/2017 — 07/2017 São Paulo Position: Director of DI
     
     <item>
       <title>Write your thesis or paper in R Markdown!</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</link>
+      <link>/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</link>
       <pubDate>Fri, 15 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</guid>
+      <guid>/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</guid>
       <description>There are many reasons why you would want to use some variant of Markdown for writing, and indeed, posts are common on the net as to why you should.1 A simple summary of the reasons are that Markdown is: 1) easy; 2) easy; 3) yup, you guessed it – it’s easy.
 One variant of Markdown is R Markdown, developed by the RStudio team, and in particular the genius that is Yihui Xie, creator of the knitr R package.</description>
     </item>
     
     <item>
       <title>Stan or JAGS for Bayesian ideal-point IRT?</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</link>
+      <link>/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</link>
       <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</guid>
+      <guid>/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</guid>
       <description>Anybody who has ever tried to run even a moderately-sized Bayesian IRT model in R (for ideal points as in the political science literature, or otherwise) will know that these models can take a long time. It’s not R’s fault: these are usually big models with lots of parameters, and naturally take longer.1 Not to mention the fact that Bayesian computation is more computationally intense than other methods. Historically (okay, I’m talking about the last twenty years, maybe ‘historically’ is a little strong), the sampling software BUGS (Bayesian Inference Using Gibbs Sampling) and then JAGS were used to run Bayesian models (JAGS is still pretty common, and BUGS too, though not as much).</description>
     </item>
     

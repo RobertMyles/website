@@ -1,0 +1,321 @@
+---
+title: Rating R Packages
+author: Robert Myles McDonnell
+date: '2017-09-27'
+slug: rating-r-packages
+categories: []
+description: "Quickly Rating Some R Packages I like"
+---
+
+
+
+<p>The new rOpenSci package <a href="https://ropensci.org/blog/blog/2017/06/27/packagemetrics">packagemetrics</a> is a new ‘meta’ package for R with info on packages: dependencies, how long issues take to be resolved, how many watchers on GitHub, and more. Let’s take a look at a few packages I use and some of my own. Install:</p>
+<pre class="r"><code>install.packages(&quot;formattable&quot;)
+devtools::install_github(&quot;ropenscilabs/packagemetrics&quot;)</code></pre>
+<p>Then load the packages we’re going to use (I liked the table they have in their <a href="https://github.com/ropenscilabs/packagemetrics">README</a>, so I thought I’d keep with that style):</p>
+<pre class="r"><code>library(formattable)
+library(packagemetrics)
+library(dplyr)</code></pre>
+<p>Next, let’s get the packages I’m interested in and make our nice table:</p>
+<pre class="r"><code>packages &lt;- list(&quot;dplyr&quot;, &quot;tidyr&quot;, &quot;tidyRSS&quot;,
+              &quot;congressbr&quot;, &quot;rstan&quot;, &quot;rjags&quot;, 
+              &quot;electionsBR&quot;, &quot;tmap&quot;)
+
+
+pd &lt;- purrr::map(packages, combine_metrics) %&gt;% 
+  data.table::rbindlist() %&gt;% 
+  select(package, published, dl_last_month, stars, forks,
+         last_commit, last_issue_closed, 
+         depends_count, watchers) %&gt;% 
+  mutate(last_commit = round(last_commit, 1),
+         last_issue_closed = round(last_issue_closed, 1))
+
+pd[is.na(pd)] &lt;- &quot;&quot;
+
+formattable(pd, list(
+    package = formatter(&quot;span&quot;,
+                      style = x ~ style(font.weight = &quot;bold&quot;)),
+    contributors = color_tile(&quot;white&quot;,&quot;#1CC2E3&quot;),
+    depends_count = color_tile(&quot;white&quot;, &quot;#1CC2E3&quot;),
+    reverse_count = color_tile(&quot;white&quot;, &quot;#1CC2E3&quot;),
+    tidyverse_happy = formatter(&quot;span&quot;,
+                                style = x ~ style(color = ifelse(x, &quot;purple&quot;,&quot;white&quot;)),
+                                x ~ icontext(ifelse(x, &quot;glass&quot;,&quot;glass&quot;))),
+    vignette = formatter(&quot;span&quot;,
+                         style = x ~ style(color = ifelse(x, &quot;green&quot;,&quot;white&quot;)),
+                         x ~ icontext(ifelse(x, &quot;ok&quot;,&quot;ok&quot;))),
+    has_tests =  formatter(&quot;span&quot;,
+                           style = x ~ style(color = ifelse(x, &quot;green&quot;,&quot;red&quot;)),
+                           x ~ icontext(ifelse(x, &quot;ok&quot;,&quot;remove&quot;))),
+    dl_last_month = color_bar(&quot;#56A33E&quot;),
+    forks = color_tile(&quot;white&quot;, &quot;#56A33E&quot;),
+    stars = color_tile(&quot;white&quot;, &quot;#56A33E&quot;),
+    last_commit = color_tile(&quot;#F06B13&quot;,&quot;white&quot;, na.rm=T),
+    last_issue_closed = color_tile(&quot;#F06B13&quot;,&quot;white&quot;, na.rm=T)
+  ))</code></pre>
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+package
+</th>
+<th style="text-align:right;">
+published
+</th>
+<th style="text-align:right;">
+dl_last_month
+</th>
+<th style="text-align:right;">
+stars
+</th>
+<th style="text-align:right;">
+forks
+</th>
+<th style="text-align:right;">
+last_commit
+</th>
+<th style="text-align:right;">
+last_issue_closed
+</th>
+<th style="text-align:right;">
+depends_count
+</th>
+<th style="text-align:right;">
+watchers
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+<span style="font-weight: bold">dplyr </span>
+</td>
+<td style="text-align:right;">
+2016-06-24
+</td>
+<td style="text-align:right;">
+<span style="display: inline-block; direction: rtl; border-radius: 4px; padding-right: 2px; background-color: #56A33E; width: 100.00%">359827</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #56a33e">1959</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #56a33e">794</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f17b2c">0.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f06b13">0 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">1</span>
+</td>
+<td style="text-align:right;">
+232
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span style="font-weight: bold">tidyr </span>
+</td>
+<td style="text-align:right;">
+2017-05-15
+</td>
+<td style="text-align:right;">
+<span style="display: inline-block; direction: rtl; border-radius: 4px; padding-right: 2px; background-color: #56A33E; width: 52.96%">190576</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d5e8cf">495 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d7e9d2">186</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f17b2c">0.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f8bf99">0.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">1</span>
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span style="font-weight: bold">tidyRSS </span>
+</td>
+<td style="text-align:right;">
+2017-03-01
+</td>
+<td style="text-align:right;">
+<span style="display: inline-block; direction: rtl; border-radius: 4px; padding-right: 2px; background-color: #56A33E; width: 0.07%">239</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">12 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">2 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">0.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">1</span>
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span style="font-weight: bold">congressbr </span>
+</td>
+<td style="text-align:right;">
+2017-04-30
+</td>
+<td style="text-align:right;">
+<span style="display: inline-block; direction: rtl; border-radius: 4px; padding-right: 2px; background-color: #56A33E; width: 0.06%">212</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">1</span>
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span style="font-weight: bold">rstan </span>
+</td>
+<td style="text-align:right;">
+2017-04-19
+</td>
+<td style="text-align:right;">
+<span style="display: inline-block; direction: rtl; border-radius: 4px; padding-right: 2px; background-color: #56A33E; width: 2.80%">10062</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e0eedb">368 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e2efde">135</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f06b13">0.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f06b13">0 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #1cc2e3">3</span>
+</td>
+<td style="text-align:right;">
+71
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span style="font-weight: bold">rjags </span>
+</td>
+<td style="text-align:right;">
+2016-02-19
+</td>
+<td style="text-align:right;">
+<span style="display: inline-block; direction: rtl; border-radius: 4px; padding-right: 2px; background-color: #56A33E; width: 3.51%">12635</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px"> </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #8de0f1">2</span>
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span style="font-weight: bold">electionsBR</span>
+</td>
+<td style="text-align:right;">
+2016-12-13
+</td>
+<td style="text-align:right;">
+<span style="display: inline-block; direction: rtl; border-radius: 4px; padding-right: 2px; background-color: #56A33E; width: 0.07%">266</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefefe">19 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefefe">4 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">3.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fce9dd">0.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">1</span>
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span style="font-weight: bold">tmap </span>
+</td>
+<td style="text-align:right;">
+2017-05-11
+</td>
+<td style="text-align:right;">
+<span style="display: inline-block; direction: rtl; border-radius: 4px; padding-right: 2px; background-color: #56A33E; width: 0.96%">3457</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f1f7ef">167 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f8fbf7">33 </span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f17b2c">0.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fad4bb">0.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #8de0f1">2</span>
+</td>
+<td style="text-align:right;">
+20
+</td>
+</tr>
+</tbody>
+</table>
+<p>Nice table. It’s not perfect – maybe they still have some bugs to work out – congressbr is missing watchers and stars, but this is a nice little package. Still, there are so many packages out there that I still use them based on cool examples I see, either on blogs, twitter, or in academic papers. I’ve never much used the CRAN Task Views and I doubt I’ll use packagemetrics much, but it’s interesting for those who get their R this way.</p>

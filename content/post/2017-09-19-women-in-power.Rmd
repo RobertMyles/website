@@ -8,7 +8,7 @@ tags: []
 draft: true
 ---
 
-```{r, message=FALSE, eval = F}
+```{r, message=FALSE}
 library(dplyr); library(readxl)
 columns <- c("Country", "Overall Index", "Overall Rank",
              "Economic Participation & Opportunity", "Eco Rank",
@@ -20,7 +20,7 @@ df <- read_excel("/Users/robert/Downloads/WEF_GGGR_Dataset_2016.xlsx", sheet = 2
 
 ```
 
-```{r, eval = F}
+```{r}
 library(ggplot2); library(tidyr); library(extrafont)
 #font_import()
 #loadfonts()
@@ -42,7 +42,7 @@ df %>%
              facet_wrap(~ `Index Type`, scales = "fixed")
          }
 df %>% 
-  gather(key = "Index Type", value = "Value", `Economic Participation and Opportunity`,
+  gather(key = "Index Type", value = "Value", `Economic Participation & Opportunity`,
          `Educational Attainment`, `Health and Survival`,
          `Political Empowerment`) %>%
   group_by(`Index Type`) %>% 

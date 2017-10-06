@@ -15,12 +15,12 @@ date: "2016-05-05T21:48:51-07:00"
 
 ### Data Scientist, Avanade, São Paulo
 
-I currently work for Avanade in the São Paulo office. So far, I've been working on integrating R into larger applications, with Microsoft Azure and the .NET framework. 
+I currently work for Avanade in the São Paulo office. So far, I've been working on integrating R into larger applications, with Microsoft Azure and the .NET framework. I've also been improving my knowledge of Python, advanced R and linking things together with apps and APIs.  
 
 ### São Paulo City Council
 - 03/2017 — 07/2017
 - São Paulo
-- Position: Director of DIPROJ; Data Science & Analystics Administration
+- Position: Director of DIPROJ; Data Science & Analytics Administration
 
 In the *Secretaria da Fazenda*, I headed a team responsible for making accurate forecasts of data on public spending. Part of my job was also modernizing the way the department does analysis. To do that, I gave an in-house R course and built a Shiny application for the department (part of an internal R package that I wrote), along with the production of semi-automated reports. It was an interesting experience being at the heart of politics in one of the biggest cities in the world, without a doubt. I learned how much of the job was actually about something very simple: managing relationships.   
 
@@ -53,8 +53,8 @@ I was a researcher at CAENI in USP during my PhD, and I was involved in seminars
 
 ## <i class="fa fa-crosshairs"></i> Professional Summary
 
-I believe that my skills and background give me some unique advantages in the field of data analysis. I have found that my artistic background is very useful when it comes to visualizing data and the results of research. Similarly, my ability to speak well publicly, as demonstrated for example in the theatre which I wrote and performed solo, has been a great asset to me when speaking publicly about the work I’ve done.
-I think that I have a very high level of writing ability, as I have shown in academic work that I have published. This capability has allowed me to produce high-quality studies that are enjoyable to read for experts and non-experts alike. My love of data wrangling and analysis, and programming in general, allows me to bring all these abilities together in a modern way, in what I believe is a valuable package for data analysis in any context.
+I believe that my skills and background give me some unique advantages in the field of data analysis. I have found that my artistic background is very useful when it comes to visualizing data and the results of research. Similarly, my ability to speak well publicly, as demonstrated for example in the pieces theatre which I wrote and performed during my undergraduate degree, has been a great asset to me when speaking publicly about the work I’ve done.
+I have a very high level of writing ability, as I have shown in academic work that I have published, a capability that has allowed me to produce high-quality studies that are enjoyable to read for experts and non-experts alike. My love of data wrangling and analysis, and programming in general, allows me to bring all these abilities together in a modern way, in what I believe is a valuable package for data analysis in any context.
 
 &nbsp;
 
@@ -82,9 +82,9 @@ I think that I have a very high level of writing ability, as I have shown in aca
 
 ## <i class="fa fa-code"></i> Programming
 
-- Advanced knowledge of R and RMarkdown (for documents and my website, and I wrote my PhD thesis in it). I am the author of the [tidyRSS](https://github.com/RobertMyles/congressbr) tidyRSS) R package, one of the authors of [congressbr](https://github.com/RobertMyles/congressbr) and I have contributed to several other R packages: ([updateR](https://github.com/AndreaCirilloAC/updateR), [bRasilLegis](https://github.com/leobarone/bRasilLegis), [electionsBR](https://github.com/silvadenisson/electionsBR)). On my github page, I have made available many R code snippets of various functions and tips & tricks that I have found useful, and that I hope will help others.
-- Intermediate knowledge of Python, LaTeX, html, CSS, and basic knowledge of SPSS and Stata. I also have experience with the MS Office suite and the Mac equivalents.
-- Beginner in C# and JavaScript. 
+- Advanced knowledge of R, RMarkdown (for documents and my website, and I wrote my PhD thesis in it), and intermediate level Shiny knowledge. I am the author of the [tidyRSS](https://github.com/RobertMyles/congressbr) tidyRSS) R package, one of the authors of [congressbr](https://github.com/RobertMyles/congressbr) and I have contributed to several other R packages: ([updateR](https://github.com/AndreaCirilloAC/updateR), [bRasilLegis](https://github.com/leobarone/bRasilLegis), [electionsBR](https://github.com/silvadenisson/electionsBR)). On my github page, I have made available many R code snippets of various functions and tips & tricks that I have found useful, and that I hope will help others.
+- High intermediate knowledge of Python. Intermediate knowledge of LaTeX, html, CSS, and basic knowledge of SPSS and Stata. I also have experience with the MS Office suite and the Mac equivalents.
+- Beginner in C# and intermediate level JavaScript.
 - I also post R code snippets on my blog, showing readers how to create intricate plots or run various analyses in R. These posts have featured on the popular online R magazine RWeekly (https://rweekly.org; Issue 21, “R in Real World”); they are shared on the popular [R-Bloggers](https://www.r-bloggers.com/) site and they have also been shared on R users groups on social media.
 
 &nbsp;

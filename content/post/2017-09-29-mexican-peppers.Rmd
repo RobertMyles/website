@@ -16,6 +16,7 @@ I used R's ggplot2 package (along with a few others) to quickly visualize the da
 library(sf)
 library(dplyr)
 library(ggplot2)
+library(jsonlite)
 library(extrafont)
 loadfonts()
 
@@ -34,21 +35,21 @@ mex <-st_read("C://Users/robert.m.mcdonnell/Downloads/MexicoStates/Entidades_201
            state %in% c("Baja California", "Chihuahua", "Nuevo Leon",
                         "Coahuila de Zaragoza", "Nayarit", "Quintana Roo",
                         "Campeche", "Chiapas", "Michoacan de Ocampo", "Jalisco",
-                        "Colima", "Sonora", "Tabasco", "Queretaro") ~ "Jalapeño",
+                        "Colima", "Sonora", "Tabasco", "Queretaro") ~ "Jalape?o",
            state %in% c("Tamaulipas", "Tlaxcala", "Guerrero", "Puebla", "Mexico",
                         "San Luis Potosi", "Morelos", 
                         "Veracruz de Ignacio de la Llave", "Hidalgo") ~ "Serrano",
            state %in% c("Baja California Sur", "Aguascalientes", "Durango", 
                         "Guanajuato") ~ "Poblano",
-           state %in% c("Zacatecas", "Sinaloa") ~ "Morrón",
+           state %in% c("Zacatecas", "Sinaloa") ~ "Morr?n",
            state %in% c("Oaxaca", "Yucatan") ~ "Various",
            state == "Distrito Federal" ~ "Other"),
          Scoville = case_when(
-           chili == "Jalapeño" ~ 3750,
+           chili == "Jalape?o" ~ 3750,
            chili == "Serrano" ~ 14000,
            chili == "Poblano" ~ 1500,
            chili == "Various" ~ 20000,
-           chili == "Morrón" ~ 0,
+           chili == "Morr?n" ~ 0,
            TRUE ~ 0))
 ```
 ```{r}
@@ -68,11 +69,10 @@ Wow, gotta love those fonts.^['Jicama' (title) can be seen [here](https://www.da
 <br> 
 Ok, so d3 accepts geoJSON. We can create that with the [geojsonio](https://github.com/ropensci/geojsonio) package. Let's trim the data down to exactly what we need and nothing more. 
 
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
 ```{r, results='asis'}
-#library(geojsonio)
 mex <- select(mex, state, chili, Scoville, geometry)
-#geojson_write(mex, file = "mx.json")
-library(jsonlite)
 
 send_df_to_js <- function(df){
   cat(
@@ -87,8 +87,10 @@ send_df_to_js <- function(df){
 send_df_to_js(mex)
 
 ```
-
+<div id = "viz"></div> 
 ```{js}
+var mexico = d3.select("#viz").append("p").text("Mouseover some data to see pepper heat!");
+
 var path = d3.geoPath();
 
 d3.json("mx.json", function(error, mx) {

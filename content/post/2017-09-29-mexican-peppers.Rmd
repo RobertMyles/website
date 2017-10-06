@@ -1,0 +1,105 @@
+---
+title: Mexican Peppers
+author: "Robert Myles McDonnell"
+date: '2017-09-29'
+slug: mexican-peppers
+categories: [R, d3, Mexico]
+description: "Having a look at Mexico's wonderful pepper heritage with R and d3."
+tags: []
+---
+
+I was having a look at [Mike Bostock's Municipalities of Mexico visualization](https://bl.ocks.org/mbostock/c57be63169694093cca028194068ea3b) when I thought it would be *so* cool to fill those municipalities with info on peppers and chiles and their various levels of hotness, all in nice pepper colours (I love spicy peppers!). Well, I wasn't quite able to get data on municipalities (if you know where I could get these data, please let me know), but I managed to scrape together some info on state-level pepper production, or at least the main pepper produced in each category.^[The sources were a combination of [here](http://www.sagarpa.gob.mx/Delegaciones/nayarit/boletines/Paginas/BNSAGENE052017.aspx), [here](http://www.mexconnect.com/pages/map) and [here](http://infosiap.siap.gob.mx/images/stories/infogramas/100705-monografia-chile.pdf).]  
+
+I used R's ggplot2 package (along with a few others) to quickly visualize the data^[The shapefiles are available from the urls in the bash script of Mike Bostock's image, linked to above.]. Here's the code, in case you'd like to recreate it:  
+
+```{r, message = FALSE, warning = FALSE, results='hide'}
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(extrafont)
+loadfonts()
+
+mex <-st_read("C://Users/robert.m.mcdonnell/Downloads/MexicoStates/Entidades_2010_5.shp") %>% 
+  mutate(state = as.character(NOM_ENT),
+         state_id = as.numeric(CVE_ENT),
+         state =  case_when(
+                         CVE_ENT == 15 ~ "Mexico",
+                         CVE_ENT == 16 ~ "Michoacan de Ocampo",
+                         CVE_ENT == 21 ~ "Queretaro",
+                         CVE_ENT == 24 ~ "San Luis Potosi",
+                         CVE_ENT == 19 ~ "Nuevo Leon",
+                         CVE_ENT == 31 ~ "Yucatan",
+                         TRUE ~ state),
+         chili = case_when(
+           state %in% c("Baja California", "Chihuahua", "Nuevo Leon",
+                        "Coahuila de Zaragoza", "Nayarit", "Quintana Roo",
+                        "Campeche", "Chiapas", "Michoacan de Ocampo", "Jalisco",
+                        "Colima", "Sonora", "Tabasco", "Queretaro") ~ "Jalapeño",
+           state %in% c("Tamaulipas", "Tlaxcala", "Guerrero", "Puebla", "Mexico",
+                        "San Luis Potosi", "Morelos", 
+                        "Veracruz de Ignacio de la Llave", "Hidalgo") ~ "Serrano",
+           state %in% c("Baja California Sur", "Aguascalientes", "Durango", 
+                        "Guanajuato") ~ "Poblano",
+           state %in% c("Zacatecas", "Sinaloa") ~ "Morrón",
+           state %in% c("Oaxaca", "Yucatan") ~ "Various",
+           state == "Distrito Federal" ~ "Other"),
+         Scoville = case_when(
+           chili == "Jalapeño" ~ 3750,
+           chili == "Serrano" ~ 14000,
+           chili == "Poblano" ~ 1500,
+           chili == "Various" ~ 20000,
+           chili == "Morrón" ~ 0,
+           TRUE ~ 0))
+```
+```{r}
+ggplot(mex) +
+  geom_sf(aes(fill = Scoville)) +
+  scale_fill_continuous(low = "#6EB394", high = "#CB0F17") + 
+  theme_minimal() + 
+  labs(title = "Pepper Production", subtitle = "Main pepper produced in state") +
+  theme(text = element_text(family = "Mayan"),
+        plot.title = element_text(family = "JICAMA ", size = 24),
+        plot.subtitle = element_text(family = "JICAMA ", size = 12),
+        axis.text = element_blank())
+```
+
+<br>
+Wow, gotta love those fonts.^['Jicama' (title) can be seen [here](https://www.dafont.com/pt/jicama.font) and 'Mayan' (legend) [here](https://www.dafont.com/mayan2.font)] Trying to include the state name and variety of pepper in a ggiraph tooltip just didn't work though. And if ggiraph didn't work, forget about plotly. Time to move to d3.  
+<br> 
+Ok, so d3 accepts geoJSON. We can create that with the [geojsonio](https://github.com/ropensci/geojsonio) package. Let's trim the data down to exactly what we need and nothing more. 
+
+```{r, results='asis'}
+#library(geojsonio)
+mex <- select(mex, state, chili, Scoville, geometry)
+#geojson_write(mex, file = "mx.json")
+library(jsonlite)
+
+send_df_to_js <- function(df){
+  cat(
+    paste(
+    '<script>
+      var data = ',toJSON(df),';
+    </script>'
+    , sep="")
+  )
+}
+
+send_df_to_js(mex)
+
+```
+
+```{js}
+var path = d3.geoPath();
+
+d3.json("mx.json", function(error, mx) {
+  if (error) throw error;
+
+  d3.select("#municipalities")
+      .datum(topojson.feature(mx, mx.objects.municipalities))
+      .attr("d", path);
+
+  d3.select("#states")
+      .datum(topojson.feature(mx, mx.objects.states))
+      .attr("d", path);
+});
+``

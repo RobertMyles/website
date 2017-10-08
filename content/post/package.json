@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "d3-geo": "^1.6.4",
+    "ndjson-cli": "^0.3.1",
+    "shapefile": "^0.6.5",
+    "topojson-client": "^3.0.0",
+    "topojson-server": "^3.0.0",
+    "topojson-simplify": "^3.0.2"
+  }
+}

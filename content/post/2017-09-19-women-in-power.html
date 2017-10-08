@@ -1,0 +1,57 @@
+---
+title: Women in Power
+author: Robert Myles McDonnell
+date: '2017-09-19'
+slug: women-in-power
+categories: [ggplot2, R, visualization]
+tags: []
+draft: true
+---
+
+
+
+<pre class="r"><code>library(dplyr); library(readxl)</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.2</code></pre>
+<pre class="r"><code>columns &lt;- c(&quot;Country&quot;, &quot;Overall Index&quot;, &quot;Overall Rank&quot;,
+             &quot;Economic Participation &amp; Opportunity&quot;, &quot;Eco Rank&quot;,
+             &quot;Educational Attainment&quot;, &quot;Edu Rank&quot;,
+             &quot;Health and Survival&quot;, &quot;Health Rank&quot;,
+             &quot;Political Empowerment&quot;, &quot;Poli Rank&quot;)
+df &lt;- read_excel(&quot;/Users/robert/Downloads/WEF_GGGR_Dataset_2016.xlsx&quot;, sheet = 2,
+                 skip = 3, col_names = columns)</code></pre>
+<pre class="r"><code>library(ggplot2); library(tidyr); library(extrafont)</code></pre>
+<pre><code>## Registering fonts with R</code></pre>
+<pre class="r"><code>#font_import()
+#loadfonts()
+
+df %&gt;% 
+   ggplot(aes(x = `Health and Survival`)) + 
+   geom_density()</code></pre>
+<p><img src="/post/2017-09-19-women-in-power_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>df %&gt;%
+  gather(key = &quot;Index Type&quot;, value = &quot;Value&quot;, `Economic Participation &amp; Opportunity`,
+         `Educational Attainment`, `Health and Survival`,
+         `Political Empowerment`) %&gt;% {
+           ggplot(., aes(x = Value, colour = `Index Type`)) +
+             geom_density() +
+             #geom_density(data = filter(., `Index Type` == &quot;Economic Participation and Opportunity&quot;)) +
+             #geom_density(data = filter(., `Index Type` == &quot;Educational Attainment&quot;)) +
+             #geom_density(data = filter(., `Index Type` == &quot;Health and Survival&quot;)) +
+             #geom_density(data = filter(., `Index Type` == &quot;Political Empowerment&quot;)) +
+             facet_wrap(~ `Index Type`, scales = &quot;fixed&quot;)
+         }</code></pre>
+<p><img src="/post/2017-09-19-women-in-power_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code>df %&gt;% 
+  gather(key = &quot;Index Type&quot;, value = &quot;Value&quot;, `Economic Participation &amp; Opportunity`,
+         `Educational Attainment`, `Health and Survival`,
+         `Political Empowerment`) %&gt;%
+  group_by(`Index Type`) %&gt;% 
+  summarise(mean = mean(Value)) %&gt;% 
+  ggplot(aes(x = reorder(as.factor(`Index Type`), mean), y = mean, fill = mean)) + 
+  geom_col(colour = &quot;#243B4A&quot;) + 
+  coord_flip() + theme_minimal() + 
+  scale_fill_continuous(high = &quot;#D3D0CB&quot;, low = &quot;#2D4654&quot;) +
+  theme(text = element_text(family = &quot;Slabo 27px&quot;, size = 14),
+        legend.position = &quot;none&quot;) + labs(x = NULL, y = NULL)</code></pre>
+<p><img src="/post/2017-09-19-women-in-power_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+<p>d3 click on category, shows countries. Or click on map, shows country details.</p>

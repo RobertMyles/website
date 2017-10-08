@@ -6,7 +6,11 @@ slug: mexican-peppers
 categories: [R, d3, Mexico]
 description: "Having a look at Mexico's wonderful pepper heritage with R and d3."
 tags: []
+draft: true
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache.lazy = TRUE)
+```
 
 I was having a look at [Mike Bostock's Municipalities of Mexico visualization](https://bl.ocks.org/mbostock/c57be63169694093cca028194068ea3b) when I thought it would be *so* cool to fill those municipalities with info on peppers and chiles and their various levels of hotness, all in nice pepper colours (I love spicy peppers!). Well, I wasn't quite able to get data on municipalities (if you know where I could get these data, please let me know), but I managed to scrape together some info on state-level pepper production, or at least the main pepper produced in each category.^[The sources were a combination of [here](http://www.sagarpa.gob.mx/Delegaciones/nayarit/boletines/Paginas/BNSAGENE052017.aspx), [here](http://www.mexconnect.com/pages/map) and [here](http://infosiap.siap.gob.mx/images/stories/infogramas/100705-monografia-chile.pdf).]  
 
@@ -16,51 +20,53 @@ I used R's ggplot2 package (along with a few others) to quickly visualize the da
 library(sf)
 library(dplyr)
 library(ggplot2)
-library(jsonlite)
+library(geojsonio)
 library(extrafont)
 loadfonts()
+library(stringi)
 
-mex <-st_read("C://Users/robert.m.mcdonnell/Downloads/MexicoStates/Entidades_2010_5.shp") %>% 
+mex <- st_read("../../data/MexicoStates/Entidades_2010_5.shp") %>% 
   mutate(state = as.character(NOM_ENT),
          state_id = as.numeric(CVE_ENT),
-         state =  case_when(
-                         CVE_ENT == 15 ~ "Mexico",
-                         CVE_ENT == 16 ~ "Michoacan de Ocampo",
-                         CVE_ENT == 21 ~ "Queretaro",
-                         CVE_ENT == 24 ~ "San Luis Potosi",
-                         CVE_ENT == 19 ~ "Nuevo Leon",
-                         CVE_ENT == 31 ~ "Yucatan",
-                         TRUE ~ state),
+         state = case_when(
+           state_id == 15 ~ "Mexico",
+           state_id == 16 ~ "Michoacan de Ocampo",
+           state_id == 22 ~ "Queretaro",
+           state_id == 24 ~ "San Luis Potosi",
+           state_id == 19 ~ "Nuevo Leon",
+           state_id == 31 ~ "Yucatan",
+           TRUE ~ state
+         ),
          chili = case_when(
            state %in% c("Baja California", "Chihuahua", "Nuevo Leon",
                         "Coahuila de Zaragoza", "Nayarit", "Quintana Roo",
                         "Campeche", "Chiapas", "Michoacan de Ocampo", "Jalisco",
-                        "Colima", "Sonora", "Tabasco", "Queretaro") ~ "Jalape?o",
+                        "Colima", "Sonora", "Tabasco", "Queretaro") ~ "Jalapeno",
            state %in% c("Tamaulipas", "Tlaxcala", "Guerrero", "Puebla", "Mexico",
                         "San Luis Potosi", "Morelos", 
                         "Veracruz de Ignacio de la Llave", "Hidalgo") ~ "Serrano",
            state %in% c("Baja California Sur", "Aguascalientes", "Durango", 
                         "Guanajuato") ~ "Poblano",
-           state %in% c("Zacatecas", "Sinaloa") ~ "Morr?n",
+           state %in% c("Zacatecas", "Sinaloa") ~ "Morron",
            state %in% c("Oaxaca", "Yucatan") ~ "Various",
            state == "Distrito Federal" ~ "Other"),
          Scoville = case_when(
-           chili == "Jalape?o" ~ 3750,
+           chili == "Jalapeno" ~ 3750,
            chili == "Serrano" ~ 14000,
            chili == "Poblano" ~ 1500,
            chili == "Various" ~ 20000,
-           chili == "Morr?n" ~ 0,
+           chili == "Morron" ~ 0,
            TRUE ~ 0))
 ```
-```{r}
+```{r, eval = T}
 ggplot(mex) +
   geom_sf(aes(fill = Scoville)) +
   scale_fill_continuous(low = "#6EB394", high = "#CB0F17") + 
   theme_minimal() + 
   labs(title = "Pepper Production", subtitle = "Main pepper produced in state") +
   theme(text = element_text(family = "Mayan"),
-        plot.title = element_text(family = "JICAMA ", size = 24),
-        plot.subtitle = element_text(family = "JICAMA ", size = 12),
+        plot.title = element_text(family = "JICAMA", size = 24),
+        plot.subtitle = element_text(family = "JICAMA", size = 12),
         axis.text = element_blank())
 ```
 
@@ -69,39 +75,85 @@ Wow, gotta love those fonts.^['Jicama' (title) can be seen [here](https://www.da
 <br> 
 Ok, so d3 accepts geoJSON. We can create that with the [geojsonio](https://github.com/ropensci/geojsonio) package. Let's trim the data down to exactly what we need and nothing more. 
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="d3.js"></script>
+```{bash, eval = F}
+mkdir -p build
+
+# Download.
+curl -z build/estados.zip -o build/estados.zip http://mapserver.inegi.org.mx/MGN/mge2010v5_0.zip
+#curl -z build/municipios.zip -o build/municipios.zip http://mapserver.inegi.org.mx/MGN/mgm2010v5_0.zip
+
+# Decompress.
+unzip -od build build/estados.zip
+#unzip -od build build/municipios.zip
+
+# Reproject to WGS84.
+#cd ~
+#cd website/data
+ogr2ogr build/states.shp build/Entidades_2010_5.shp -t_srs "+proj=longlat +ellps=WGS84 +no_defs +towgs84=0,0,0"
+#ogr2ogr MexicoStates/Entidades_2010_5.shp -t_srs "+proj=longlat +ellps=WGS84 +no_defs +towgs84=0,0,0"
+#ogr2ogr build/municipalities.shp build/Municipios_2010_5.shp -t_srs "+proj=longlat +ellps=WGS84 #+no_defs +towgs84=0,0,0"
+
+# shp2json - convert shapefiles to GeoJSON.
+# ndjson-map - map property names and coerce numeric properties.
+# geo2topo - convert GeoJSON to TopoJSON.
+# toposimplify - simplify TopoJSON.
+# topoquantize - quantize TopoJSON.
+geo2topo -n \
+  states=<(shp2json -n build/states.shp \
+    | ndjson-map 'd.properties = {state_code: +d.properties.CVE_ENT, state_name: d.properties.NOM_ENT}, d') \
+  | toposimplify -s 1e-7 \
+  | topoquantize 1e5 \
+  > mx.json
+```
+
 
 ```{r, results='asis'}
 mex <- select(mex, state, chili, Scoville, geometry)
 
 send_df_to_js <- function(df){
   cat(
-    paste(
+    paste0(
     '<script>
-      var data = ',toJSON(df),';
-    </script>'
-    , sep="")
+      var mex = ', geojson_json(df),';
+    </script>')
   )
 }
 
 send_df_to_js(mex)
 
 ```
+<!-- <svg width="960" height="600" fill="none" stroke="#333"> -->
+<!--   <path id="municipalities" stroke-width="0.2"></path> -->
+<!--   <path id="states"></path> -->
+<!-- </svg> -->
+<!-- <script src="https://unpkg.com/d3-array@1"></script> -->
+<!-- <script src="https://unpkg.com/d3-collection@1"></script> -->
+<!-- <script src="https://unpkg.com/d3-dispatch@1"></script> -->
+<!-- <script src="https://unpkg.com/d3-request@1"></script> -->
+<!-- <script src="https://unpkg.com/d3-selection@1"></script> -->
+<!-- <script src="https://unpkg.com/d3-geo@1"></script> -->
+<!-- <script src="https://unpkg.com/topojson-client@3"></script> -->
 <div id = "viz"></div> 
 ```{js}
+
 var mexico = d3.select("#viz").append("p").text("Mouseover some data to see pepper heat!");
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 900 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
-var path = d3.geoPath();
+var svg = d3.select("#viz")
+            .append("svg")
+            .attr("width", 960)
+            .attr("height", 600);
+            
+var projection = d3.geoMercator(),
+    path = d3.geoPath(projection);
 
-d3.json("mx.json", function(error, mx) {
-  if (error) throw error;
+projection.fitSize([960, 600], mex);
 
-  d3.select("#municipalities")
-      .datum(topojson.feature(mx, mx.objects.municipalities))
-      .attr("d", path);
-
-  d3.select("#states")
-      .datum(topojson.feature(mx, mx.objects.states))
-      .attr("d", path);
+d3.select("#states")
+  .data(mex)
+  .attr("d", path);
 });
-``
+```

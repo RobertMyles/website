@@ -6,10 +6,19 @@
     <description>Recent content in R on Robert Myles McDonnell</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Sep 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 24 Oct 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://robertmylesmcdonnell.netlify.com/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gauge-style plots with ggplot2</title>
+      <link>https://robertmylesmcdonnell.netlify.com/2017/10/24/gauge-style-plots-with-ggplot2/</link>
+      <pubDate>Tue, 24 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://robertmylesmcdonnell.netlify.com/2017/10/24/gauge-style-plots-with-ggplot2/</guid>
+      <description>I’ve been working on a project where the client wanted a “cockpit” style dashboard, with meter/gauge/speedometer type things. Even though this wasn’t likely to be implemented in R for the final version, I started thinking about how I could do this with ggplot2, influenced by some code from here. Base R graphics are likely a much better fit for something like this, as Gaston Sanchez’s example shows, but I actually quite like the result with ggplot2.</description>
+    </item>
     
     <item>
       <title>Inhaling/Boozing Earth</title>
@@ -31,7 +40,7 @@ So then I started thinking about something else that would be (kind of) similar 
       <description>This post got lost mysteriously when I transitioned to Netlify – just reposting. It was originally from June 2017.
 This post is a quickie to show how we can visualize the UK election results with just a few lines of R code. (Really, very few). 1
 We can load in our usual tidyverse tools, along with a handy little data package, parlitools.
-library(readr) library(dplyr) library(ggplot2) library(parlitools) library(sf) Thanks to this R Bloggers post, we have the data (the UK Electoral Commission must have it up by now anyway), so visualizing it is very easy:</description>
+library(readr)library(dplyr)library(ggplot2)library(parlitools)library(sf)Thanks to this R Bloggers post, we have the data (the UK Electoral Commission must have it up by now anyway), so visualizing it is very easy:</description>
     </item>
     
     <item>
@@ -87,7 +96,7 @@ I’m not too sure that the Human Capital Index is a reliable measure of what it
       
       <guid>https://robertmylesmcdonnell.netlify.com/2017/04/23/a-tale-of-two-eurozones/</guid>
       <description>This Guardian article on the prospective French President Macron got me thinking, especially this passage:
- France’s economic performance in recent years has been underwhelming, especially when compared to that of Germany. Fifteen years ago, the eurozone’s two biggest countries enjoyed comparable living standards. Today, Germany’s are almost a fifth higher than those in France. Likewise, at the time when euro notes and coins were introduced in 2002, French and German unemployment rates were both around 8%.</description>
+France’s economic performance in recent years has been underwhelming, especially when compared to that of Germany. Fifteen years ago, the eurozone’s two biggest countries enjoyed comparable living standards. Today, Germany’s are almost a fifth higher than those in France. Likewise, at the time when euro notes and coins were introduced in 2002, French and German unemployment rates were both around 8%.</description>
     </item>
     
     <item>
@@ -162,7 +171,7 @@ Since April or so of last year, I’ve had a personal website on GitHub pages, w
       
       <guid>https://robertmylesmcdonnell.netlify.com/2017/01/02/tips-and-tricks-for-r-markdown-html/</guid>
       <description>Here are a couple of little tips and tricks that I’ve picked up for use with RMarkdown html documents (including presentations and notebooks). This post is aimed at the R user who doesn’t know much, if anything, about html and css.
-Background images Sometimes it’s useful (or just nice) to have a background image of some sort in a presentation or notebook. This could be the logo of your university or company, for example.</description>
+Background imagesSometimes it’s useful (or just nice) to have a background image of some sort in a presentation or notebook. This could be the logo of your university or company, for example.</description>
     </item>
     
     <item>
@@ -210,7 +219,7 @@ So, what can we do with it?</description>
       <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</guid>
-      <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*  The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
+      <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
     </item>
     
     <item>
@@ -250,11 +259,11 @@ Perhaps the most straightforward way is to use rvest, in tandem with other packa
       
       <guid>https://robertmylesmcdonnell.netlify.com/2016/04/27/web-navigation-in-r-with-rselenium/</guid>
       <description>It goes almost without saying that the internet itself is the richest database available to us. From a 2014 blog post, it was claimed that every minute :
- Facebook users share nearly 2.5 million pieces of content.
- Twitter users tweet nearly 300,000 times.
- Instagram users post nearly 220,000 new photos.
- YouTube users upload 72 hours of new video content.
- Apple users download nearly 50,000 apps.</description>
+Facebook users share nearly 2.5 million pieces of content.
+Twitter users tweet nearly 300,000 times.
+Instagram users post nearly 220,000 new photos.
+YouTube users upload 72 hours of new video content.
+Apple users download nearly 50,000 apps.</description>
     </item>
     
     <item>

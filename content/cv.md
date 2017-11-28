@@ -15,7 +15,7 @@ date: "2016-05-05T21:48:51-07:00"
 
 ### Data Scientist, Avanade, São Paulo
 
-I currently work for Avanade in the São Paulo office. So far, I've been working on integrating R into larger applications, with Microsoft Azure and the .NET framework. I've also been improving my knowledge of Python, advanced R and linking things together with apps and APIs.  
+I currently work for Avanade in the São Paulo office. So far, I've been working on integrating R and Python into larger applications and creating business analytics solutions.  
 
 ### São Paulo City Council
 - 03/2017 — 07/2017
@@ -93,6 +93,7 @@ I have a very high level of writing ability, as I have shown in academic work th
 ## Other information
 - International experience: I have lived and worked or studied in Ireland, Belgium, the United States and Brazil.
 - Seminars / certifications: I have given academic presentations on my work and I have attended many short technical courses. The most recent one was on Agent-Based Models in Python and was given in USP by [Davoud Taghawi-Nejad](https://www.taghawi-nejad.de/). Others have been on time-series modelling by [Guy Whitten](https://pols.tamu.edu/about-us/faculty-directory/guy-d-whitten-professor/) of Texas A&M, game theory by [B. Peter Rosendorff](http://politics.as.nyu.edu/object/PeterRosendorff) of New York University, experiments in social science by [Paolo Spada](https://www.spadap.com/) and [Leonid Peisakhin](http://www.leonidpeisakhin.org/) of Yale University, and various software packages.
+- Online courses: I have taken many online courses, the most recent of which was Deep Learning by Andrew Ng. I have various certificates from Coursera and Data Camp in areas such as Machine Learning and Data Analysis. I have also a string interest in JavaScript and have taken many codeschool courses on its many flavours.  
 - Hobbies: I like to play music, write, read and blog, and I am involved in the creation and development of some R software packages. I have written a fictional novel, which I hope to publish in the future, and I have recorded an album of my music. I have a strong interest in political economic history and liberalism.
 
 &nbsp;

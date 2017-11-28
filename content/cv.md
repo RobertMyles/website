@@ -14,6 +14,7 @@ date: "2016-05-05T21:48:51-07:00"
 ## <i class="fa fa-history"></i> Professional History
 
 ### Data Scientist, Avanade, São Paulo
+- 08/2017 — Present
 
 I currently work for Avanade in the São Paulo office. So far, I've been working on integrating R and Python into larger applications and creating business analytics solutions.  
 

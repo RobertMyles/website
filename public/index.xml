@@ -6,10 +6,19 @@
     <description>Recent content on Robert Myles McDonnell</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 24 Oct 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://robertmylesmcdonnell.netlify.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Customize Interactive R Visuals in Power BI</title>
+      <link>https://robertmylesmcdonnell.netlify.com/2017/12/01/customize-interactive-r-visuals-in-power-bi/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://robertmylesmcdonnell.netlify.com/2017/12/01/customize-interactive-r-visuals-in-power-bi/</guid>
+      <description>Some of us, through no fault of our own, have to work with things like Power BI. While it’s a powerful application, it’s just a little…you know. For anybody who works with R, Python or JavaScript or anything like that, it just feels like closing the black box a bit, not to mention reproducibility problems. The good thing about Power BI is that you can hack at it a little, and we can get the majority of R’s graphing power into it.</description>
+    </item>
     
     <item>
       <title>Gauge-style plots with ggplot2</title>
@@ -299,7 +308,7 @@ Perhaps the most straightforward way is to use rvest, in tandem with other packa
       
       <guid>https://robertmylesmcdonnell.netlify.com/cv/</guid>
       <description>19/12/1980  +55 (11) 98282-8713  robertmylesmcdonnell@gmail.com &amp;nbsp; &amp;nbsp;
- Professional History Data Scientist, Avanade, São Paulo I currently work for Avanade in the São Paulo office. So far, I&amp;rsquo;ve been working on integrating R into larger applications, with Microsoft Azure and the .NET framework. I&amp;rsquo;ve also been improving my knowledge of Python, advanced R and linking things together with apps and APIs.
+ Professional History Data Scientist, Avanade, São Paulo  08/2017 — Present  I currently work for Avanade in the São Paulo office. So far, I&amp;rsquo;ve been working on integrating R and Python into larger applications and creating business analytics solutions.
 São Paulo City Council  03/2017 — 07/2017 São Paulo Position: Director of DIPROJ; Data Science &amp;amp; Analytics Administration  In the Secretaria da Fazenda, I headed a team responsible for making accurate forecasts of data on public spending.</description>
     </item>
     

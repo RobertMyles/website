@@ -2,4 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-public
+themes
+content
+static
+.DS_Store
+config.toml

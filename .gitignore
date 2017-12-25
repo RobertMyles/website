@@ -6,4 +6,8 @@ themes
 content
 static
 .DS_Store
-config.toml
+config.tom
+data
+netlify.toml
+index.Rmd
+website.Rproj

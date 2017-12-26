@@ -1,0 +1,1362 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        
+            
+                <title>Customize Interactive R Visuals in Power BI</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.25.1" />
+        
+
+
+        
+            <meta name="author" content="Robert Myles McDonnell">
+        
+        
+            <meta name="description" content="Quick guide to creating your own interactive R visuals in Power BI">
+        
+
+        
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:text:title" content="Customize Interactive R Visuals in Power BI"/>
+<meta name="twitter:title" content="Customize Interactive R Visuals in Power BI"/>
+<meta name="twitter:description" content="Quick guide to creating your own interactive R visuals in Power BI"/>
+<meta name="twitter:site" content="@RobertMylesMc"/>
+
+        <meta property="og:title" content="Customize Interactive R Visuals in Power BI" />
+<meta property="og:description" content="Quick guide to creating your own interactive R visuals in Power BI" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://robertmylesmcdonnell.netlify.com/2017/12/01/customize-interactive-r-visuals-in-power-bi/" />
+
+
+
+<meta property="article:published_time" content="2017-12-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2017-12-01T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta property="fb:admins" content="1213956375281226" />
+        
+<meta itemprop="name" content="Customize Interactive R Visuals in Power BI">
+<meta itemprop="description" content="Quick guide to creating your own interactive R visuals in Power BI">
+
+
+<meta itemprop="dateModified" content="2017-12-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1042">
+
+
+
+<meta itemprop="keywords" content="" />
+
+        
+
+        
+
+        
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="/css/google-font.css" />
+            <link rel="stylesheet" href="/css/font-awesome.min.css" />
+            <link rel="stylesheet" href="/css/main.css" />
+            <link rel="stylesheet" href="/css/add-on.css" />
+            <link rel="stylesheet" href="/css/monokai-sublime.css">
+        
+
+        
+
+        
+        
+        
+            
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-76482767-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+        
+    </head>
+    <body>
+
+        
+        <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+        <h2><a href="/">Home</i></a></h2>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/research/">
+                        
+                            <i class="fa fa-bar-chart">&nbsp;</i>Research
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/RobertMyles">
+                        
+                            <i class="fa fa-code">&nbsp;</i>GitHub
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/cv/">
+                        
+                            <i class="fa fa-file-o">&nbsp;</i>CV
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/post/">
+                        
+                            <i class="fa fa-newspaper-o">&nbsp;</i>Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                        About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                        Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/blogroll/">
+                        
+                            <i class="fa fa-bookmark-o">&nbsp;</i>Blogroll
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/other/">
+                        
+                            <i class="fa fa-music">&nbsp;</i>Other
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="q" value="site:https://robertmylesmcdonnell.netlify.com/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="q" value="site:https://robertmylesmcdonnell.netlify.com/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/research/">
+                            <h3>
+                                
+                                    <i class="fa fa-bar-chart">&nbsp;</i>
+                                
+                                Research
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/RobertMyles">
+                            <h3>
+                                
+                                    <i class="fa fa-code">&nbsp;</i>
+                                
+                                GitHub
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/cv/">
+                            <h3>
+                                
+                                    <i class="fa fa-file-o">&nbsp;</i>
+                                
+                                CV
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/post/">
+                            <h3>
+                                
+                                    <i class="fa fa-newspaper-o">&nbsp;</i>
+                                
+                                Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                
+                                About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                
+                                Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/blogroll/">
+                            <h3>
+                                
+                                    <i class="fa fa-bookmark-o">&nbsp;</i>
+                                
+                                Blogroll
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/other/">
+                            <h3>
+                                
+                                    <i class="fa fa-music">&nbsp;</i>
+                                
+                                Other
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/12/01/customize-interactive-r-visuals-in-power-bi/"><p>Customize Interactive R Visuals in Power BI</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/10/24/gauge-style-plots-with-ggplot2/"><p>Gauge-style plots with ggplot2</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/09/27/inhaling-boozing-earth/"><p>Inhaling/Boozing Earth</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/09/27/rating-r-packages/"><p>Rating R Packages</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/09/27/uk-elections-2017/"><p>UK ELECTIONS 2017</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/09/26/human-capital-index-maps/"><p>HUMAN CAPITAL INDEX MAPS</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/09/13/lil-packages-pt-2-cepr/"><p>Lil&#39; Packages Pt.2: cepR</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/09/07/lil-packages-pt-1/"><p>Lil&#39; Packages Pt.1: tidyRSS</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/07/28/analyzing-prison-data-in-r/"><p>Analyzing Prison Data in R</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="https://robertmylesmcdonnell.netlify.com/2017/06/02/causalimpact-healthcare-costs-in-the-us/"><p>CausalImpact &amp; Healthcare Costs in the US</p></a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f&text=Customize%20Interactive%20R%20Visuals%20in%20Power%20BI&via=RobertMylesMc" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f&title=Customize%20Interactive%20R%20Visuals%20in%20Power%20BI" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f&title=Customize%20Interactive%20R%20Visuals%20in%20Power%20BI" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f&title=Customize%20Interactive%20R%20Visuals%20in%20Power%20BI" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Robert%20Myles%20McDonnell&body=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+    <header>
+    <div class="title">
+        
+            <h1><a href="https://robertmylesmcdonnell.netlify.com/2017/12/01/customize-interactive-r-visuals-in-power-bi/">Customize Interactive R Visuals in Power BI</a></h1>
+            
+        
+        
+            <p>Quick guide to creating your own interactive R visuals in Power BI</p>
+        
+    </div>
+    <div class="meta">
+        
+            
+        
+
+        <time class="published"
+            datetime='2017-12-01'>
+            December 1, 2017</time>
+        <span class="author">Robert Myles McDonnell</span>
+        
+            <p>5 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+    <section id="social-share">
+        <ul class="icons">
+            
+
+
+<li><a href="//twitter.com/share?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f&text=Customize%20Interactive%20R%20Visuals%20in%20Power%20BI&via=RobertMylesMc" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f&title=Customize%20Interactive%20R%20Visuals%20in%20Power%20BI" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f&title=Customize%20Interactive%20R%20Visuals%20in%20Power%20BI" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f&title=Customize%20Interactive%20R%20Visuals%20in%20Power%20BI" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Robert%20Myles%20McDonnell&body=https%3a%2f%2frobertmylesmcdonnell.netlify.com%2f2017%2f12%2f01%2fcustomize-interactive-r-visuals-in-power-bi%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+    
+
+    <div id="content">
+        <p>Some of us, through no fault of our own, have to work with things like Power BI. While it’s a powerful application, it’s just a little…you know. For anybody who works with R, Python or JavaScript or anything like that, it just feels like closing the black box a bit, not to mention reproducibility problems. The good thing about Power BI is that you can hack at it a little, and we can get the majority of R’s graphing power into it. It’s actually pretty straightforward to do, the only tricky thing being when the plot doesn’t come out like you expected – then you’ll have to retrace some steps. But otherwise, all you need is some familiarity with the command line, and now that RStudio has a terminal built in, you’ve got no excuse!</p>
+<div id="step-1" class="section level3">
+<h3>Step 1</h3>
+<p>So first you need to download and install Node.js if you don’t have it already. The easiest thing is to download the installer from <a href="https://nodejs.org/en/download/" class="uri">https://nodejs.org/en/download/</a> for your operating system.</p>
+<p> </p>
+</div>
+<div id="step-2" class="section level3">
+<h3>Step 2</h3>
+<p>Now you can install the Power BI command line tools. Here Power BI gets moderately interesting! In your terminal, type <code>npm install -g powerbi-visuals-tools</code>. You can check it worked with the command <code>pbiviz</code>. It should print this:</p>
+<pre><code>$ pbiviz
+
+     +syyso+/
+    oms/+osyhdhyso/
+    ym/       /+oshddhys+/
+    ym/              /+oyhddhyo+/
+    ym/                     /osyhdho
+    ym/                           sm+
+    ym/               yddy        om+
+    ym/         shho /mmmm/       om+
+     /    oys/ +mmmm /mmmm/       om+
+    oso  ommmh +mmmm /mmmm/       om+
+   ymmmy smmmh +mmmm /mmmm/       om+
+   ymmmy smmmh +mmmm /mmmm/       om+
+   ymmmy smmmh +mmmm /mmmm/       om+
+   +dmd+ smmmh +mmmm /mmmm/       om+
+         /hmdo +mmmm /mmmm/ /so+//ym/
+               /dmmh /mmmm/ /osyhhy/
+                 //   dmmd
+                       ++
+
+       PowerBI Custom Visual Tool
+
+
+
+  Usage: pbiviz [options] [command]
+
+
+  Commands:
+
+    new [name]        Create a new visual
+    info              Display info about the current visual
+    start             Start the current visual
+    package           Package the current visual into a pbiviz file
+    validate [path]   Validate pbiviz file for submission
+    update [version]  Updates the api definitions and schemas in the current visual. Changes
+the version if specified
+    help [cmd]        display help for [cmd]
+
+  Options:
+
+    -h, --help      output usage information
+    -V, --version   output the version number
+    --install-cert  Install localhost certificate</code></pre>
+<p> </p>
+</div>
+<div id="step-3" class="section level3">
+<h3>Step 3</h3>
+<p>Now we can create our custom R visual. First, create a new folder where you can put all of these visuals (not necessary, just handy), and move there with the command line.<br />
+Now we can create the R template. From this, we only need to change the R code and a few small things to get our own customized interactive R visual. To create the template, type <code>pbiviz new sampleRHTMLVisual -t rhtml</code> in the terminal. This should create a folder, ‘SampleRHTMLVisual’. Inside it will be a bunch of files, and the majority of these we don’t need to touch.</p>
+<p> </p>
+</div>
+<div id="step-4" class="section level3">
+<h3>Step 4</h3>
+<p>There is one file that we need to change, <code>script.R</code>, which contains the R code used to create the R visual that Power BI will use. In this script, the data we use is called ‘Values’ (it will always be called ‘Values’, regardless of the original name of the dataset in Power BI – this is just a placeholder name that Power BI uses. This can be changed in the <code>capabilities.json</code> file, but I haven’t tested this, there may be other references to ‘Values’ elsewhere). This is a regular R script like any other, with some <a href="https://docs.microsoft.com/en-us/power-bi/service-r-packages-support#r-scripts-that-are-not-supported-in-power-bi">sandbox exceptions</a>. For example, I used the following code to create a boxplot for one variable:</p>
+<p> </p>
+<pre class="r"><code>source(&#39;./r_files/flatten_HTML.r&#39;)
+
+############### Library Declarations ###############
+libraryRequireInstall(&quot;ggplot2&quot;);
+libraryRequireInstall(&quot;plotly&quot;)
+####################################################
+
+################### Actual code ####################
+q &lt;- ggplot(Values, aes(y = dias_atraso, x = 1, label = dias_atraso)) +
+  geom_boxplot(colour = &quot;#A60822&quot;) + xlab(NULL) + ylab(NULL) + 
+  theme_minimal() + coord_flip() +
+  theme(axis.text.y = element_blank())
+####################################################
+
+############# Create and save widget ###############
+p = ggplotly(q, tooltip = c(&quot;label&quot;));
+internalSaveWidget(p, &#39;out.html&#39;)
+####################################################</code></pre>
+<p> </p>
+<p>The only parts I changed were the ‘Actual code’ part, and <code>tooltip = c(&quot;label&quot;)</code> in the call to <code>ggplotly()</code>. The rest came straight from the template.</p>
+<p>The result of this can be seen in the image below. The plot is interactive, and values are highlighted when the user passes the cursor above it. It’s a nice simple boxplot, in my opinion much better than the options for boxplots in Power BI, which also don’t allow you to make a boxplot with only one variable.</p>
+<p> </p>
+<div class="figure">
+<img src="C:/Users/robert.m.mcdonnell/Documents/Avanade_r_course/boxplot.png" />
+
+</div>
+<p> </p>
+</div>
+<div id="step-5" class="section level3">
+<h3>Step 5</h3>
+<p>On the command line, move to inside the SampleRHTMLVisual folder (<code>cd SampleRHTMLVisual</code>). Then type <code>pbiviz package</code> to build the visualization file.</p>
+<p> </p>
+</div>
+<div id="step-6" class="section level3">
+<h3>Step 6</h3>
+<p>This file (named <code>SampleRHTMLVisual.pbiviz</code>, you can find it in the ‘dists’ folder) can now be selected from Power BI with ‘Import a Custom Visual’ &gt; ‘Import from File’. There you go! Don’t forget, here we created a mega-simple little boxplot, but the method is the same for whatever you want to do. For example, if you wanted to use <code>rstan</code> to run a quick model and plot some results, the method is the same (will take a little longer to load, of course…).</p>
+<p> </p>
+</div>
+<div id="some-comments" class="section level2">
+<h2>Some Comments</h2>
+<p>These visualizations can be a bit of work to debug – if something goes wrong, you will need to:</p>
+<p>A - remove the visual and delete the imported custom visual from the sidebar<br />
+B - correct the R code<br />
+C - build the package again<br />
+D - import the new visual into Power BI.</p>
+<p>The above ‘template’ approach works the first time, but if you repeat it you will have two SampleRHTMLVisual folders. To avoid this, just copy and rename the template folder we created. After you rename it, you will need to replace the <code>name</code>, <code>displayName</code> and <code>guid</code> variables in <code>pbiviz.json</code>. For example:</p>
+<pre><code>&quot;name&quot;: &quot;sampleRHTMLVisual&quot;,
+&quot;displayName&quot;: &quot;sampleRHTMLVisual&quot;,
+&quot;guid&quot;: &quot;sampleRHTMLVisualD10B081869514400A096DAB09C8B2634&quot;</code></pre>
+<p>were renamed to:</p>
+<pre><code>&quot;name&quot;: &quot;boxplot&quot;,
+&quot;displayName&quot;: &quot;Box Plot&quot;,
+&quot;guid&quot;: &quot;boxplotlD10B081869514400A096DAB09C8B2634&quot;</code></pre>
+<p> </p>
+<p>You will also have to rename the references to the SampleRHTMLVisual folder in the <code>node_modules &gt; package.json</code> file.</p>
+<p> </p>
+<p>Having more than one of these visuals in your PowerBI workspace can also be confusing, as they will all have the same icon in the sidebar. You can change this by downloading an icon png file and resizing it to 20 x 20 pixels. Name this file <code>icon.png</code> and place it in the <code>assets</code> subfolder of your visual folder. For example, the icon I used for the boxplot is this (bigger version):</p>
+<div class="figure">
+<img src="C:/Users/robert.m.mcdonnell/Documents/Avanade_r_course/icon.png" />
+
+</div>
+<p>There are tutorials <a href="https://github.com/Microsoft/PowerBI-visuals">here</a> on building custom visualizations, including for R, based on the Typescript superset of JavaScript. Happy PoweR Bi-ing!</p>
+</div>
+
+    </div>
+
+    <footer>
+        <ul class="stats">
+    
+        
+
+        
+        
+            <li>
+                
+                
+                    
+
+                    
+
+                    
+
+                    
+                        Categories
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/r'>R</a></li>
+    
+        <li><a href='/categories/power-bi'>Power BI</a></li>
+    
+</ul>
+
+    </footer>
+</article>
+<ul class="actions pagination">
+    
+        <li><a href="https://robertmylesmcdonnell.netlify.com/2017/10/24/gauge-style-plots-with-ggplot2/"
+                class="button big previous">Gauge-style plots with ggplot2</a></li>
+    
+
+    
+</ul>
+
+
+
+    
+        <article class="post">
+            <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "rob-gitblog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </article>
+    
+
+
+    </div>
+    
+<section id="sidebar">
+
+    
+        <section id="intro">
+            
+            
+                
+                    <a href="/" class="logo"><img src="/images/pic1.jpg" alt="" /></a>
+                
+            
+            
+                <header>
+                    <h2>if(topic != junk) {write} else { wine }</h2>
+                    <p>by Robert Myles McDonnell</p>
+                </header>
+            
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/RobertMyles" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//linkedin.com/in/robert-mcdonnell-7475b320" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+<li><a href="//stackoverflow.com/users/4296028/robertmc" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/RobertMylesMc" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+<li><a href="mailto:robertmylesmcdonnell@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+                
+            </ul>
+        </section>
+
+    
+        <section id="recent-posts">
+            <ul class="posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/12/01/customize-interactive-r-visuals-in-power-bi/">Customize Interactive R Visuals in Power BI</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-12-01'>
+                                    December 1, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/10/24/gauge-style-plots-with-ggplot2/">Gauge-style plots with ggplot2</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-10-24'>
+                                    October 24, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/09/27/inhaling-boozing-earth/">Inhaling/Boozing Earth</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/09/27/rating-r-packages/">Rating R Packages</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/09/27/uk-elections-2017/">UK ELECTIONS 2017</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/09/26/human-capital-index-maps/">HUMAN CAPITAL INDEX MAPS</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-26'>
+                                    September 26, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/09/13/lil-packages-pt-2-cepr/">Lil&#39; Packages Pt.2: cepR</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-13'>
+                                    September 13, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/09/07/lil-packages-pt-1/">Lil&#39; Packages Pt.1: tidyRSS</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-07'>
+                                    September 7, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/07/28/analyzing-prison-data-in-r/">Analyzing Prison Data in R</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-07-28'>
+                                    July 28, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="https://robertmylesmcdonnell.netlify.com/2017/06/02/causalimpact-healthcare-costs-in-the-us/">CausalImpact &amp; Healthcare Costs in the US</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-06-02'>
+                                    June 2, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+
+                
+                    <li>
+                        <ul class="actions">
+                            <li><a href=
+                            
+                                /post/
+                            
+                            class="button">View more posts</a></li>
+                        </ul>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+    
+    
+    
+        <section id="categories">
+            <ul class="posts">
+                <header>
+                    <h3><a href="/categories/">Categories</a></h3>
+                </header>
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r/">R</a>
+                                <span style="float:right;">48</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-science/">Political Science</a>
+                                <span style="float:right;">6</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/bayesian-statistics/">Bayesian Statistics</a>
+                                <span style="float:right;">4</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/brazil/">Brazil</a>
+                                <span style="float:right;">4</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r-markdown/">R Markdown</a>
+                                <span style="float:right;">4</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/webscraping/">webscraping</a>
+                                <span style="float:right;">4</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ggplot2/">ggplot2</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/maps/">maps</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/carnaval/">Carnaval</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/communism/">Communism</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/github/">GitHub</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/hugo/">Hugo</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/irt/">IRT</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ideal-points/">Ideal Points</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/jags/">JAGS</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/osx/">OSX</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-economy/">Political Economy</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/selenium/">Selenium</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/stan/">Stan</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/tidyrss/">tidyRSS</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/causality/">Causality</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/eurozone/">Eurozone</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/france/">France</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/germany/">Germany</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/healthcare/">Healthcare</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/human-capital-index/">Human Capital Index</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/power-bi/">Power BI</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/prisons/">Prisons</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/uk/">UK</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/us/">US</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/booze/">booze</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/rss/">rss</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+            </ul>
+        </section>
+    
+
+    
+        
+
+    
+        <section id="footer">
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/RobertMyles" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//linkedin.com/in/robert-mcdonnell-7475b320" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+<li><a href="//stackoverflow.com/users/4296028/robertmc" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/RobertMylesMc" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+<li><a href="mailto:robertmylesmcdonnell@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+                
+            </ul>
+
+            <p class="copyright">&copy; Robert Myles McDonnell. Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a>. Ported by <a href="//github.com/jpescador" target="_blank">Julio Pescador</a>. Powered by <a href="//gohugo.io" target="_blank">Hugo</a></p>
+        </section>
+
+</section>
+
+            </div>
+        <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+        
+
+        
+        
+            
+        
+
+        
+        
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/skel.min.js"></script>
+            <script src="/js/util.js"></script>
+            <script src="/js/main.js"></script>
+            <script src="/js/backToTop.js"></script>
+            <script src="/js/highlight.pack.js"></script>
+        
+
+        
+
+            
+            <script>hljs.initHighlightingOnLoad();</script>
+            
+    </body>
+</html>
+

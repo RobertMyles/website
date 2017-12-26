@@ -31,15 +31,6 @@ I’m not too sure that the Human Capital Index is a reliable measure of what it
     </item>
     
     <item>
-      <title>Peace, Bread and Data!</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/02/19/peace-bread-and-data/</link>
-      <pubDate>Sun, 19 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/02/19/peace-bread-and-data/</guid>
-      <description>I really like this image by Tom Burns.1 The liberal2 in me appreciates making cheap fun of people who were horribly mistaken (Lenin; Marx, although I don’t mean to slight his contributions to social science), scum like Stalin, and Fidel Castro, who might have started out with a laudable takedown of a corrupt dictator, but who then became…a corrupt dictator, of course. The artist in me just loves the awesome colours.</description>
-    </item>
-    
-    <item>
       <title>How to make a GitHub pages blog with RStudio and Hugo</title>
       <link>https://robertmylesmcdonnell.netlify.com/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/</link>
       <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
@@ -47,25 +38,6 @@ I’m not too sure that the Human Capital Index is a reliable measure of what it
       <guid>https://robertmylesmcdonnell.netlify.com/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/</guid>
       <description>Update: for some people who may have some issues setting up the blog the way I’ve set out here, see Kate’s helpful comments below.
 Since April or so of last year, I’ve had a personal website on GitHub pages, where I keep this blog and a few other things. Setting it up was at times frustrating, but a good learning process (I especially picked up a lot of Git through that experience).</description>
-    </item>
-    
-    <item>
-      <title>How to make a GitHub pages blog with RStudio and Hugo</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/</link>
-      <pubDate>Wed, 01 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/</guid>
-      <description>Update: for some people who may have some issues setting up the blog the way I’ve set out here, see Kate’s helpful comments below.
-Since April or so of last year, I’ve had a personal website on GitHub pages, where I keep this blog and a few other things. Setting it up was at times frustrating, but a good learning process (I especially picked up a lot of Git through that experience).</description>
-    </item>
-    
-    <item>
-      <title>Ranking Brad Pitt’s Movies in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html</link>
-      <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html</guid>
-      <description>So I saw this blog post, in which Pretty Famous ranked every one of Brad Pitt’s movies (I have no idea how I came across it, I’m not particularly a movie buff or a fan of Señor Pitt, but anyway). Then I wondered how easy/hard it would be to do something like that in R. Pretty Famous used a few sources, but here I’m going to stick to Rotten Tomatoes, since it’s a pretty well-known movie ratings site, maybe the most well-known.</description>
     </item>
     
     <item>
@@ -88,41 +60,12 @@ We’re going to be using Stan to make theme-specific ideal points for members o
     </item>
     
     <item>
-      <title>Theme-Specific Voting in the European Parliament</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/10/20/theme-specific-voting-in-the-european-parliament/</link>
-      <pubDate>Thu, 20 Oct 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/10/20/theme-specific-voting-in-the-european-parliament/</guid>
-      <description>Since it’s European Statistics Day, I thought I would make a quick post showing how to utilise some of the data that we have on the European Union in R. In particular, I will use European Parliament voting data from Simon Hix’s website. The data is freely available, so by copying and pasting the code below, you will be able to recreate the analysis I’ve done here.
-We’re going to be using Stan to make theme-specific ideal points for members of the European Parliament.</description>
-    </item>
-    
-    <item>
       <title>Re-creating Plots from The Economist in R and ggplot2</title>
       <link>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</link>
       <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</guid>
       <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*  The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
-    </item>
-    
-    <item>
-      <title>Re-creating Plots from The Economist in R and ggplot2</title>
-      <link>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</link>
-      <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</guid>
-      <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*  The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
-    </item>
-    
-    <item>
-      <title>Geo-reference an image in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/08/13/geo-reference-an-image-in-r/</link>
-      <pubDate>Sat, 13 Aug 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/08/13/geo-reference-an-image-in-r/</guid>
-      <description>R is actually great for working with spatial data (for example, see here and here for fantastic graphs and maps made with R), however, you often need data that is actually spatial to get started! What do you do if you have an image, a map, let’s say, that is not geo-referenced in any way?
-The regular answer to this problem is to use software such as QGIS to manually enter GPS coordinates, with the help of Google Maps or something similar.</description>
     </item>
     
     <item>

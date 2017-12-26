@@ -22,26 +22,6 @@ Background images Sometimes it’s useful (or just nice) to have a background im
     </item>
     
     <item>
-      <title>Tips and Tricks for R Markdown html</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/01/02/tips-and-tricks-for-r-markdown-html/</link>
-      <pubDate>Mon, 02 Jan 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/01/02/tips-and-tricks-for-r-markdown-html/</guid>
-      <description>Here are a couple of little tips and tricks that I’ve picked up for use with RMarkdown html documents (including presentations and notebooks). This post is aimed at the R user who doesn’t know much, if anything, about html and css.
-Background images Sometimes it’s useful (or just nice) to have a background image of some sort in a presentation or notebook. This could be the logo of your university or company, for example.</description>
-    </item>
-    
-    <item>
-      <title>Write your thesis or paper in R Markdown!</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</link>
-      <pubDate>Fri, 15 Apr 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</guid>
-      <description>There are many reasons why you would want to use some variant of Markdown for writing, and indeed, posts are common on the net as to why you should.1 A simple summary of the reasons are that Markdown is: 1) easy; 2) easy; 3) yup, you guessed it – it’s easy.
-One variant of Markdown is R Markdown, developed by the RStudio team, and in particular the genius that is Yihui Xie, creator of the knitr R package.</description>
-    </item>
-    
-    <item>
       <title>Write your thesis or paper in R Markdown!</title>
       <link>https://robertmylesmcdonnell.netlify.com/2016/04/15/write-your-thesis-or-paper-in-r-markdown/</link>
       <pubDate>Fri, 15 Apr 2016 00:00:00 +0000</pubDate>

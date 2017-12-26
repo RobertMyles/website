@@ -22,16 +22,6 @@ We’re going to be using Stan to make theme-specific ideal points for members o
     </item>
     
     <item>
-      <title>Theme-Specific Voting in the European Parliament</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/10/20/theme-specific-voting-in-the-european-parliament/</link>
-      <pubDate>Thu, 20 Oct 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/10/20/theme-specific-voting-in-the-european-parliament/</guid>
-      <description>Since it’s European Statistics Day, I thought I would make a quick post showing how to utilise some of the data that we have on the European Union in R. In particular, I will use European Parliament voting data from Simon Hix’s website. The data is freely available, so by copying and pasting the code below, you will be able to recreate the analysis I’ve done here.
-We’re going to be using Stan to make theme-specific ideal points for members of the European Parliament.</description>
-    </item>
-    
-    <item>
       <title>Map-making with R and electionsBR</title>
       <link>https://robertmylesmcdonnell.netlify.com/2016/10/09/map-making-with-r-and-electionsbr/</link>
       <pubDate>Sun, 09 Oct 2016 00:00:00 +0000</pubDate>
@@ -39,25 +29,6 @@ We’re going to be using Stan to make theme-specific ideal points for members o
       <guid>https://robertmylesmcdonnell.netlify.com/2016/10/09/map-making-with-r-and-electionsbr/</guid>
       <description>For those interested in Brazilian politics, there’s a great new package called electionsBR (those who understand Portuguese can find a post on it here). This package takes data from the Tribunal Superior Eleitoral and makes it available in a tidy format for users of R. Given my recent obsession with map-making, I think it’s only natural I’d want to make maps of Brazil with this package.1
 So, what can we do with it?</description>
-    </item>
-    
-    <item>
-      <title>Map-making with R and electionsBR</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/10/09/map-making-with-r-and-electionsbr/</link>
-      <pubDate>Sun, 09 Oct 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/10/09/map-making-with-r-and-electionsbr/</guid>
-      <description>For those interested in Brazilian politics, there’s a great new package called electionsBR (those who understand Portuguese can find a post on it here). This package takes data from the Tribunal Superior Eleitoral and makes it available in a tidy format for users of R. Given my recent obsession with map-making, I think it’s only natural I’d want to make maps of Brazil with this package.1
-So, what can we do with it?</description>
-    </item>
-    
-    <item>
-      <title>Stan or JAGS for Bayesian ideal-point IRT?</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</link>
-      <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</guid>
-      <description>Anybody who has ever tried to run even a moderately-sized Bayesian IRT model in R (for ideal points as in the political science literature, or otherwise) will know that these models can take a long time. It’s not R’s fault: these are usually big models with lots of parameters, and naturally take longer.1 Not to mention the fact that Bayesian computation is more computationally intense than other methods. Historically (okay, I’m talking about the last twenty years, maybe ‘historically’ is a little strong), the sampling software BUGS (Bayesian Inference Using Gibbs Sampling) and then JAGS were used to run Bayesian models (JAGS is still pretty common, and BUGS too, though not as much).</description>
     </item>
     
     <item>

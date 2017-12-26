@@ -21,15 +21,5 @@
 The regular answer to this problem is to use software such as QGIS to manually enter GPS coordinates, with the help of Google Maps or something similar.</description>
     </item>
     
-    <item>
-      <title>Geo-reference an image in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/08/13/geo-reference-an-image-in-r/</link>
-      <pubDate>Sat, 13 Aug 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/08/13/geo-reference-an-image-in-r/</guid>
-      <description>R is actually great for working with spatial data (for example, see here and here for fantastic graphs and maps made with R), however, you often need data that is actually spatial to get started! What do you do if you have an image, a map, let’s say, that is not geo-referenced in any way?
-The regular answer to this problem is to use software such as QGIS to manually enter GPS coordinates, with the help of Google Maps or something similar.</description>
-    </item>
-    
   </channel>
 </rss>

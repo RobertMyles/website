@@ -2,12 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-themes
-content
 static
 .DS_Store
-config.toml
 data
-netlify.toml
 index.Rmd
 website.Rproj

@@ -21,24 +21,6 @@
     </item>
     
     <item>
-      <title>Ranking Brad Pitt’s Movies in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html</link>
-      <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html</guid>
-      <description>So I saw this blog post, in which Pretty Famous ranked every one of Brad Pitt’s movies (I have no idea how I came across it, I’m not particularly a movie buff or a fan of Señor Pitt, but anyway). Then I wondered how easy/hard it would be to do something like that in R. Pretty Famous used a few sources, but here I’m going to stick to Rotten Tomatoes, since it’s a pretty well-known movie ratings site, maybe the most well-known.</description>
-    </item>
-    
-    <item>
-      <title>Re-creating Plots from The Economist in R and ggplot2</title>
-      <link>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</link>
-      <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</guid>
-      <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*  The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
-    </item>
-    
-    <item>
       <title>Re-creating Plots from The Economist in R and ggplot2</title>
       <link>https://robertmylesmcdonnell.netlify.com/re-creating-plots-from-the-economist-in-r.html</link>
       <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>

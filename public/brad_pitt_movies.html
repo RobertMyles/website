@@ -58,7 +58,7 @@
 
 
 <meta itemprop="dateModified" content="2017-01-11T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1474">
+<meta itemprop="wordCount" content="1468">
 
 
 
@@ -519,27 +519,27 @@ tb_x &lt;- html_nodes(page, css = &quot;#filmographyTbl&quot;)
 tb &lt;- html_table(tb_x)
 movies &lt;- tb[[1]]
 head(movies)</code></pre>
-<pre><code>##         RATING                                  TITLE
-## 1 No Score Yet                               Ad Astra
-## 2 No Score Yet                          World War Z 2
-## 3          51%                            War Machine
-## 4          87%                     The Lost City of Z
-## 5 No Score Yet Brangelina : les raisons de la rupture
-## 6          60%                                 Allied
+<pre><code>##         RATING              TITLE
+## 1 No Score Yet           Ad Astra
+## 2 No Score Yet      World War Z 2
+## 3          53%        War Machine
+## 4          87% The Lost City of Z
+## 5          60%             Allied
+## 6          98%          Moonlight
 ##                                                                                                                                                                                                                                                                           CREDIT
 ## 1                                                                                                                                                                                                                                                                    Roy McBride
-## 2                                                                                                                                                                         Gerry Lane\n                                    \n                                            Producer
+## 2                                                                                                                       Producer\n                                                \n                                    \n                                            Gerry Lane
 ## 3 Gen. Stanley A. McChrystal\n                                    \n                                            Producer\n                                                \n                                    \n                                            Executive Producer
 ## 4                                                                                                                                                                                                                                                             Executive Producer
-## 5                                                                                                                                                                                                                                                                          Actor
-## 6                                                                                                                                                                                                                                                                      Max Vatan
+## 5                                                                                                                                                                                                                                                                      Max Vatan
+## 6                                                                                                                                                                                                                                                             Executive Producer
 ##   BOX OFFICE YEAR
 ## 1          — 2019
-## 2          — 2017
+## 2          — 2018
 ## 3          — 2017
 ## 4      $8.6M 2017
-## 5          — 2017
-## 6     $40.1M 2016</code></pre>
+## 5     $40.1M 2016
+## 6     $27.9M 2016</code></pre>
 <p>Now we’ve got Mr. Pitt’s movies in a dataframe, with their rating, title, producer credits and year. Since anything with “No Score Yet” is not of particular use to us, let’s remove it. We also could do with changing “87%” to an actual number, i.e. 0.87, and we’ll take out the movies in which he had no acting role, and try to clean up all those spaces and new lines.</p>
 <pre class="r"><code>&#39;%ni%&#39; &lt;- Negate(&#39;%in%&#39;)
 movies &lt;- movies %&gt;%
@@ -566,7 +566,7 @@ ggplot(movies, aes(x = RATING)) +
 <p>(You can get the tomato image from <a href="http://static.tvtropes.org/pmwiki/pub/images/rotten_tomatoes_8290.jpg">here</a>. Convert it to png and strip out (most of) the white background using <a href="https://www.imagemagick.org/script/index.php">ImageMagick</a> – the command on a mac is <code>convert rotten_tomatoes.jpg -transparent white tomato.png</code>.)</p>
 <p>Not so bad! Got some not-so-greats, but quite a lot of highly rated movies. I’m surprised, actually. In fact the mean and median values are:</p>
 <pre class="r"><code>mean(movies$RATING)</code></pre>
-<pre><code>## [1] 0.6528571</code></pre>
+<pre><code>## [1] 0.6532653</code></pre>
 <pre class="r"><code>median(movies$RATING)</code></pre>
 <pre><code>## [1] 0.7</code></pre>
 <p>I wonder if his movies have gotten better? I was always under the impression that Brad Pitt was an actor who, like Leonardo DiCaprio, actually learned to act over time, instead of already being a talented actor when he started. Fair credit to them, though, they could have just rested on their laurels after they first became famous.</p>
@@ -706,8 +706,8 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
     
 
     
-        <li><a href="https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html"
-                class="button big next">Ranking Brad Pitt’s Movies in R</a></li>
+        <li><a href="https://robertmylesmcdonnell.netlify.com/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/"
+                class="button big next">How to make a GitHub pages blog with RStudio and Hugo</a></li>
     
 </ul>
 
@@ -1015,7 +1015,7 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
                         <article>
                             <header>
                                 <a href="/categories/r/">R</a>
-                                <span style="float:right;">48</span>
+                                <span style="float:right;">29</span>
                             </header>
                         </article>
                     </li>
@@ -1024,51 +1024,6 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
                         <article>
                             <header>
                                 <a href="/categories/political-science/">Political Science</a>
-                                <span style="float:right;">6</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/bayesian-statistics/">Bayesian Statistics</a>
-                                <span style="float:right;">4</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/brazil/">Brazil</a>
-                                <span style="float:right;">4</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/r-markdown/">R Markdown</a>
-                                <span style="float:right;">4</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/webscraping/">webscraping</a>
-                                <span style="float:right;">4</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/ggplot2/">ggplot2</a>
                                 <span style="float:right;">3</span>
                             </header>
                         </article>
@@ -1086,107 +1041,53 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
                     <li>
                         <article>
                             <header>
+                                <a href="/categories/bayesian-statistics/">Bayesian Statistics</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/brazil/">Brazil</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r-markdown/">R Markdown</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ggplot2/">ggplot2</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/webscraping/">webscraping</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
                                 <a href="/categories/carnaval/">Carnaval</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/communism/">Communism</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/github/">GitHub</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/hugo/">Hugo</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/irt/">IRT</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/ideal-points/">Ideal Points</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/jags/">JAGS</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/osx/">OSX</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/political-economy/">Political Economy</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/selenium/">Selenium</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/stan/">Stan</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/tidyrss/">tidyRSS</a>
-                                <span style="float:right;">2</span>
+                                <span style="float:right;">1</span>
                             </header>
                         </article>
                     </li>
@@ -1195,6 +1096,15 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
                         <article>
                             <header>
                                 <a href="/categories/causality/">Causality</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/communism/">Communism</a>
                                 <span style="float:right;">1</span>
                             </header>
                         </article>
@@ -1230,6 +1140,15 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
                     <li>
                         <article>
                             <header>
+                                <a href="/categories/github/">GitHub</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
                                 <a href="/categories/healthcare/">Healthcare</a>
                                 <span style="float:right;">1</span>
                             </header>
@@ -1239,7 +1158,61 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
                     <li>
                         <article>
                             <header>
+                                <a href="/categories/hugo/">Hugo</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
                                 <a href="/categories/human-capital-index/">Human Capital Index</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/irt/">IRT</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ideal-points/">Ideal Points</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/jags/">JAGS</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/osx/">OSX</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-economy/">Political Economy</a>
                                 <span style="float:right;">1</span>
                             </header>
                         </article>
@@ -1258,6 +1231,24 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
                         <article>
                             <header>
                                 <a href="/categories/prisons/">Prisons</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/selenium/">Selenium</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/stan/">Stan</a>
                                 <span style="float:right;">1</span>
                             </header>
                         </article>
@@ -1294,6 +1285,15 @@ all_actors &lt;- full_join(all_actors, movies) %&gt;%
                         <article>
                             <header>
                                 <a href="/categories/rss/">rss</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/tidyrss/">tidyRSS</a>
                                 <span style="float:right;">1</span>
                             </header>
                         </article>

@@ -22,25 +22,6 @@
     </item>
     
     <item>
-      <title>Bayesian IRT in R and Stan</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/05/21/bayesian-irt-in-r-and-stan/</link>
-      <pubDate>Sat, 21 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/05/21/bayesian-irt-in-r-and-stan/</guid>
-      <description>The code below on Stan is also available as an RPub webpage, if you’d rather work through the examples than read all of the post.
- One of the first areas where Bayesian modelling gained an entry point into the social sciences (and in particular political science) was in the area of legislator ideal points, with the use of the Item-Response Theory (IRT) models from the educational testing literature in psychology.</description>
-    </item>
-    
-    <item>
-      <title>Bayesian Stats -- Book Recommendations</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/05/03/bayesian-stats----book-recommendations/</link>
-      <pubDate>Tue, 03 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/05/03/bayesian-stats----book-recommendations/</guid>
-      <description>The first time I came across Bayes’ Theorem1, I must admit I was pretty confused. It was in Introductory Statistics by Neil A. Weiss, the course book in a statistics course I was taking at the time. Neither the logic of it nor the formula for it made much sense to me. For somebody new to probability, I was still trying to figure out what the hell \(P(A)\) actually meant.</description>
-    </item>
-    
-    <item>
       <title>Bayesian Stats -- Book Recommendations</title>
       <link>https://robertmylesmcdonnell.netlify.com/2016/05/03/bayesian-stats----book-recommendations/</link>
       <pubDate>Tue, 03 May 2016 00:00:00 +0000</pubDate>

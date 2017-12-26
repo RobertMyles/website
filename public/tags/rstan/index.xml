@@ -21,15 +21,5 @@
 We’re going to be using Stan to make theme-specific ideal points for members of the European Parliament.</description>
     </item>
     
-    <item>
-      <title>Theme-Specific Voting in the European Parliament</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2016/10/20/theme-specific-voting-in-the-european-parliament/</link>
-      <pubDate>Thu, 20 Oct 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2016/10/20/theme-specific-voting-in-the-european-parliament/</guid>
-      <description>Since it’s European Statistics Day, I thought I would make a quick post showing how to utilise some of the data that we have on the European Union in R. In particular, I will use European Parliament voting data from Simon Hix’s website. The data is freely available, so by copying and pasting the code below, you will be able to recreate the analysis I’ve done here.
-We’re going to be using Stan to make theme-specific ideal points for members of the European Parliament.</description>
-    </item>
-    
   </channel>
 </rss>

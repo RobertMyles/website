@@ -20,14 +20,5 @@
       <description>So I saw this blog post, in which Pretty Famous ranked every one of Brad Pitt’s movies (I have no idea how I came across it, I’m not particularly a movie buff or a fan of Señor Pitt, but anyway). Then I wondered how easy/hard it would be to do something like that in R. Pretty Famous used a few sources, but here I’m going to stick to Rotten Tomatoes, since it’s a pretty well-known movie ratings site, maybe the most well-known.</description>
     </item>
     
-    <item>
-      <title>Ranking Brad Pitt’s Movies in R</title>
-      <link>https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html</link>
-      <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/brad_pitt_movies.html</guid>
-      <description>So I saw this blog post, in which Pretty Famous ranked every one of Brad Pitt’s movies (I have no idea how I came across it, I’m not particularly a movie buff or a fan of Señor Pitt, but anyway). Then I wondered how easy/hard it would be to do something like that in R. Pretty Famous used a few sources, but here I’m going to stick to Rotten Tomatoes, since it’s a pretty well-known movie ratings site, maybe the most well-known.</description>
-    </item>
-    
   </channel>
 </rss>

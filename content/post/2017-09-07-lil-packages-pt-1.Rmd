@@ -80,5 +80,5 @@ Topics <- data_frame(
 
 hw = wordcloud2(Topics)
 saveWidget(hw, "1_wc.html", selfcontained = F)
-webshot::webshot("1_wc.html", "1_wc.png", vwidth = 700, vheight = 500, delay =10)
+webshot::webshot("1_wc.html", "1_wc.png", vwidth = 700, vheight = 500, delay = 10)
 ```

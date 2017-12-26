@@ -20,14 +20,5 @@
       <description>This week I was working with some RSS feeds in R. You can parse these feeds directly with packages like XML or xml2, or use the rss package (not on CRAN) or the feedeR package (on CRAN). However, I noticed that both rss and feedeR return lists, which necessitates further work in R to get the data into a tidy format, and that both packages leave interesting data behind. With that in mind, I decided to make tidyRSS, a package for parsing these feeds and returning a tidy data frame to the user.</description>
     </item>
     
-    <item>
-      <title>Reflections on making my first R package</title>
-      <link>https://robertmylesmcdonnell.netlify.com/2017/02/25/reflections-on-making-my-first-r-package/</link>
-      <pubDate>Sat, 25 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://robertmylesmcdonnell.netlify.com/2017/02/25/reflections-on-making-my-first-r-package/</guid>
-      <description>This week I was working with some RSS feeds in R. You can parse these feeds directly with packages like XML or xml2, or use the rss package (not on CRAN) or the feedeR package (on CRAN). However, I noticed that both rss and feedeR return lists, which necessitates further work in R to get the data into a tidy format, and that both packages leave interesting data behind. With that in mind, I decided to make tidyRSS, a package for parsing these feeds and returning a tidy data frame to the user.</description>
-    </item>
-    
   </channel>
 </rss>

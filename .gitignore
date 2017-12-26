@@ -6,7 +6,7 @@ themes
 content
 static
 .DS_Store
-config.tom
+config.toml
 data
 netlify.toml
 index.Rmd

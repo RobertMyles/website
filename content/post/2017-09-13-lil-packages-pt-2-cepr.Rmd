@@ -1,0 +1,80 @@
+---
+title: "Lil' Packages Pt.2: cepR"
+author: "Robert Myles McDonnell"
+date: '2017-09-13'
+slug: lil-packages-pt-2-cepr
+categories: [R]
+tags: []
+---
+
+Part 2 of my Lil' Packages series takes a quick look at [cepR](https://github.com/RobertMyles/cepR), an R package for acessing and using Brazilian postal code data. Since Brazil (a) is huge, and (b) often lacks reliable data (or compatible data across databases of the same thing), the 'cep' (*Código de Endereçamento Postal*) is a useful way to join datasets or to use as a base for geographical analyses of Brazil. This package utilizes the marvellous [CEP Aberto API](http://cepaberto.com/), so it's thanks to their great work that I was able to bring it to R.^[Also thanks to Danilo Freire, who helped with the docs for cepR.]   
+
+## Why?
+
+My darling wife was doing some work that involved Brazilian municipalities, and it was kind of tedious, so she asked me for some help. I can't remember how exactly I ended up at CEP Aberto,^[Now that I think about it, she needed the name of every *bairro* (neighbourhood) in a certain state.] but I do remember that my R programmer brain immediately kicked in and I thought, 'there has to be some way to automate this'. Hence cepR.  
+
+## How did I do?  
+The package seems to have been a hit with Brazilian R users, it got an enthusiastic reception on a Brazilian R users Facebook group and it gets downloaded about 150 times a month, quite reasonable for something so specific! A couple of people contacted me with ideas and questions, so cepR seems to have been useful, and I'm glad it is.  
+
+## Using cepR 
+
+So, what we can do with this package? Well, first of all, you'll need to register (no charge) at the CEP Aberto website. You need to do this so you get a token, which you use in the package functions to retrieve the data (I've hidden mine here). Then, install the package:  
+
+```{r, eval = FALSE}
+install.packages("cepR")
+```
+```{r, echo=FALSE}
+token <- "2a7a713b02e8b45583e354ef1787314c"
+library(cepR)
+
+ubatuba <- busca_cidade(estado = "SP", cidade = "Ubatuba", token = token)
+Sys.sleep(3)
+porto_de_g <- busca_cidade(estado = "PE", cidade = "Ipojuca", token = token)
+Sys.sleep(3)
+itanhaem <- busca_cidade(estado = "SP", cidade = "Itanhaem", token = token)
+Sys.sleep(3)
+parati <- busca_cidade(estado = "RJ", cidade = "Parati", token = token)
+Sys.sleep(3)
+carneiros <- busca_cidade(estado = "PE", cidade = "Tamandare", token)
+Sys.sleep(3)
+extrema <- busca_cidade(estado = "MG", cidade = "Extrema", token = token)
+```
+
+You can do various things with the info from CEP Aberto, but since we all like maps, let's make one. I'll make one of some of the beaches I've visited while in Brazil, and one mountain region I went to when I foolishly decided to go rafting without knowing very much Portuguese ("Esquerda, esquerda!!", "What?"). First, let's get the data (you might want to leave a few seconds in between these calls to the API). Not all of these will be exact, for example, Porto de Galinhas is not a city, so the closest we have is Ipojuca (it does have a CEP though, but the API is still developing. Some parts of the country, like São Paulo state, have complete CEP codes for the entire state). Likewise, Tamandaré is *close* to Praia dos Carneiros (go here, it's paradise).  
+```{r, eval = F}
+library(cepR)
+
+ubatuba <- busca_cidade(estado = "SP", cidade = "Ubatuba", token = token)
+porto_de_g <- busca_cidade(estado = "PE", cidade = "Ipojuca", token = token)
+itanhaem <- busca_cidade(estado = "SP", cidade = "Itanhaem", token = token)
+parati <- busca_cidade(estado = "RJ", cidade = "Parati", token = token)
+carneiros <- busca_cidade(estado = "PE", cidade = "Tamandare", token)
+extrema <- busca_cidade(estado = "MG", cidade = "Extrema", token = token)
+```
+
+
+Okay, now we have our data, let's put them together and plot them all (even this little dataset shows the problems with geo-data in Brazil. 'Parati' is also spelled 'Paraty' -- you can see that it doesn't have an IBGE code (IBGE are the statistics office), whereas I bet 'Paraty' does). The version of ggplot2 used below is the development version (13th Sep 2017). which has `geom_sf()`. 
+
+```{r, message=FALSE}
+library(dplyr)
+library(ggplot2)
+library(rnaturalearth)
+library(png)
+
+brazil <- ne_countries(returnclass = "sf", country = "Brazil")
+beaches <- bind_rows(ubatuba, porto_de_g, itanhaem, parati, carneiros, extrema)
+
+ggplot(beaches) +
+  geom_sf(data = brazil, fill = "#009b3a") +
+  geom_point(aes(x = longitude, y = latitude), shape = 21, fill = "#fedf00", colour = "#002776", size = 4) +
+  theme_minimal() +
+  theme(axis.text = element_blank()) +
+  labs(x = NULL, y = NULL)
+
+```
+
+So that's where I've been! `r emo::ji("sunny")`.   
+
+<br> 
+
+If you actually have CEP codes, you can also use the package to search for details given the CEP code. 

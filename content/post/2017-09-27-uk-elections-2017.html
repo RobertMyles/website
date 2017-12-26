@@ -1,0 +1,43 @@
+---
+title: UK ELECTIONS 2017
+author: Robert Myles McDonnell
+date: '2017-09-27'
+slug: uk-elections-2017
+categories: [R, maps, UK]
+tags: []
+---
+
+
+
+<p><em>This post got lost mysteriously when I transitioned to Netlify – just reposting. It was originally from June 2017.</em></p>
+<p>This post is a quickie to show how we can visualize the UK election results with just a few lines of R code. (Really, very few). <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>We can load in our usual tidyverse tools, along with a handy little data package, <a href="https://github.com/EvanOdell/parlitools">parlitools</a>.</p>
+<pre class="r"><code>library(readr)
+library(dplyr)
+library(ggplot2)
+library(parlitools)
+library(sf)</code></pre>
+<p>Thanks to <a href="https://www.r-bloggers.com/uk-2017-general-election-results-data/">this R Bloggers post</a>, we have the data (the UK Electoral Commission must have it up by now anyway), so visualizing it is very easy:</p>
+<pre class="r"><code>results &lt;- read_csv(&quot;/Users/robert/Downloads/EconomistUK2017.csv&quot;)
+
+uk &lt;- west_hex_map
+
+res &lt;- inner_join(results, uk, by = c(&quot;Constituency.ID&quot; = &quot;gss_code&quot;)) %&gt;% 
+  filter(!is.na(win)) %&gt;% 
+  st_as_sf()
+
+
+ggplot(res) +
+  geom_sf(aes(fill = win), size = 0.2) +
+  theme_minimal() +
+  guides(fill = guide_legend(title = &quot;party&quot;)) +
+  scale_fill_manual(values = c(&quot;#006BA4&quot;, &quot;#800B05&quot;, &quot;#349B3A&quot;, &quot;#888888&quot;, &quot;#DB434E&quot;,
+                    &quot;#E8B335&quot;, &quot;#98B3D1&quot;, &quot;#60B031&quot;, &quot;#8DDC64&quot;,&quot;#FCDD02&quot;))</code></pre>
+<p><img src="/post/2017-09-27-uk-elections-2017_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Bam! Easy, quick and lovely 😄.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I’m using the dev version of ggplot2 here, we need it for <code>geom_sf()</code>.<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>

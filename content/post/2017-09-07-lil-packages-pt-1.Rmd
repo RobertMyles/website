@@ -1,0 +1,84 @@
+---
+title: "Lil' Packages Pt.1: tidyRSS"
+author: Robert Myles McDonnell
+date: '2017-09-07'
+slug: lil-packages-pt-1
+categories: [R, rss]
+tags: []
+---
+
+A couple of months ago, I got quite into making R packages. Well, I got specifically into making *little* R packages - that is, packages that basically do one thing, or are some type of wrapper for importing data from an API into R. I like these little packages. First of all, I think it's great when you don't have to trawl around the internet looking for data, only to find out it's .xlsx (`r emo::ji("angry")`). Much better to have a package do it for you. Anyway, I agree with Hadley Wickham that packages should do one thing (I can't remember *where* he wrote/said that, and I don't want to go searching the internet to find it...ah, if I only I had `Hadley_quote(search = "package")` ... hmmm, little package idea.) So anywayz, the next few blog posts are going to detail these little packages I made. We start with [tidyRSS](https://github.com/RobertMyles/tidyRSS).   
+
+### Why? 
+
+Why did I make tidyRSS? Two reasons -- I wanted to make a package (it was the first one I made by myself) and I noticed that the two existing packages that dealt with RSS feeds ([feeder](https://github.com/DataWookie/feedeR) and [rss](https://github.com/noahhl/r-does-rss)) returned lists, which usually need more processing before you can really do something with them (unless you're a purrr genius like [Jenny Bryan](https://jennybc.github.io/purrr-tutorial/)). So, with that, I started on tidyRSS.  
+
+### How did I do? 
+
+Well, it was a little bit of headache making the package. I quickly discovered that RSS feeds, particularly older ones, are regularly malformed. They're basically often a pain to work with. The first version of the package was heavy on dependencies and messy code, in attempt to capture all of the weird cases. It worked, but it wasn't pretty. I also borrowed from Noah and Andrew (authors of rss and feeder). This is problematic, because whenever you try to adapt somebody's code, you're also trying to get into their headspace when they wrote it, and follow their logic. I'm not saying there is anything wrong with Andrew or Noah's logic (there isn't!!), but it is often much easier in the long run to sit down and think through a problem yourself.  
+
+After I went through the slightly stressful process of checking and submitting (thanks to Hadley's great devtools package and really helpful [book](http://r-pkgs.had.co.nz/)), I submitted to CRAN and eventually got that lovely email where they tell me the package is on CRAN. Good days `r emo::ji("smile")`.  
+
+But of course, nothing is ever that simple. [Bob Rudis](https://github.com/hrbrmstr) kindly informed me of the many problems with my package, and with some tips from [Guilherme Duarte](https://github.com/duarteguilherme), I set about learning more of xml and Hadley's `xml2` package. With this, I was able to re-write the code and cut down on the dependencies, greatly improving the package. As of now, it's on version 1.2.2, and has support for xml RSS feeds, as well as JSON and Atom feeds. It's been downloaded 1400 times from CRAN and I've interacted with quite a few people because of it, through issues and emails, so it's been an enriching experience. 
+
+
+### Using tidyRSS
+
+So what can we do with tidyRSS? Well, given that the `tidyfeed()` function returns a dataframe, quite a lot. Let's grab some data from a feed. Here's I'll use [fivethirtyeight's](http://fivethirtyeight.com) feed. 
+```{r}
+library(tidyRSS)
+
+five38 <- tidyfeed("http://fivethirtyeight.com/all/feed")
+
+```
+
+I wonder how often they publish posts? Let's have a look:  
+
+```{r, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+five38 %>%
+  mutate(item_date = date(item_date_published)) %>% 
+  ggplot(aes(x = item_date)) +
+  geom_bar(colour = "#9E2A2B", fill = "#E09F3E") +
+  labs(x = NULL, y = NULL)
+```
+
+They seem to have had a slow start to the week this week. With tidyRSS, you could collect these data once or twice a week (maybe more) and make an interesting analysis over time (actually, I'd like to implement Conditional GETs, but I'm not sure how yet). 
+
+How about having a look at who posted most this week? 
+
+```{r}
+five38 %>%
+  group_by(item_creator) %>%
+  summarise(tally = n()) %>% 
+  ggplot(aes(x = reorder(as.factor(item_creator), tally), y = tally)) +
+  geom_bar(colour = "#655560", fill = "#A4969B", stat = "identity") +
+  labs(x = NULL, y = NULL) +
+  coord_flip()
+```
+
+And what do they post about? 
+
+```{r, warning=FALSE, message=FALSE}
+library(wordcloud2)
+library(htmlwidgets)
+
+topics <- five38$item_category1 %>% append(five38$item_category2) %>% 
+  append(five38$item_category3) %>% 
+  append(five38$item_category4) %>% 
+  append(five38$item_category5)
+
+Topics <- data_frame(
+  words = topics
+) %>% 
+  filter(!is.na(words)) %>% 
+  group_by(words) %>% 
+  tally()
+
+hw = wordcloud2(Topics)
+saveWidget(hw, "1_wc.html", selfcontained = F)
+webshot::webshot("1_wc.html", "1_wc.png", vwidth = 700, vheight = 500, delay =10)
+```

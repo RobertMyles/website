@@ -1,0 +1,101 @@
+---
+title: HUMAN CAPITAL INDEX MAPS
+author: Robert Myles McDonnell
+date: '2017-09-26'
+slug: human-capital-index-maps
+description: "MAPPING THE HUMAN CAPITAL INDEX VARIOUS WAYS IN R"
+categories: [R, maps, Human Capital Index]
+tags: [R, Human Capital Index]
+---
+
+*This post got lost mysteriously when I transitioned to Netlify -- just reposting. It was originally from June 2017.*  
+
+I’m not too sure that the [Human Capital Index](http://reports.weforum.org/human-capital-report-2016/rankings/) is a reliable measure of what it’s supposed to measure, but I’m convinced by [Deirdre McCloskey’s](http://deirdremccloskey.org/) eloquent arguments that it is Human Capital, or ingenuity, in less dry terms, that has made the modern world (in [conjunction with freedom and some basic legal structures](https://www.nytimes.com/2016/09/04/upshot/the-formula-for-a-richer-world-equality-liberty-justice.html)). However, all that interesting talk aside, there are now quite a few new ways to make maps in R. The [sf](https://github.com/edzer/sfr) package has synced up with the dev version of ggplot2 to produce `geom_sf()`, [tmaps](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html) brings some cool themes to ggplot maps and [mapmate](https://leonawicz.github.io/mapmate/mapmate.html) has been used to produce some stunning visualizations. Hence, I thought I’d use the HCI to check these out.
+
+```{r, message=FALSE}
+library(rvest)
+library(ggplot2)
+library(dplyr)
+
+hci <- read_html("http://reports.weforum.org/human-capital-report-2016/rankings/") %>%
+  html_node("table") %>% html_table() %>% 
+  rename(country = Economy, rank = `Overall Rank`, human_capital = `Overall Score`) %>% 
+  mutate(country = recode(country, 
+                          'Russian Federation' = 'Russia',
+                          'United Kingdom' = 'UK',
+                          'United States' = 'USA',
+                          'Korea, Rep.' = 'South Korea',
+                          'Kyrgyz Republic' = 'Kyrgyzstan',
+                          'Slovak Republic' = 'Slovakia',
+                          'Macedonia, FYR' = 'Macedonia',
+                          'Iran, Islamic Rep.' = 'Iran',
+                          'Trinidad and Tobago' = 'Trinidad',
+                          'Lao PDR' = 'Laos',
+                          'CÙte d’Ivoire' = 'Ivory Coast'))
+```
+  
+I used to make maps in ggplot style with shapefiles, fortify and so on. The upside is that there are lots of shapefiles [available](http://www.gadm.org/country), but the downsides are that the dataframes you end up with are usually pretty big. There’s a `map_data()` function in the ggplot2 package that grabs some polygon data. The vanilla map we can make with these functions looks like this (with `theme_minimal()` to prettify things):
+```{r, message=FALSE}
+globe <- map_data("world") %>% rename(country = region)
+
+
+world <- left_join(globe, hci)
+
+
+ggplot(data = world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = human_capital)) + 
+  theme_minimal()
+```
+
+Not bad. You can mess around with the projections using `coord_map()`, but it still feels a long way from Mike Bostock’s [amazing d3 maps](https://bl.ocks.org/mbostock) (I know, d3 is more geared towards presentation. Still...). Let's use `coord_map()`:   
+```{r}
+ggplot(data = world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = human_capital)) +
+  coord_map(projection = "gilbert") + 
+  theme_minimal()
+```
+
+```{r}
+ggplot(data = world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = human_capital)) +
+  coord_map(projection = "azequidistant") + 
+  theme_minimal()
+```
+
+
+So let’s try the sf method. I’m getting a dataset of world ‘geometry’ coordinates (a list-column in the sf dataframe) from the rnaturalearth package.
+
+```{r, message=FALSE}
+library(rnaturalearth)
+library(sf)
+
+countries <- ne_countries(returnclass = "sf") %>% 
+  rename(country = sovereignt) %>% 
+  select(country, geometry) %>% 
+  mutate(country = recode(country, 
+                          "United States of America" = "USA",
+                          "United Kingdom" = "UK")) %>% 
+  left_join(hci)
+
+ggplot(countries) + 
+  geom_sf(aes(fill = human_capital), size = 0.2) +
+  theme_minimal()
+``` 
+
+
+The sf map doesn’t look massively better than that created with `geom_polygon()` (it's much more in proportion, as I haven't changed figure sizes in this RMarkdown document), although the process feels more intuitive to me. The dataframe feels ‘tidier’, as it still has the country as the unit of analysis – in other words, the dataframe we’re using has 177 rows, as opposed to tens of thousands. Let’s try some themes with tmap.
+
+```{r, message=FALSE}
+library(tmap)
+
+tm_shape(countries) +
+    tm_polygons("human_capital", title="Human Capital Index") +
+tm_format_World() +
+tm_style_grey()
+```
+
+
+
+Ooh, that’s nice. The theme actually makes it easier to see what’s going on: the difference between Canada & the US was not so apparent before. (Canada’s score is 81.95 as opposed to 78.86 for the US...so precise, these numbers.)  
+
+So in terms of how things *look*, using this basic code, tmap comes out well. I don't really like its syntax though, it reminds me of `qplot()`. I prefer the full `ggplot()` approach myself. 

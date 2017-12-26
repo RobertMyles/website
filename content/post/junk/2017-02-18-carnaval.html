@@ -1,0 +1,254 @@
+---
+title: Carnaval!
+date: '2017-02-18'
+categories:
+  - R
+  - Carnaval
+  - Brazil
+tags: []
+description: 'A Shiny app to find Carnaval blocos in São Paulo'
+featured: 'bloco.jpg'
+featuredalt: ''
+featuredpath: '/images'
+linktitle: ''
+---
+
+
+
+<p>I’ve been getting more and more interested in web graphics, particularly <a href="https://d3js.org/">d3</a>. All of this of course depends on javascript, a language I don’t know very well. As a way to start learning it, I thought I’d give <a href="https://shiny.rstudio.com/">Shiny</a> a go, as a bridge between R and javascript (I’ve since started a javascript course proper). I’ve been surprised by how simple and powerful Shiny is, although the problems I ran into I wasn’t able to solve.<br />
+Anyway, given that it is Carnaval time here in São Paulo, I thought I would make an app that shows the route of each ‘bloco’ (parade) in the city. You can see the finished app <a href="https://robertmyles.shinyapps.io/carnaval_2017/">here</a>. Here’s a screenshot:</p>
+<div class="figure">
+<img src="http://i.imgur.com/xbcZDe6.png" />
+
+</div>
+<p>It’s <em>almost</em> what I wanted, but I couldn’t get the map to show the routes as I wanted (I asked for help <a href="http://stackoverflow.com/questions/42316144/leafletproxy-cant-find-reactive-data">here</a> on Stack Overflow). Anyway, the whole project was interesting, since it involved scraping the data from a pdf that the city council made available with info on the blocos, and then some (serious) work cleaning it up and geocoding the locations with the fantastic <a href="https://mapzen.com/">Mapzen</a>, through an R package, <a href="https://tarakc02.github.io/rmapzen/">rmapzen</a>. The code for getting the data ready is below, and the code for the Shiny app can be accessed on the app page.</p>
+<pre class="r"><code>library(tabulizer)
+library(tidyverse)
+library(lubridate)
+
+&#39;%ni%&#39; &lt;- Negate(&#39;%in%&#39;)
+
+
+blocos &lt;- extract_tables(&quot;http://carnavalderua.prefeitura.sp.gov.br/wp-content/uploads/2017/02/Blocos-Carnaval-de-Rua-de-SP_08022017_por-prefeitura-regional_site.pdf&quot;)
+
+
+carnaval &lt;- do.call(rbind, blocos)
+carnaval &lt;- carnaval[-1, ]
+carnaval &lt;- as_data_frame(carnaval)
+colnames(carnaval) &lt;- carnaval[1, ]
+carnaval &lt;- carnaval[c(-1, -433), ]
+
+
+carnaval &lt;- carnaval %&gt;% 
+  mutate(`Trajeto completo` = stringi::stri_trans_general(`Trajeto completo`, &quot;Latin-ASCII&quot;),
+         `Trajeto completo` = gsub(&quot; - &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot;-&quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot; e &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot; \\+ &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot;/&quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot;;&quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot; x &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot;\\r&quot;, &quot;&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot; &gt; &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot; – &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot; com &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot; ate &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot; em sentido &quot;, &quot;,&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot;nº&quot;, &quot;&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot;n° &quot;, &quot;&quot;, `Trajeto completo`),
+         `Trajeto completo` = gsub(&quot;r. &quot;, &quot;rua &quot;, `Trajeto completo`),
+         Data = paste0(Data, &quot;/2017&quot;),
+         Data = parse_date_time(Data, &quot;dmY&quot;),
+         Concentração = gsub(&quot;h&quot;, &quot;:00&quot;, Concentração),
+         Regional = ifelse(Regional == &quot;Vila Maria /  Vila Guilher&quot;,
+                           &quot;Vila Maria/Vila Guilherme&quot;, ifelse(
+                             Regional == &quot;Freguesia do ÓBrasilândia&quot;,
+                             &quot;Freguesia do Ó/Brasilândia&quot;, ifelse(
+                               Regional == &quot;Freguesia do Ó/Brasilândi&quot;,
+                               &quot;Freguesia do Ó/Brasilândia&quot;, Regional
+                               )))) %&gt;%
+  filter(`Trajeto completo` %ni% c(&quot;Fixo&quot;, &quot;Parado&quot;),
+         Regional %ni% c(&quot;M&#39;Boi Mirim&quot;, &quot;Pirituba/Jaraguá&quot;, 
+                         &quot;Pirituba/jaraguá&quot;, &quot;Parelheiros&quot;)) %&gt;% 
+  separate(`Trajeto completo`, sep = &quot;,&quot;,
+           into = c(&quot;inicio&quot;, &quot;um&quot;, &quot;dois&quot;, &quot;tres&quot;, &quot;quatro&quot;, &quot;cinco&quot;,
+                    &quot;seis&quot;, &quot;sete&quot;,&quot;oito&quot;, &quot;nove&quot;, &quot;dez&quot;, &quot;onze&quot;, &quot;doze&quot;,
+                    &quot;treze&quot;), remove = FALSE)
+
+
+carnaval$inicio &lt;- gsub(&quot;Concentracao na &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;parque de cachorros na praça Praça Mateus Grow&quot;, 
+                        &quot;Matheus Grou&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Inicio e termino na &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Segue pelo &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Descer a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;saida pela rua &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;SAIDA DA &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;sentido &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Desce a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Saida da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Vao ate a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; e ficar mais tempo na &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Viras a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Viras a esquerda na &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Concentracao: &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;ate a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;ate o &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;ate o numero &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;ate o final&quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;vira a esquerda na &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;numero \\d*&quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;\\r&quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Saindo da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;sai da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Sai da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Saida &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Saida da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;saida &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; \\(centro x bairro\\) &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;saida do bloco da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Entorno &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;argo da Matriz &quot;, &quot;Largo da Matriz&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;retorno em &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;segue ate a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;descemos a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Entrar na &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;indo ate a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Esquina da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Esquina das &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Esquina &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;R\\. &quot;, &quot;Rua &quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Descer a &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Ruas: &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; reto na &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; direita na &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Volta no &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; na altura da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Volta pelo &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; entre &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Sobe &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; fechada as 12h &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; inteirua so fica nessa rua entrua a Cardeal &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; \\(no estacionamento do lado do Bar Piraja\\) &quot;, 
+                        &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; \\(Mercearia Sao Roque\\) &quot;, &quot;&quot;, 
+                        carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; Vao &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; \\(Subindo\\) &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; \\(Em frente ao Teatrua Municipal\\) &quot;, 
+                        &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Inicio na rua Galvao Bueno \\(da esquina da rua Americo de Campos\\) &quot;, &quot;rua Galvao Bueno&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; \\(pista local\\) &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; \\(Em frente a Praca Dom Jose Gaspar\\) &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; a Dispersao acontecerua exatamente no &quot;, 
+                        &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;\\.\\.\\. sem deslocamento &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Divinp&quot;, &quot;Divino&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; e toda extensao de sua rua &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Saindo da \\(concentracao\\) da &quot;, &quot;&quot;, 
+                        carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot;Calcadao do &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; a partir da &quot;, &quot;&quot;, carnaval$inicio)
+carnaval$inicio &lt;- gsub(&quot; na alturua do numerua 255 &quot;, &quot;255&quot;, carnaval$inicio)
+carnaval[6, 6] &lt;- &quot;av. eng. heitor antonio eiras garcia 943&quot;
+carnaval[6, 7] &lt;- &quot;rua joão casagrande&quot;
+carnaval[6, 8] &lt;- &quot;rua otacilio tomanik&quot;
+carnaval[6, 9] &lt;- &quot;praça isai lener&quot;
+carnaval[6, 10] &lt;- &quot;av. eiras garcia&quot;
+carnaval[7, 6] &lt;- &quot;Rua Conde Silva Penteado&quot;
+carnaval[7, 7] &lt;- &quot;Rua Padre Carvalho&quot;
+carnaval[12, 6] &lt;- &quot;Rua Iquiririm&quot;
+carnaval[20, 6] &lt;- &quot;Praça Escolar&quot;
+carnaval[20, 7] &lt;- &quot;Rua Icanhema&quot;
+carnaval[20, 8] &lt;- &quot;Rua Padre José Garzotti&quot;
+carnaval[20, 9] &lt;- &quot;Rua Mataripe&quot;
+carnaval[21, 6] &lt;- &quot;Rua Carolina Roque&quot;
+carnaval[21, 6] &lt;- &quot;Rua Atlântico Meridional&quot;
+carnaval[21, 6] &lt;- &quot;Rua Miguel Angelo Lupi&quot;
+carnaval[36, 7] &lt;- &quot;Av Abel Tavares 1564&quot;
+
+
+carnaval &lt;- carnaval %&gt;% 
+  gather(etapa, rota, inicio:treze) %&gt;% 
+  select(-`Trajeto completo`) %&gt;%
+  mutate(rota = ifelse(nchar(rota) &lt;= 4, NA, rota),
+         rota = ifelse(grepl(&quot;\\d&quot;, rota), NA, rota),
+         rota = trimws(rota),
+         rota = gsub(&quot;esquerda&quot;, &quot;&quot;, rota),
+         rota = gsub(&quot;esquina&quot;, &quot;&quot;, rota),
+         rota = gsub(&quot;esquina&quot;, &quot;&quot;, rota),
+         rota = gsub(&quot;em direcao&quot;, &quot;&quot;, rota),
+         rota = gsub(&quot;anhamgabau&quot;, &quot;anhangabau&quot;, rota),
+         rota = gsub(&quot;direita&quot;, &quot;&quot;, rota),
+         rota = gsub(&quot;termina&quot;, &quot;&quot;, rota),
+         rota = gsub(&quot; na &quot;, &quot;&quot;, rota),
+         rota = gsub(&quot; no &quot;, &quot;&quot;, rota),
+         rota = gsub(&quot;chegar&quot;, &quot;&quot;, rota),
+         rota = gsub(&quot;acessar&quot;, &quot;&quot;, rota),
+         rota = gsub(&quot;Alternativa disperscao: Praca Republica&quot;, 
+                     &quot;&quot;, rota)) %&gt;% 
+  filter(!is.na(rota),
+         rota %ni% c(&quot;INTERVALO&quot;, &quot;CONTORNAR MEIA ROTATORIA&quot;, 
+                     &quot;terminal EMTU. Retorno: Terminal EMTU&quot;, 
+                     &quot;Volta&quot;, &quot;Inicio&quot;, &quot;em frente a igreja&quot;, &quot;30 vai&quot;,
+                     &quot;o final&quot;, &quot;virar a &quot;, &quot;a Galeria&quot;, &quot;da a volta&quot;,
+                     &quot;o cruzamento&quot;, &quot;segue por ele&quot;,
+                     &quot;DESCER E FAZER O TRAJETO DE VOLTA ATE A RUA APA&quot;,
+                     &quot;(tres voltas)&quot;),
+         nchar(rota) &gt; 2) %&gt;%
+  mutate(lon = NA, lat = NA,
+         rota = paste0(rota, &quot;, Sao Paulo&quot;))
+
+
+for(i in 1:nrow(carnaval)){
+  if(length(mz_coordinates(mz_search(carnaval$rota[i], 
+                             size = 1, 
+                             boundary.country = &quot;BR&quot;))[[1]]) &gt; 0 &amp;
+     class(try(length(mz_coordinates(mz_search(carnaval$rota[i], 
+                             size = 1, 
+                             boundary.country = &quot;BR&quot;))[[1]]))) != &quot;try-error&quot;){
+    carnaval$lon[i] &lt;- mz_coordinates(mz_search(carnaval$rota[i], 
+                             size = 1, 
+                             boundary.country = &quot;BR&quot;,
+                             focus.point = mz_location(lat = -23.5, 
+                                                       lon = -46)))[[1]]
+  } else {
+    carnaval$lon[i] &lt;- NA
+    }
+  if(length(mz_coordinates(mz_search(carnaval$rota[i], 
+                             size = 1, 
+                             boundary.country = &quot;BR&quot;))[[2]]) &gt; 0 &amp;
+     class(try(length(mz_coordinates(mz_search(carnaval$rota[i], 
+                             size = 1, 
+                             boundary.country = &quot;BR&quot;))[[2]]))) != &quot;try-error&quot;){
+    carnaval$lat[i] &lt;- mz_coordinates(mz_search(carnaval$rota[i], 
+                             size = 1, 
+                             boundary.country = &quot;BR&quot;,
+                             focus.point = mz_location(lat = -23.5, 
+                                                       lon = -46)))[[2]]
+  } else {
+    carnaval$lat[i] &lt;- NA
+  }
+}
+
+colnames(carnaval)[2] &lt;- &quot;Nome do bloco&quot;
+
+carnaval &lt;- carnaval %&gt;% 
+  mutate(rota = gsub(&quot;, Sao Paulo&quot;, &quot;&quot;, rota)) %&gt;%
+  filter(lat &gt;= -24, lat &lt;= -23,
+         lon &gt;= -47, lon &lt;= -46) %&gt;%
+  group_by(Regional, `Nome do bloco`, Data) %&gt;%
+  distinct(Regional, `Nome do bloco`, Data, etapa, .keep_all = T) %&gt;%
+  mutate(stage = ifelse(etapa == &quot;inicio&quot;, &quot;A&quot;, ifelse(
+    etapa == &quot;um&quot;, &quot;B&quot;, ifelse(etapa == &quot;dois&quot;, &quot;C&quot;, ifelse(
+      etapa == &quot;tres&quot;, &quot;D&quot;, ifelse(etapa == &quot;quatro&quot;, &quot;E&quot;, ifelse(
+        etapa == &quot;cinco&quot;, &quot;F&quot;, ifelse(etapa == &quot;seis&quot;, &quot;G&quot;, ifelse(
+          etapa == &quot;sete&quot;, &quot;H&quot;, ifelse(etapa == &quot;oito&quot;, &quot;I&quot;, ifelse(
+            etapa == &quot;nove&quot;, &quot;J&quot;, ifelse(etapa == &quot;dez&quot;, &quot;K&quot;, ifelse(
+              etapa == &quot;onze&quot;, &quot;L&quot;, ifelse(etapa == &quot;doze&quot;, &quot;M&quot;, &quot;N&quot;)))))
+          ))))))))) %&gt;%
+  arrange(`Nome do bloco`, stage, Data) %&gt;%
+  ungroup() %&gt;%
+  mutate(Regional = ifelse(Regional == &quot;Jaçanã / Tremembé&quot;, &quot;Jaçanã/Tremembé&quot;,
+                           ifelse(Regional == &quot;Casa verde&quot;, &quot;Casa Verde&quot;,
+                                  Regional)))</code></pre>

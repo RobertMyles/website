@@ -1,0 +1,50 @@
+---
+title: Dublin House Prices with R
+author: Robert McDonnell
+date: '2017-02-28'
+categories:
+  - R
+  - Ireland
+tags: []
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache.lazy = TRUE)
+```
+
+
+```{r, eval = F}
+
+library(RSelenium)
+#system2("java", args = c("-jar", "/Users/robert/R/selenium-server-standalone-2.53.1.jar"))
+
+```
+
+
+```{r, echo = F, eval = F}
+url <- "http://www.daft.ie/"
+remDr <- remoteDriver$new()
+remDr$open() 
+
+```
+
+```{r, eval = F}
+first <- "body > div.jcf-select-drop.jcf-select-search-select.jcf-select-ng-hide.jcf-select-ng-pristine.jcf-select-ng-valid.jcf-select-jcf-hidden.jcf-unselectable > div > span > div > span"
+
+
+
+
+```
+
+
+
+
+
+
+

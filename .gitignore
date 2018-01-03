@@ -2,8 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-public
-static
 .DS_Store
 data
 index.Rmd

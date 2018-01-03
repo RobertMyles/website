@@ -1,0 +1,21 @@
+body{ /* Normal  */
+   font-size: 24px;
+   background-image: url('images/sickle.png');
+   min-height: 30px;
+    /* Set background image to fixed (don't scroll along with the page) */
+    background-attachment: fixed;
+    /* Center the background image */
+    background-position: center;
+    /* Set the background image to no repeat */
+    background-repeat: no-repeat;
+    /* Scale the background image to be as large as possible */
+    background-size: 400px 400px;
+}
+h1 { /* Header 1 */
+ font-size: 28px;
+ font-family: Kremlin;
+ color: #B22222;
+}
+a {
+    color: #B22222;
+}

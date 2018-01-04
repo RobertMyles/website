@@ -1,0 +1,53 @@
+---
+title: Blogdown & Netlify
+author: Robert Myles McDonnell
+date: '2018-01-03'
+slug: blogdown-netlify
+categories: [R, blogdown, Netlify]
+tags: []
+---
+
+
+
+<p>I had some problems setting up my website to work properly with blogdown and Netlify (draft posts kept getting built), so in the process of learning how to do it properly (and repeatedly badgering Yihui haha – sorry, Yihui!), I realised plenty of others are having the same problem. It seems to be one of those things that is super simple, but just causes problems for whatever reason. Anyway, here’s how to set up a website with blogdown and Netlify. Instructions are for use with git bash in the terminal. You can download this for Windows <a href="https://git-scm.com/downloads">here</a>.</p>
+<div id="step-1---initial-setup" class="section level3">
+<h3>Step 1 - Initial Setup</h3>
+<p>You’ll need a GitHub account. Set one up and create a new repository. You can include a README.md, we’ll delete it in a moment. I call this ‘website’, but it’s not important what you call it. In the examples below, I’ll use the name ‘website’. On the terminal/command line, type <code>git clone</code> plus the name of the repo address (i.e. <code>git clone MyName/website.git</code>) to clone the repository and <code>cd</code> to the new folder. You can delete the README.md file, we won’t need it. Once you’re in the website folder, type <code>git status</code>. It should show us that we have no commits.</p>
+</div>
+<div id="step-2---rstudio-blogdown" class="section level3">
+<h3>Step 2 - RStudio &amp; Blogdown</h3>
+<p>Open RStudio and <code>setwd()</code> to your new folder. Install the blogdown package if you haven’t already. Once you load it with <code>library()</code>, then it’s simply a case of <code>new_site()</code> to create your site (first install Hugo with <code>install_hugo</code>, or see <a href="https://gohugo.io/getting-started/installing/">here</a> if you want to install Hugo separately). If you don’t like the theme, choose one of the themes from <a href="https://themes.gohugo.io/">here</a>. The theme you like can be included in the parameters to <code>new_site()</code>, using <code>theme = USERNAME/THEME</code>, where <code>USERNAME</code> and <code>THEME</code> are the GitHub homepage details of the theme.</p>
+</div>
+<div id="step-3---serving-the-site" class="section level3">
+<h3>Step 3 - Serving the site</h3>
+<p>You can create blog posts with <code>new_post()</code>, or you can just use the demo post for the moment. Then you run <code>build_site()</code>. You only need to do this once, in the future, you can run <code>serve_site()</code> and it will build the site.</p>
+</div>
+<div id="step-4---using-git" class="section level3">
+<h3>Step 4 - Using Git</h3>
+<p>In the terminal, type <code>git status</code>. It should show you something like this:</p>
+<pre><code>$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+    config.toml
+    content/
+    index.Rmd
+    public/
+    static/
+    themes/
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
+<p>We can add the files we’ll track with <code>git add</code>. We can add all of these except the ‘public’ folder (i.e. <code>git add content/</code>). Let’s also create a <code>.gitignore</code> file, which can be done with <code>touch .gitignore</code>. Open this with any text editor and type <code>public</code> (this will tell git to ignore these files) and save it. Then type <code>git add .gitignore</code> to add this file to our git setup.</p>
+</div>
+<div id="step-5---committing-to-github" class="section level3">
+<h3>Step 5 - committing to GitHub</h3>
+<p>If you’re happy with what you have, type <code>git commit -m 'MESSAGE'</code> on the command line (where <code>MESSAGE</code> is some type of message to yourself about this commit). Then <code>git push origin master</code>, which will send all our new files up to GitHub.</p>
+</div>
+<div id="step-6---netlify" class="section level3">
+<h3>Step 6 - Netlify</h3>
+<p>At this point, you can set up a <a href="https://www.netlify.com/">Netlify</a> account (it’s free). Netlify will use the ‘public’ folder to serve your website (which will be something-something<code>.netlify.com</code>). This part is very easy and requires you only to drag the public folder to the ‘Deployment’ field n the Netlify website. You may have to specify your Hugo version in the Environmental Variables section. <a href="https://bookdown.org/yihui/blogdown/netlify.html">Yihui &amp; company’s excellent guide</a> to Netlify (and all of blogdown) has more details on this point. Netlify will show you the status of the build: if it says ‘PUBLISHED’, your new website will be availabe at the …<code>netlify.com</code> web address that you have.</p>
+</div>

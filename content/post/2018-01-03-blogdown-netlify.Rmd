@@ -7,12 +7,12 @@ categories: [R, blogdown, Netlify]
 tags: []
 ---
 
-I had some problems setting up my website to work properly with blogdown and Netlify (draft posts kept getting built), so in the process of learning how to do it properly (and repeatedly badgering Yihui haha -- sorry, Yihui!), I realised plenty of others are having the same problem. It seems to be one of those things that is super simple, but just causes problems for whatever reason. Anyway, here's how to set up a website with blogdown and Netlify. Instructions are for use with git bash in the terminal. You can download this for Windows [here](https://git-scm.com/downloads). 
+I had some problems setting up my website to work properly with blogdown and Netlify (draft posts kept getting built), so in the process of learning how to do it properly (and repeatedly badgering Yihui haha -- sorry, Yihui!), I realised plenty of others are having the same problem. It seems to be one of those things that is super simple, but just causes problems for whatever reason. Anyway, here's how to set up a website with blogdown and Netlify. Instructions are for use with git bash in the terminal. You can download this for Windows [here](https://git-scm.com/downloads) (I'm using Mac). 
 
-The [blogdown book](https://bookdown.org/yihui/blogdown/) really is the best place to go for all of this, but if you're still having problems, maybe this post can help. Blogdown is also a work in progress, it should be remembered. It causes my R session to hang from time to time in the most recent version (I'm using 0.4).  
+The [blogdown book](https://bookdown.org/yihui/blogdown/) really is the best place to go for all of this, but if you're still having problems, maybe this post can help. Blogdown is also a work in progress, it should be remembered. It causes my R session to hang from time to time in the most recent version (I'm using 0.4), so I'm sure we'll see some future changes. 
 
 ### Step 1 - Initial Setup
-You'll need a GitHub account. Set one up and create a new repository. You can include a README.md, we'll delete it in a moment. I call this 'website', but it's not important what you call it. In the examples below, I'll use the name 'website'. On the terminal/command line, type `git clone` plus the name of the repo address (i.e. `git clone MyName/website.git`) to clone the repository and `cd` to the new folder. 
+You'll need a GitHub account. Set one up and create a new repository. You can include a README.md, we'll delete it in a moment. I call this repo 'website', but it's not important what you call it. In the examples below, I'll use the name 'website'. On the terminal/command line, type `git clone` plus the name of the repo address (i.e. `git clone MyName/website.git`) to clone the repository and `cd` to the new folder. 
 You can delete the README.md file, we won't need it. Once you're in the website folder, type `git status`. It should show us that we have no commits.  
 
 ### Step 2 - RStudio & Blogdown
@@ -42,7 +42,7 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)
 ```
-We can add the files we'll track with `git add`. We can add all of these except the 'public' folder (i.e. `git add content/`). Let's also create a `.gitignore` file, which can be done with `touch .gitignore`. Open this with any text editor and type `public` (this will tell git to ignore these files) and save it. Then type `git add .gitignore` to add this file to our git setup. 
+We can add the files we'll track with `git add`. We can add all of these except the 'public' folder (i.e. `git add content/`). Let's also create a `.gitignore` file, which can be done on the command line with `touch .gitignore`. Open this with any text editor and type `public` (this will tell git to ignore these files) and save it. Then type `git add .gitignore` to add this file to our git setup. 
 
 ### Step 5 - committing to GitHub
 If you're happy with what you have, type `git commit -m 'MESSAGE'` on the command line (where `MESSAGE` is some type of message to yourself about this commit). Then `git push origin master`, which will send all our new files up to GitHub.

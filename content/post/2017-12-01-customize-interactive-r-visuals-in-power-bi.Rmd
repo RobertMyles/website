@@ -119,7 +119,7 @@ The result of this can be seen in the image below. The plot is interactive, and 
 &nbsp;
 
 
-![](boxplot.jpg)  
+![](https://i.imgur.com/i4ik2FV.jpg)  
 
     
 &nbsp;   

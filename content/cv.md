@@ -16,7 +16,7 @@ date: "2016-05-05T21:48:51-07:00"
 ### Data Scientist, Avanade, São Paulo
 - 08/2017 — Present
 
-I currently work for Avanade in the São Paulo office. So far, I've been working on integrating R and Python into larger applications and creating business analytics solutions.  
+I currently work at Avanade in São Paulo. So far, my contributions have been in the following areas: sentiment analysis, audio analysis, machine & deep learning, BI, data visualization and data tidying. I've given a course on tidy data and several tutorials on the R language.
 
 ### São Paulo City Council
 - 03/2017 — 07/2017
@@ -83,10 +83,10 @@ I have a very high level of writing ability, as I have shown in academic work th
 
 ## <i class="fa fa-code"></i> Programming
 
-- Advanced knowledge of R, RMarkdown (for documents and my website, and I wrote my PhD thesis in it), and intermediate level Shiny knowledge. I am the author of the [tidyRSS](https://github.com/RobertMyles/congressbr) tidyRSS) R package, one of the authors of [congressbr](https://github.com/RobertMyles/congressbr) and I have contributed to several other R packages: ([updateR](https://github.com/AndreaCirilloAC/updateR), [bRasilLegis](https://github.com/leobarone/bRasilLegis), [electionsBR](https://github.com/silvadenisson/electionsBR)). On my github page, I have made available many R code snippets of various functions and tips & tricks that I have found useful, and that I hope will help others.
+- Advanced knowledge of R, RMarkdown (for documents and my website, and I wrote my PhD thesis in it), and a high level of Shiny knowledge. I am the author of several R packages, for example [tidyRSS](https://github.com/RobertMyles/congressbr) tidyRSS), one of the authors of [congressbr](https://github.com/RobertMyles/congressbr) and I have contributed to several other R packages: ([updateR](https://github.com/AndreaCirilloAC/updateR), [bRasilLegis](https://github.com/leobarone/bRasilLegis), [electionsBR](https://github.com/silvadenisson/electionsBR)). On my github page, I have made available many R code snippets of various functions and tips & tricks that I have found useful, and that I hope will help others.
 - High intermediate knowledge of Python. Intermediate knowledge of LaTeX, html, CSS, and basic knowledge of SPSS and Stata. I also have experience with the MS Office suite and the Mac equivalents.
 - Beginner in C# and intermediate level JavaScript.
-- I also post R code snippets on my blog, showing readers how to create intricate plots or run various analyses in R. These posts have featured on the popular online R magazine RWeekly (https://rweekly.org; Issue 21, “R in Real World”); they are shared on the popular [R-Bloggers](https://www.r-bloggers.com/) site and they have also been shared on R users groups on social media.
+- I also post R code snippets on my blog, showing readers how to create intricate plots or run various analyses in R. These posts have featured on the popular online R magazine RWeekly; they are shared on the popular [R-Bloggers](https://www.r-bloggers.com/) site and they have also been shared on R users groups on social media.
 
 &nbsp;
 &nbsp;
@@ -94,7 +94,7 @@ I have a very high level of writing ability, as I have shown in academic work th
 ## Other information
 - International experience: I have lived and worked or studied in Ireland, Belgium, the United States and Brazil.
 - Seminars / certifications: I have given academic presentations on my work and I have attended many short technical courses. The most recent one was on Agent-Based Models in Python and was given in USP by [Davoud Taghawi-Nejad](https://www.taghawi-nejad.de/). Others have been on time-series modelling by [Guy Whitten](https://pols.tamu.edu/about-us/faculty-directory/guy-d-whitten-professor/) of Texas A&M, game theory by [B. Peter Rosendorff](http://politics.as.nyu.edu/object/PeterRosendorff) of New York University, experiments in social science by [Paolo Spada](https://www.spadap.com/) and [Leonid Peisakhin](http://www.leonidpeisakhin.org/) of Yale University, and various software packages.
-- Online courses: I have taken many online courses, the most recent of which was Deep Learning by Andrew Ng on Coursera (certified). I have various certificates from Data Camp in areas such as Machine Learning and Data Analysis. I have also a strong interest in JavaScript and have taken many codeschool courses on its many flavours.  
+- Online courses: I have taken many online courses, the most recent of which was Deep Learning by Andrew Ng on Coursera (certified). I have various certificates from Data Camp in areas such as Machine Learning and Data Analysis. I have also a strong interest in JavaScript and have taken many codeschool courses on its various flavours.  
 - Hobbies: I like to play music, write, read and blog, and I am involved in the creation and development of some R software packages. I have written a fictional novel, which I hope to publish in the future, and I have recorded an album of my music. I have a strong interest in political economic history and liberalism.
 
 &nbsp;
@@ -110,6 +110,7 @@ I have a very high level of writing ability, as I have shown in academic work th
 
 ##  <i class="fa fa-file-text-o"></i> Publications
 - “Formal Comparisons of Legislative Institutions: Comparing ideal points from the Chamber of Deputies and the Federal Senate”, Brazilian Political Science Review, vol.11 no.1, 2017. [[link](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1981-38212017000100502&lng=en&nrm=iso&tlng=en.)]
+- Freire, Danilo and Robert M. McDonnell (2018). prisonbrief: An R package that returns tidy data from the World Prison Brief website. Journal of Open Source Software, 3(22), 361, https://doi.org/10.21105/joss.00361
 - “Do Brazilian Legislators Care About Foreign Policy?”. Currently under review.
 
 &nbsp;

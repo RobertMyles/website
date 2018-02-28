@@ -1,0 +1,1349 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        
+            
+                <title>Lil&#39; Packages Pt.2: cepR</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.27.1" />
+        
+
+
+        
+            <meta name="author" content="Robert Myles McDonnell">
+        
+        
+            
+                <meta name="description" content="Robert Myles McDonnell&#39;s website">
+            
+        
+
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Lil&#39; Packages Pt.2: cepR"/>
+<meta name="twitter:description" content="Part 2 of my Lil’ Packages series takes a quick look at cepR, an R package for acessing and using Brazilian postal code data. Since Brazil (a) is huge, and (b) often lacks reliable data (or compatible data across databases of the same thing), the ‘cep’ (Código de Endereçamento Postal) is a useful way to join datasets or to use as a base for geographical analyses of Brazil. This package utilizes the marvellous CEP Aberto API, so it’s thanks to their great work that I was able to bring it to R."/>
+<meta name="twitter:site" content="@RobertMylesMc"/>
+
+        <meta property="og:title" content="Lil&#39; Packages Pt.2: cepR" />
+<meta property="og:description" content="Part 2 of my Lil’ Packages series takes a quick look at cepR, an R package for acessing and using Brazilian postal code data. Since Brazil (a) is huge, and (b) often lacks reliable data (or compatible data across databases of the same thing), the ‘cep’ (Código de Endereçamento Postal) is a useful way to join datasets or to use as a base for geographical analyses of Brazil. This package utilizes the marvellous CEP Aberto API, so it’s thanks to their great work that I was able to bring it to R." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2017/09/13/lil-packages-pt-2-cepr/" />
+
+
+
+<meta property="article:published_time" content="2017-09-13T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2017-09-13T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta property="fb:admins" content="1213956375281226" />
+        
+<meta itemprop="name" content="Lil&#39; Packages Pt.2: cepR">
+<meta itemprop="description" content="Part 2 of my Lil’ Packages series takes a quick look at cepR, an R package for acessing and using Brazilian postal code data. Since Brazil (a) is huge, and (b) often lacks reliable data (or compatible data across databases of the same thing), the ‘cep’ (Código de Endereçamento Postal) is a useful way to join datasets or to use as a base for geographical analyses of Brazil. This package utilizes the marvellous CEP Aberto API, so it’s thanks to their great work that I was able to bring it to R.">
+
+
+<meta itemprop="dateModified" content="2017-09-13T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="661">
+
+
+
+<meta itemprop="keywords" content="" />
+
+        
+
+        
+
+        
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="/css/google-font.css" />
+            <link rel="stylesheet" href="/css/font-awesome.min.css" />
+            <link rel="stylesheet" href="/css/main.css" />
+            <link rel="stylesheet" href="/css/add-on.css" />
+            <link rel="stylesheet" href="/css/monokai-sublime.css">
+        
+
+        
+
+        
+        
+        
+            
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-76482767-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+        
+    </head>
+    <body>
+
+        
+        <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+        <h2><a href="/">Home</i></a></h2>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/research/">
+                        
+                            <i class="fa fa-bar-chart">&nbsp;</i>Research
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/RobertMyles">
+                        
+                            <i class="fa fa-code">&nbsp;</i>GitHub
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/cv/">
+                        
+                            <i class="fa fa-file-o">&nbsp;</i>CV
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/post/">
+                        
+                            <i class="fa fa-newspaper-o">&nbsp;</i>Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                        About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                        Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/blogroll/">
+                        
+                            <i class="fa fa-bookmark-o">&nbsp;</i>Blogroll
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/other/">
+                        
+                            <i class="fa fa-music">&nbsp;</i>Other
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="q" value="site:/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="q" value="site:/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/research/">
+                            <h3>
+                                
+                                    <i class="fa fa-bar-chart">&nbsp;</i>
+                                
+                                Research
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/RobertMyles">
+                            <h3>
+                                
+                                    <i class="fa fa-code">&nbsp;</i>
+                                
+                                GitHub
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/cv/">
+                            <h3>
+                                
+                                    <i class="fa fa-file-o">&nbsp;</i>
+                                
+                                CV
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/post/">
+                            <h3>
+                                
+                                    <i class="fa fa-newspaper-o">&nbsp;</i>
+                                
+                                Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                
+                                About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                
+                                Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/blogroll/">
+                            <h3>
+                                
+                                    <i class="fa fa-bookmark-o">&nbsp;</i>
+                                
+                                Blogroll
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/other/">
+                            <h3>
+                                
+                                    <i class="fa fa-music">&nbsp;</i>
+                                
+                                Other
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    <li>
+                        <a href="/2018/01/05/stan-irt-code/"><p>Stan IRT Code</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2018/01/03/blogdown-netlify/"><p>Blogdown &amp; Netlify</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/12/01/customize-interactive-r-visuals-in-power-bi/"><p>Customize Interactive R Visuals in Power BI</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/10/24/gauge-style-plots-with-ggplot2/"><p>Gauge-style plots with ggplot2</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/inhaling-boozing-earth/"><p>Inhaling/Boozing Earth</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/rating-r-packages/"><p>Rating R Packages</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/uk-elections-2017/"><p>UK ELECTIONS 2017</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/26/human-capital-index-maps/"><p>HUMAN CAPITAL INDEX MAPS</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/19/women-in-power/"><p>Women in Power</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/13/lil-packages-pt-2-cepr/"><p>Lil&#39; Packages Pt.2: cepR</p></a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f&text=Lil%27%20Packages%20Pt.2%3a%20cepR&via=RobertMylesMc" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f&title=Lil%27%20Packages%20Pt.2%3a%20cepR" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f&title=Lil%27%20Packages%20Pt.2%3a%20cepR" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f&title=Lil%27%20Packages%20Pt.2%3a%20cepR" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Robert%20Myles%20McDonnell&body=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+    <header>
+    <div class="title">
+        
+            <h1><a href="/2017/09/13/lil-packages-pt-2-cepr/">Lil&#39; Packages Pt.2: cepR</a></h1>
+            
+        
+        
+    </div>
+    <div class="meta">
+        
+            
+        
+
+        <time class="published"
+            datetime='2017-09-13'>
+            September 13, 2017</time>
+        <span class="author">Robert Myles McDonnell</span>
+        
+            <p>4 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+    <section id="social-share">
+        <ul class="icons">
+            
+
+
+<li><a href="//twitter.com/share?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f&text=Lil%27%20Packages%20Pt.2%3a%20cepR&via=RobertMylesMc" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f&title=Lil%27%20Packages%20Pt.2%3a%20cepR" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f&title=Lil%27%20Packages%20Pt.2%3a%20cepR" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f&title=Lil%27%20Packages%20Pt.2%3a%20cepR" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Robert%20Myles%20McDonnell&body=%2f2017%2f09%2f13%2flil-packages-pt-2-cepr%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+    
+
+    <div id="content">
+        <p>Part 2 of my Lil’ Packages series takes a quick look at <a href="https://github.com/RobertMyles/cepR">cepR</a>, an R package for acessing and using Brazilian postal code data. Since Brazil (a) is huge, and (b) often lacks reliable data (or compatible data across databases of the same thing), the ‘cep’ (<em>Código de Endereçamento Postal</em>) is a useful way to join datasets or to use as a base for geographical analyses of Brazil. This package utilizes the marvellous <a href="http://cepaberto.com/">CEP Aberto API</a>, so it’s thanks to their great work that I was able to bring it to R.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<div id="why" class="section level2">
+<h2>Why?</h2>
+<p>My darling wife was doing some work that involved Brazilian municipalities, and it was kind of tedious, so she asked me for some help. I can’t remember how exactly I ended up at CEP Aberto,<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> but I do remember that my R programmer brain immediately kicked in and I thought, ‘there has to be some way to automate this’. Hence cepR.</p>
+</div>
+<div id="how-did-i-do" class="section level2">
+<h2>How did I do?</h2>
+<p>The package seems to have been a hit with Brazilian R users, it got an enthusiastic reception on a Brazilian R users Facebook group and it gets downloaded about 150 times a month, quite reasonable for something so specific! A couple of people contacted me with ideas and questions, so cepR seems to have been useful, and I’m glad it is.</p>
+</div>
+<div id="using-cepr" class="section level2">
+<h2>Using cepR</h2>
+<p>So, what we can do with this package? Well, first of all, you’ll need to register (no charge) at the CEP Aberto website. You need to do this so you get a token, which you use in the package functions to retrieve the data (I’ve hidden mine here). Then, install the package:</p>
+<pre class="r"><code>install.packages(&quot;cepR&quot;)</code></pre>
+<p>You can do various things with the info from CEP Aberto, but since we all like maps, let’s make one. I’ll make one of some of the beaches I’ve visited while in Brazil, and one mountain region I went to when I foolishly decided to go rafting without knowing very much Portuguese (“Esquerda, esquerda!!”, “What?”). First, let’s get the data (you might want to leave a few seconds in between these calls to the API). Not all of these will be exact, for example, Porto de Galinhas is not a city, so the closest we have is Ipojuca (it does have a CEP though, but the API is still developing. Some parts of the country, like São Paulo state, have complete CEP codes for the entire state). Likewise, Tamandaré is <em>close</em> to Praia dos Carneiros (go here, it’s paradise).</p>
+<pre class="r"><code>library(cepR)
+
+ubatuba &lt;- busca_cidade(estado = &quot;SP&quot;, cidade = &quot;Ubatuba&quot;, token = token)
+porto_de_g &lt;- busca_cidade(estado = &quot;PE&quot;, cidade = &quot;Ipojuca&quot;, token = token)
+itanhaem &lt;- busca_cidade(estado = &quot;SP&quot;, cidade = &quot;Itanhaem&quot;, token = token)
+parati &lt;- busca_cidade(estado = &quot;RJ&quot;, cidade = &quot;Parati&quot;, token = token)
+carneiros &lt;- busca_cidade(estado = &quot;PE&quot;, cidade = &quot;Tamandare&quot;, token)
+extrema &lt;- busca_cidade(estado = &quot;MG&quot;, cidade = &quot;Extrema&quot;, token = token)</code></pre>
+<p>Okay, now we have our data, let’s put them together and plot them all (even this little dataset shows the problems with geo-data in Brazil. ‘Parati’ is also spelled ‘Paraty’ – you can see that it doesn’t have an IBGE code (IBGE are the statistics office), whereas I bet ‘Paraty’ does). The version of ggplot2 used below is the development version (13th Sep 2017). which has <code>geom_sf()</code>.</p>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
+library(rnaturalearth)
+library(png)
+
+brazil &lt;- ne_countries(returnclass = &quot;sf&quot;, country = &quot;Brazil&quot;)
+beaches &lt;- bind_rows(ubatuba, porto_de_g, itanhaem, parati, carneiros, extrema)
+
+ggplot(beaches) +
+  geom_sf(data = brazil, fill = &quot;#009b3a&quot;) +
+  geom_point(aes(x = longitude, y = latitude), shape = 21, fill = &quot;#fedf00&quot;, colour = &quot;#002776&quot;, size = 4) +
+  theme_minimal() +
+  theme(axis.text = element_blank()) +
+  labs(x = NULL, y = NULL)</code></pre>
+<p><img src="/post/2017-09-13-lil-packages-pt-2-cepr_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>So that’s where I’ve been! ☀️.</p>
+<p><br></p>
+<p>If you actually have CEP codes, you can also use the package to search for details given the CEP code.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Also thanks to Danilo Freire, who helped with the docs for cepR.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Now that I think about it, she needed the name of every <em>bairro</em> (neighbourhood) in a certain state.<a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+
+    </div>
+
+    <footer>
+        <ul class="stats">
+    
+        
+
+        
+        
+            <li>
+                
+                
+                    
+
+                    
+
+                    
+
+                    
+                        Category
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/r'>R</a></li>
+    
+</ul>
+
+    </footer>
+</article>
+<ul class="actions pagination">
+    
+        <li><a href="/2017/09/07/lil-packages-pt-1/"
+                class="button big previous">Lil&#39; Packages Pt.1: tidyRSS</a></li>
+    
+
+    
+        <li><a href="/2017/09/19/women-in-power/"
+                class="button big next">Women in Power</a></li>
+    
+</ul>
+
+
+
+    
+        <article class="post">
+            <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "rob-gitblog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </article>
+    
+
+
+    </div>
+    
+<section id="sidebar">
+
+    
+        <section id="intro">
+            
+            
+                
+                    <a href="/" class="logo"><img src="/images/pic1.jpg" alt="" /></a>
+                
+            
+            
+                <header>
+                    <h2>if(topic != junk) {write} else { wine }</h2>
+                    <p>by Robert Myles McDonnell</p>
+                </header>
+            
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/RobertMyles" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//linkedin.com/in/robert-mcdonnell-7475b320" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+<li><a href="//stackoverflow.com/users/4296028/robertmc" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/RobertMylesMc" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+<li><a href="mailto:robertmylesmcdonnell@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+                
+            </ul>
+        </section>
+
+    
+        <section id="recent-posts">
+            <ul class="posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2018/01/05/stan-irt-code/">Stan IRT Code</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2018-01-05'>
+                                    January 5, 2018</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2018/01/03/blogdown-netlify/">Blogdown &amp; Netlify</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2018-01-03'>
+                                    January 3, 2018</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/12/01/customize-interactive-r-visuals-in-power-bi/">Customize Interactive R Visuals in Power BI</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-12-01'>
+                                    December 1, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/10/24/gauge-style-plots-with-ggplot2/">Gauge-style plots with ggplot2</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-10-24'>
+                                    October 24, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/inhaling-boozing-earth/">Inhaling/Boozing Earth</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/rating-r-packages/">Rating R Packages</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/uk-elections-2017/">UK ELECTIONS 2017</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/26/human-capital-index-maps/">HUMAN CAPITAL INDEX MAPS</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-26'>
+                                    September 26, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/19/women-in-power/">Women in Power</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-19'>
+                                    September 19, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/13/lil-packages-pt-2-cepr/">Lil&#39; Packages Pt.2: cepR</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-13'>
+                                    September 13, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+
+                
+                    <li>
+                        <ul class="actions">
+                            <li><a href=
+                            
+                                /post/
+                            
+                            class="button">View more posts</a></li>
+                        </ul>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+    
+    
+    
+        <section id="categories">
+            <ul class="posts">
+                <header>
+                    <h3><a href="/categories/">Categories</a></h3>
+                </header>
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r/">R</a>
+                                <span style="float:right;">35</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-science/">Political Science</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ggplot2/">ggplot2</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/maps/">maps</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/bayesian-statistics/">Bayesian Statistics</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/brazil/">Brazil</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/irt/">IRT</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r-markdown/">R Markdown</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/stan/">Stan</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/webscraping/">webscraping</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/bitcoin/">BitCoin</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/carnaval/">Carnaval</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/causality/">Causality</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/communism/">Communism</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/eurozone/">Eurozone</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/france/">France</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/germany/">Germany</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/github/">GitHub</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/healthcare/">Healthcare</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/hugo/">Hugo</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/human-capital-index/">Human Capital Index</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ideal-points/">Ideal Points</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ireland/">Ireland</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/jags/">JAGS</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/netlify/">Netlify</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/osx/">OSX</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-economy/">Political Economy</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/power-bi/">Power BI</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/prisons/">Prisons</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/selenium/">Selenium</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/uk/">UK</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/us/">US</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/blogdown/">blogdown</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/booze/">booze</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/metal/">metal</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/rss/">rss</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/text-analysis/">text analysis</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/tidyrss/">tidyRSS</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/time-series/">time-series</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/visualization/">visualization</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+            </ul>
+        </section>
+    
+
+    
+        
+
+    
+        <section id="footer">
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/RobertMyles" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//linkedin.com/in/robert-mcdonnell-7475b320" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+<li><a href="//stackoverflow.com/users/4296028/robertmc" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/RobertMylesMc" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+<li><a href="mailto:robertmylesmcdonnell@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+                
+            </ul>
+
+            <p class="copyright">&copy; Robert Myles McDonnell. Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a>. Ported by <a href="//github.com/jpescador" target="_blank">Julio Pescador</a>. Powered by <a href="//gohugo.io" target="_blank">Hugo</a></p>
+        </section>
+
+</section>
+
+            </div>
+        <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+        
+
+        
+        
+            
+        
+
+        
+        
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/skel.min.js"></script>
+            <script src="/js/util.js"></script>
+            <script src="/js/main.js"></script>
+            <script src="/js/backToTop.js"></script>
+            <script src="/js/highlight.pack.js"></script>
+        
+
+        
+
+            
+            <script>hljs.initHighlightingOnLoad();</script>
+            
+    </body>
+</html>
+

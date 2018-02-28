@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Causality on Robert Myles McDonnell</title>
+    <link>/categories/causality/</link>
+    <description>Recent content in Causality on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 02 Jun 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/causality/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CausalImpact &amp; Healthcare Costs in the US</title>
+      <link>/2017/06/02/causalimpact-healthcare-costs-in-the-us/</link>
+      <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/06/02/causalimpact-healthcare-costs-in-the-us/</guid>
+      <description>This article by Mike Holly on Mises.org interested me. I wasn’t aware of the history of healthcare costs in the US, and it’s quite surprising, especially the take-off in costs after the 1960s. Holly’s argument is that the “U.S. ‘health care cost crisis’ didn’t start until 1965. The government increased demand with the passage of Medicare and Medicaid while restricting the supply of doctors and hospitals.” In fact, I was quite impressed with this graph:</description>
+    </item>
+    
+  </channel>
+</rss>

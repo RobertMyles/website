@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visualization on Robert Myles McDonnell</title>
+    <link>/categories/visualization/</link>
+    <description>Recent content in Visualization on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 Sep 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/visualization/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Women in Power</title>
+      <link>/2017/09/19/women-in-power/</link>
+      <pubDate>Tue, 19 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/09/19/women-in-power/</guid>
+      <description>library(dplyr); library(readxl)## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.4.2columns &amp;lt;- c(&amp;quot;Country&amp;quot;, &amp;quot;Overall Index&amp;quot;, &amp;quot;Overall Rank&amp;quot;,&amp;quot;Economic Participation &amp;amp; Opportunity&amp;quot;, &amp;quot;Eco Rank&amp;quot;,&amp;quot;Educational Attainment&amp;quot;, &amp;quot;Edu Rank&amp;quot;,&amp;quot;Health and Survival&amp;quot;, &amp;quot;Health Rank&amp;quot;,&amp;quot;Political Empowerment&amp;quot;, &amp;quot;Poli Rank&amp;quot;)df &amp;lt;- read_excel(&amp;quot;/Users/robert/Downloads/WEF_GGGR_Dataset_2016.xlsx&amp;quot;, sheet = 2,skip = 3, col_names = columns)library(ggplot2); library(tidyr); library(extrafont)## Registering fonts with R#font_import()#loadfonts()df %&amp;gt;% ggplot(aes(x = `Health and Survival`)) + geom_density()df %&amp;gt;%gather(key = &amp;quot;Index Type&amp;quot;, value = &amp;quot;Value&amp;quot;, `Economic Participation &amp;amp; Opportunity`,`Educational Attainment`, `Health and Survival`,`Political Empowerment`) %&amp;gt;% {ggplot(.</description>
+    </item>
+    
+  </channel>
+</rss>

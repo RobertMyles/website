@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rstan on Robert Myles McDonnell</title>
+    <link>/tags/rstan/</link>
+    <description>Recent content in Rstan on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Oct 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rstan/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Theme-Specific Voting in the European Parliament</title>
+      <link>/2016/10/20/theme-specific-voting-in-the-european-parliament/</link>
+      <pubDate>Thu, 20 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/2016/10/20/theme-specific-voting-in-the-european-parliament/</guid>
+      <description>Since it’s European Statistics Day, I thought I would make a quick post showing how to utilise some of the data that we have on the European Union in R. In particular, I will use European Parliament voting data from Simon Hix’s website. The data is freely available, so by copying and pasting the code below, you will be able to recreate the analysis I’ve done here.
+We’re going to be using Stan to make theme-specific ideal points for members of the European Parliament.</description>
+    </item>
+    
+  </channel>
+</rss>

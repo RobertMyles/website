@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BitCoin on Robert Myles McDonnell</title>
+    <link>/categories/bitcoin/</link>
+    <description>Recent content in BitCoin on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 23 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/bitcoin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>tidy-forecasting BitCoin prices</title>
+      <link>/2017/04/23/tidy-forecasting-bitcoin-prices/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/04/23/tidy-forecasting-bitcoin-prices/</guid>
+      <description>library(tidyverse)library(forecast)Cryptocurrencies are becoming an interest of mine, since I’ve got friends who talk about them all the time. So I thought it might be interesting to have a look at a time series of BitCoin, and use the opportunity to do some tidyverse-style time series analysis, in the spirit of this great post. The data are availbale from http://www.coindesk.com/price/. Click on Select All &amp;gt; Export to download the data.</description>
+    </item>
+    
+  </channel>
+</rss>

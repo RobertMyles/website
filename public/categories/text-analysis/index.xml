@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Text analysis on Robert Myles McDonnell</title>
+    <link>/categories/text-analysis/</link>
+    <description>Recent content in Text analysis on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/text-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>text analysis of metal lyrics in R</title>
+      <link>/2017/02/28/text-analysis-of-metal-lyrics-in-r/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/02/28/text-analysis-of-metal-lyrics-in-r/</guid>
+      <description>library(tidyverse)metal &amp;lt;- data_frame(Title = c(&amp;quot;South of Heaven&amp;quot;, &amp;quot;Seasons in the Abyss&amp;quot;, &amp;quot;Raining Blood&amp;quot;, &amp;quot;Live Undead&amp;quot;, &amp;quot;Angel of Death&amp;quot;,&amp;quot;Cowboys From Hell&amp;quot;, &amp;quot;Five Minutes Alone&amp;quot;, &amp;quot;War Nerve&amp;quot;, &amp;quot;Goddamn Electric&amp;quot;, &amp;quot;Walk&amp;quot;,&amp;quot;Master of Puppets&amp;quot;, &amp;quot;Blackened&amp;quot;, &amp;quot;Sad But True&amp;quot;, &amp;quot;Fade to Black&amp;quot;, &amp;quot;Battery&amp;quot;,&amp;quot;I am the Black Wizards&amp;quot;, &amp;quot;Inno A Satana&amp;quot;,&amp;quot;The Prophet&amp;quot;, &amp;quot;Thus Spake the Night Spirit&amp;quot;,&amp;quot;Ye Entrancemperium&amp;quot;, &amp;quot;Black Seeds of Vengeance&amp;quot;, &amp;quot;Masturbating the War God&amp;quot;, &amp;quot;To Dream of Ur&amp;quot;,&amp;quot;The Wind of Horus&amp;quot;, &amp;quot;Lashed to the Slave Stick&amp;quot;),Band = c(rep(&amp;quot;slayer&amp;quot;, 5), rep(&amp;quot;pantera&amp;quot;, 5),rep(&amp;quot;metallica&amp;quot;, 5), rep(&amp;quot;emperor&amp;quot;, 5),rep(&amp;quot;nile&amp;quot;, 5)),Url = &amp;quot;https://genius.</description>
+    </item>
+    
+  </channel>
+</rss>

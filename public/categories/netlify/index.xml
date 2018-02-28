@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Netlify on Robert Myles McDonnell</title>
+    <link>/categories/netlify/</link>
+    <description>Recent content in Netlify on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/netlify/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Blogdown &amp; Netlify</title>
+      <link>/2018/01/03/blogdown-netlify/</link>
+      <pubDate>Wed, 03 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/03/blogdown-netlify/</guid>
+      <description>I had some problems setting up my website to work properly with blogdown and Netlify (draft posts kept getting built), so in the process of learning how to do it properly (and repeatedly badgering Yihui haha – sorry, Yihui!), I realised plenty of others are having the same problem. It seems to be one of those things that is super simple, but just causes problems for whatever reason. Anyway, here’s how to set up a website with blogdown and Netlify.</description>
+    </item>
+    
+  </channel>
+</rss>

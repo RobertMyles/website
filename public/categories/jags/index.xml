@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JAGS on Robert Myles McDonnell</title>
+    <link>/categories/jags/</link>
+    <description>Recent content in JAGS on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 13 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/jags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Stan or JAGS for Bayesian ideal-point IRT?</title>
+      <link>/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</link>
+      <pubDate>Wed, 13 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/2016/04/13/stan-or-jags-for-bayesian-ideal-point-irt/</guid>
+      <description>Anybody who has ever tried to run even a moderately-sized Bayesian IRT model in R (for ideal points as in the political science literature, or otherwise) will know that these models can take a long time. It’s not R’s fault: these are usually big models with lots of parameters, and naturally take longer.1 Not to mention the fact that Bayesian computation is more computationally intense than other methods. Historically (okay, I’m talking about the last twenty years, maybe ‘historically’ is a little strong), the sampling software BUGS (Bayesian Inference Using Gibbs Sampling) and then JAGS were used to run Bayesian models (JAGS is still pretty common, and BUGS too, though not as much).</description>
+    </item>
+    
+  </channel>
+</rss>

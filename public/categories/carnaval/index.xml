@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Carnaval on Robert Myles McDonnell</title>
+    <link>/categories/carnaval/</link>
+    <description>Recent content in Carnaval on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 18 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/carnaval/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Carnaval!</title>
+      <link>/2017/02/18/carnaval/</link>
+      <pubDate>Sat, 18 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/02/18/carnaval/</guid>
+      <description>I’ve been getting more and more interested in web graphics, particularly d3. All of this of course depends on javascript, a language I don’t know very well. As a way to start learning it, I thought I’d give Shiny a go, as a bridge between R and javascript (I’ve since started a javascript course proper). I’ve been surprised by how simple and powerful Shiny is, although the problems I ran into I wasn’t able to solve.</description>
+    </item>
+    
+  </channel>
+</rss>

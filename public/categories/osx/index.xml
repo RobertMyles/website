@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OSX on Robert Myles McDonnell</title>
+    <link>/categories/osx/</link>
+    <description>Recent content in OSX on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Mar 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/osx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Update R from inside R</title>
+      <link>/2017/03/16/update-r-from-inside-r/</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/16/update-r-from-inside-r/</guid>
+      <description>I was just about to update R a while ago when I thought to myself that there must be a way to do this inside of R (RStudio, I mean). A quick Google search brought me to the installr package. Very nice, but I use a Mac. Hmmm…
+A bit more searching and I found Andrea Cirillo’s updateR package, which was made for OS X, fantastic. I tried it out, and although it worked great, I still had to leave RStudio to check to see if the latest version installed.</description>
+    </item>
+    
+  </channel>
+</rss>

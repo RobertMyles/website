@@ -1,0 +1,1373 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        
+            
+                <title>HUMAN CAPITAL INDEX MAPS</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.27.1" />
+        
+
+
+        
+            <meta name="author" content="Robert Myles McDonnell">
+        
+        
+            <meta name="description" content="MAPPING THE HUMAN CAPITAL INDEX VARIOUS WAYS IN R">
+        
+
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="HUMAN CAPITAL INDEX MAPS"/>
+<meta name="twitter:description" content="MAPPING THE HUMAN CAPITAL INDEX VARIOUS WAYS IN R"/>
+<meta name="twitter:site" content="@RobertMylesMc"/>
+
+        <meta property="og:title" content="HUMAN CAPITAL INDEX MAPS" />
+<meta property="og:description" content="MAPPING THE HUMAN CAPITAL INDEX VARIOUS WAYS IN R" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2017/09/26/human-capital-index-maps/" />
+
+
+
+<meta property="article:published_time" content="2017-09-26T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2017-09-26T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta property="fb:admins" content="1213956375281226" />
+        
+<meta itemprop="name" content="HUMAN CAPITAL INDEX MAPS">
+<meta itemprop="description" content="MAPPING THE HUMAN CAPITAL INDEX VARIOUS WAYS IN R">
+
+
+<meta itemprop="dateModified" content="2017-09-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="619">
+
+
+
+<meta itemprop="keywords" content="R,Human Capital Index," />
+
+        
+
+        
+
+        
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="/css/google-font.css" />
+            <link rel="stylesheet" href="/css/font-awesome.min.css" />
+            <link rel="stylesheet" href="/css/main.css" />
+            <link rel="stylesheet" href="/css/add-on.css" />
+            <link rel="stylesheet" href="/css/monokai-sublime.css">
+        
+
+        
+
+        
+        
+        
+            
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-76482767-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+        
+    </head>
+    <body>
+
+        
+        <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+        <h2><a href="/">Home</i></a></h2>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/research/">
+                        
+                            <i class="fa fa-bar-chart">&nbsp;</i>Research
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/RobertMyles">
+                        
+                            <i class="fa fa-code">&nbsp;</i>GitHub
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/cv/">
+                        
+                            <i class="fa fa-file-o">&nbsp;</i>CV
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/post/">
+                        
+                            <i class="fa fa-newspaper-o">&nbsp;</i>Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                        About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                        Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/blogroll/">
+                        
+                            <i class="fa fa-bookmark-o">&nbsp;</i>Blogroll
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/other/">
+                        
+                            <i class="fa fa-music">&nbsp;</i>Other
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="q" value="site:/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="q" value="site:/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/research/">
+                            <h3>
+                                
+                                    <i class="fa fa-bar-chart">&nbsp;</i>
+                                
+                                Research
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/RobertMyles">
+                            <h3>
+                                
+                                    <i class="fa fa-code">&nbsp;</i>
+                                
+                                GitHub
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/cv/">
+                            <h3>
+                                
+                                    <i class="fa fa-file-o">&nbsp;</i>
+                                
+                                CV
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/post/">
+                            <h3>
+                                
+                                    <i class="fa fa-newspaper-o">&nbsp;</i>
+                                
+                                Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                
+                                About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                
+                                Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/blogroll/">
+                            <h3>
+                                
+                                    <i class="fa fa-bookmark-o">&nbsp;</i>
+                                
+                                Blogroll
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/other/">
+                            <h3>
+                                
+                                    <i class="fa fa-music">&nbsp;</i>
+                                
+                                Other
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    <li>
+                        <a href="/2018/01/05/stan-irt-code/"><p>Stan IRT Code</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2018/01/03/blogdown-netlify/"><p>Blogdown &amp; Netlify</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/12/01/customize-interactive-r-visuals-in-power-bi/"><p>Customize Interactive R Visuals in Power BI</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/10/24/gauge-style-plots-with-ggplot2/"><p>Gauge-style plots with ggplot2</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/inhaling-boozing-earth/"><p>Inhaling/Boozing Earth</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/rating-r-packages/"><p>Rating R Packages</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/uk-elections-2017/"><p>UK ELECTIONS 2017</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/26/human-capital-index-maps/"><p>HUMAN CAPITAL INDEX MAPS</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/19/women-in-power/"><p>Women in Power</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/13/lil-packages-pt-2-cepr/"><p>Lil&#39; Packages Pt.2: cepR</p></a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f&text=HUMAN%20CAPITAL%20INDEX%20MAPS&via=RobertMylesMc" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f&title=HUMAN%20CAPITAL%20INDEX%20MAPS" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f&title=HUMAN%20CAPITAL%20INDEX%20MAPS" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f&title=HUMAN%20CAPITAL%20INDEX%20MAPS" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Robert%20Myles%20McDonnell&body=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+    <header>
+    <div class="title">
+        
+            <h1><a href="/2017/09/26/human-capital-index-maps/">HUMAN CAPITAL INDEX MAPS</a></h1>
+            
+        
+        
+            <p>MAPPING THE HUMAN CAPITAL INDEX VARIOUS WAYS IN R</p>
+        
+    </div>
+    <div class="meta">
+        
+            
+        
+
+        <time class="published"
+            datetime='2017-09-26'>
+            September 26, 2017</time>
+        <span class="author">Robert Myles McDonnell</span>
+        
+            <p>3 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+    <section id="social-share">
+        <ul class="icons">
+            
+
+
+<li><a href="//twitter.com/share?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f&text=HUMAN%20CAPITAL%20INDEX%20MAPS&via=RobertMylesMc" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f&title=HUMAN%20CAPITAL%20INDEX%20MAPS" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f&title=HUMAN%20CAPITAL%20INDEX%20MAPS" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f&title=HUMAN%20CAPITAL%20INDEX%20MAPS" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Robert%20Myles%20McDonnell&body=%2f2017%2f09%2f26%2fhuman-capital-index-maps%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+    
+
+    <div id="content">
+        <p><em>This post got lost mysteriously when I transitioned to Netlify – just reposting. It was originally from June 2017.</em></p>
+<p>I’m not too sure that the <a href="http://reports.weforum.org/human-capital-report-2016/rankings/">Human Capital Index</a> is a reliable measure of what it’s supposed to measure, but I’m convinced by <a href="http://deirdremccloskey.org/">Deirdre McCloskey’s</a> eloquent arguments that it is Human Capital, or ingenuity, in less dry terms, that has made the modern world (in <a href="https://www.nytimes.com/2016/09/04/upshot/the-formula-for-a-richer-world-equality-liberty-justice.html">conjunction with freedom and some basic legal structures</a>). However, all that interesting talk aside, there are now quite a few new ways to make maps in R. The <a href="https://github.com/edzer/sfr">sf</a> package has synced up with the dev version of ggplot2 to produce <code>geom_sf()</code>, <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html">tmaps</a> brings some cool themes to ggplot maps and <a href="https://leonawicz.github.io/mapmate/mapmate.html">mapmate</a> has been used to produce some stunning visualizations. Hence, I thought I’d use the HCI to check these out.</p>
+<pre class="r"><code>library(rvest)
+library(ggplot2)
+library(dplyr)</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.2</code></pre>
+<pre class="r"><code>hci &lt;- read_html(&quot;http://reports.weforum.org/human-capital-report-2016/rankings/&quot;) %&gt;%
+  html_node(&quot;table&quot;) %&gt;% html_table() %&gt;% 
+  rename(country = Economy, rank = `Overall Rank`, human_capital = `Overall Score`) %&gt;% 
+  mutate(country = recode(country, 
+                          &#39;Russian Federation&#39; = &#39;Russia&#39;,
+                          &#39;United Kingdom&#39; = &#39;UK&#39;,
+                          &#39;United States&#39; = &#39;USA&#39;,
+                          &#39;Korea, Rep.&#39; = &#39;South Korea&#39;,
+                          &#39;Kyrgyz Republic&#39; = &#39;Kyrgyzstan&#39;,
+                          &#39;Slovak Republic&#39; = &#39;Slovakia&#39;,
+                          &#39;Macedonia, FYR&#39; = &#39;Macedonia&#39;,
+                          &#39;Iran, Islamic Rep.&#39; = &#39;Iran&#39;,
+                          &#39;Trinidad and Tobago&#39; = &#39;Trinidad&#39;,
+                          &#39;Lao PDR&#39; = &#39;Laos&#39;,
+                          &#39;CÙte d’Ivoire&#39; = &#39;Ivory Coast&#39;))</code></pre>
+<p>I used to make maps in ggplot style with shapefiles, fortify and so on. The upside is that there are lots of shapefiles <a href="http://www.gadm.org/country">available</a>, but the downsides are that the dataframes you end up with are usually pretty big. There’s a <code>map_data()</code> function in the ggplot2 package that grabs some polygon data. The vanilla map we can make with these functions looks like this (with <code>theme_minimal()</code> to prettify things):</p>
+<pre class="r"><code>globe &lt;- map_data(&quot;world&quot;) %&gt;% rename(country = region)
+
+
+world &lt;- left_join(globe, hci)
+
+
+ggplot(data = world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = human_capital)) + 
+  theme_minimal()</code></pre>
+<p><img src="/post/2017-09-27-human-capital-index-maps_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Not bad. You can mess around with the projections using <code>coord_map()</code>, but it still feels a long way from Mike Bostock’s <a href="https://bl.ocks.org/mbostock">amazing d3 maps</a> (I know, d3 is more geared towards presentation. Still…). Let’s use <code>coord_map()</code>:</p>
+<pre class="r"><code>ggplot(data = world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = human_capital)) +
+  coord_map(projection = &quot;gilbert&quot;) + 
+  theme_minimal()</code></pre>
+<p><img src="/post/2017-09-27-human-capital-index-maps_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = human_capital)) +
+  coord_map(projection = &quot;azequidistant&quot;) + 
+  theme_minimal()</code></pre>
+<p><img src="/post/2017-09-27-human-capital-index-maps_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>So let’s try the sf method. I’m getting a dataset of world ‘geometry’ coordinates (a list-column in the sf dataframe) from the rnaturalearth package.</p>
+<pre class="r"><code>library(rnaturalearth)
+library(sf)
+
+countries &lt;- ne_countries(returnclass = &quot;sf&quot;) %&gt;% 
+  rename(country = sovereignt) %&gt;% 
+  select(country, geometry) %&gt;% 
+  mutate(country = recode(country, 
+                          &quot;United States of America&quot; = &quot;USA&quot;,
+                          &quot;United Kingdom&quot; = &quot;UK&quot;)) %&gt;% 
+  left_join(hci)
+
+ggplot(countries) + 
+  geom_sf(aes(fill = human_capital), size = 0.2) +
+  theme_minimal()</code></pre>
+<p><img src="/post/2017-09-27-human-capital-index-maps_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>The sf map doesn’t look massively better than that created with <code>geom_polygon()</code> (it’s much more in proportion, as I haven’t changed figure sizes in this RMarkdown document), although the process feels more intuitive to me. The dataframe feels ‘tidier’, as it still has the country as the unit of analysis – in other words, the dataframe we’re using has 177 rows, as opposed to tens of thousands. Let’s try some themes with tmap.</p>
+<pre class="r"><code>library(tmap)
+
+tm_shape(countries) +
+    tm_polygons(&quot;human_capital&quot;, title=&quot;Human Capital Index&quot;) +
+tm_format_World() +
+tm_style_grey()</code></pre>
+<p><img src="/post/2017-09-27-human-capital-index-maps_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Ooh, that’s nice. The theme actually makes it easier to see what’s going on: the difference between Canada &amp; the US was not so apparent before. (Canada’s score is 81.95 as opposed to 78.86 for the US…so precise, these numbers.)</p>
+<p>So in terms of how things <em>look</em>, using this basic code, tmap comes out well. I don’t really like its syntax though, it reminds me of <code>qplot()</code>. I prefer the full <code>ggplot()</code> approach myself.</p>
+
+    </div>
+
+    <footer>
+        <ul class="stats">
+    
+        
+
+        
+        
+            <li>
+                
+                
+                    
+
+                    
+
+                    
+
+                    
+                        Categories
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/r'>R</a></li>
+    
+        <li><a href='/categories/maps'>maps</a></li>
+    
+        <li><a href='/categories/human-capital-index'>Human Capital Index</a></li>
+    
+</ul>
+
+    </footer>
+</article>
+<ul class="actions pagination">
+    
+        <li><a href="/2017/09/19/women-in-power/"
+                class="button big previous">Women in Power</a></li>
+    
+
+    
+        <li><a href="/2017/09/27/uk-elections-2017/"
+                class="button big next">UK ELECTIONS 2017</a></li>
+    
+</ul>
+
+
+
+    
+        <article class="post">
+            <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "rob-gitblog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </article>
+    
+
+
+    </div>
+    
+<section id="sidebar">
+
+    
+        <section id="intro">
+            
+            
+                
+                    <a href="/" class="logo"><img src="/images/pic1.jpg" alt="" /></a>
+                
+            
+            
+                <header>
+                    <h2>if(topic != junk) {write} else { wine }</h2>
+                    <p>by Robert Myles McDonnell</p>
+                </header>
+            
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/RobertMyles" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//linkedin.com/in/robert-mcdonnell-7475b320" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+<li><a href="//stackoverflow.com/users/4296028/robertmc" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/RobertMylesMc" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+<li><a href="mailto:robertmylesmcdonnell@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+                
+            </ul>
+        </section>
+
+    
+        <section id="recent-posts">
+            <ul class="posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2018/01/05/stan-irt-code/">Stan IRT Code</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2018-01-05'>
+                                    January 5, 2018</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2018/01/03/blogdown-netlify/">Blogdown &amp; Netlify</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2018-01-03'>
+                                    January 3, 2018</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/12/01/customize-interactive-r-visuals-in-power-bi/">Customize Interactive R Visuals in Power BI</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-12-01'>
+                                    December 1, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/10/24/gauge-style-plots-with-ggplot2/">Gauge-style plots with ggplot2</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-10-24'>
+                                    October 24, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/inhaling-boozing-earth/">Inhaling/Boozing Earth</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/rating-r-packages/">Rating R Packages</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/uk-elections-2017/">UK ELECTIONS 2017</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/26/human-capital-index-maps/">HUMAN CAPITAL INDEX MAPS</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-26'>
+                                    September 26, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/19/women-in-power/">Women in Power</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-19'>
+                                    September 19, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/13/lil-packages-pt-2-cepr/">Lil&#39; Packages Pt.2: cepR</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-13'>
+                                    September 13, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+
+                
+                    <li>
+                        <ul class="actions">
+                            <li><a href=
+                            
+                                /post/
+                            
+                            class="button">View more posts</a></li>
+                        </ul>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+    
+    
+    
+        <section id="categories">
+            <ul class="posts">
+                <header>
+                    <h3><a href="/categories/">Categories</a></h3>
+                </header>
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r/">R</a>
+                                <span style="float:right;">35</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-science/">Political Science</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ggplot2/">ggplot2</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/maps/">maps</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/bayesian-statistics/">Bayesian Statistics</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/brazil/">Brazil</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/irt/">IRT</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r-markdown/">R Markdown</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/stan/">Stan</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/webscraping/">webscraping</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/bitcoin/">BitCoin</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/carnaval/">Carnaval</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/causality/">Causality</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/communism/">Communism</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/eurozone/">Eurozone</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/france/">France</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/germany/">Germany</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/github/">GitHub</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/healthcare/">Healthcare</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/hugo/">Hugo</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/human-capital-index/">Human Capital Index</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ideal-points/">Ideal Points</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ireland/">Ireland</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/jags/">JAGS</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/netlify/">Netlify</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/osx/">OSX</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-economy/">Political Economy</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/power-bi/">Power BI</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/prisons/">Prisons</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/selenium/">Selenium</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/uk/">UK</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/us/">US</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/blogdown/">blogdown</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/booze/">booze</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/metal/">metal</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/rss/">rss</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/text-analysis/">text analysis</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/tidyrss/">tidyRSS</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/time-series/">time-series</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/visualization/">visualization</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+            </ul>
+        </section>
+    
+
+    
+        
+
+    
+        <section id="footer">
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/RobertMyles" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//linkedin.com/in/robert-mcdonnell-7475b320" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+<li><a href="//stackoverflow.com/users/4296028/robertmc" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/RobertMylesMc" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+<li><a href="mailto:robertmylesmcdonnell@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+                
+            </ul>
+
+            <p class="copyright">&copy; Robert Myles McDonnell. Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a>. Ported by <a href="//github.com/jpescador" target="_blank">Julio Pescador</a>. Powered by <a href="//gohugo.io" target="_blank">Hugo</a></p>
+        </section>
+
+</section>
+
+            </div>
+        <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+        
+
+        
+        
+            
+        
+
+        
+        
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/skel.min.js"></script>
+            <script src="/js/util.js"></script>
+            <script src="/js/main.js"></script>
+            <script src="/js/backToTop.js"></script>
+            <script src="/js/highlight.pack.js"></script>
+        
+
+        
+
+            
+            <script>hljs.initHighlightingOnLoad();</script>
+            
+    </body>
+</html>
+

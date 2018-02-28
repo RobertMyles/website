@@ -1,0 +1,1421 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        
+            
+                <title>How to make a GitHub pages blog with RStudio and Hugo</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.27.1" />
+        
+
+
+        
+            <meta name="author" content="Robert McDonnell">
+        
+        
+            <meta name="description" content="Or, how I produce this blog">
+        
+
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="How to make a GitHub pages blog with RStudio and Hugo"/>
+<meta name="twitter:description" content="Or, how I produce this blog"/>
+<meta name="twitter:site" content="@RobertMylesMc"/>
+
+        <meta property="og:title" content="How to make a GitHub pages blog with RStudio and Hugo" />
+<meta property="og:description" content="Or, how I produce this blog" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/" />
+
+
+
+<meta property="article:published_time" content="2017-02-01T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2017-02-01T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<meta property="fb:admins" content="1213956375281226" />
+        
+<meta itemprop="name" content="How to make a GitHub pages blog with RStudio and Hugo">
+<meta itemprop="description" content="Or, how I produce this blog">
+
+
+<meta itemprop="dateModified" content="2017-02-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3069">
+
+
+
+<meta itemprop="keywords" content="R,GitHub," />
+
+        
+
+        
+
+        
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="/css/google-font.css" />
+            <link rel="stylesheet" href="/css/font-awesome.min.css" />
+            <link rel="stylesheet" href="/css/main.css" />
+            <link rel="stylesheet" href="/css/add-on.css" />
+            <link rel="stylesheet" href="/css/monokai-sublime.css">
+        
+
+        
+
+        
+        
+        
+            
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-76482767-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+        
+    </head>
+    <body>
+
+        
+        <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+        <h2><a href="/">Home</i></a></h2>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/research/">
+                        
+                            <i class="fa fa-bar-chart">&nbsp;</i>Research
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="https://github.com/RobertMyles">
+                        
+                            <i class="fa fa-code">&nbsp;</i>GitHub
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/cv/">
+                        
+                            <i class="fa fa-file-o">&nbsp;</i>CV
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/post/">
+                        
+                            <i class="fa fa-newspaper-o">&nbsp;</i>Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                        About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                        Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/blogroll/">
+                        
+                            <i class="fa fa-bookmark-o">&nbsp;</i>Blogroll
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/other/">
+                        
+                            <i class="fa fa-music">&nbsp;</i>Other
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="q" value="site:/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="q" value="site:/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/research/">
+                            <h3>
+                                
+                                    <i class="fa fa-bar-chart">&nbsp;</i>
+                                
+                                Research
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/RobertMyles">
+                            <h3>
+                                
+                                    <i class="fa fa-code">&nbsp;</i>
+                                
+                                GitHub
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/cv/">
+                            <h3>
+                                
+                                    <i class="fa fa-file-o">&nbsp;</i>
+                                
+                                CV
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/post/">
+                            <h3>
+                                
+                                    <i class="fa fa-newspaper-o">&nbsp;</i>
+                                
+                                Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                
+                                About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                
+                                Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/blogroll/">
+                            <h3>
+                                
+                                    <i class="fa fa-bookmark-o">&nbsp;</i>
+                                
+                                Blogroll
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/other/">
+                            <h3>
+                                
+                                    <i class="fa fa-music">&nbsp;</i>
+                                
+                                Other
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    <li>
+                        <a href="/2018/01/05/stan-irt-code/"><p>Stan IRT Code</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2018/01/03/blogdown-netlify/"><p>Blogdown &amp; Netlify</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/12/01/customize-interactive-r-visuals-in-power-bi/"><p>Customize Interactive R Visuals in Power BI</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/10/24/gauge-style-plots-with-ggplot2/"><p>Gauge-style plots with ggplot2</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/inhaling-boozing-earth/"><p>Inhaling/Boozing Earth</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/rating-r-packages/"><p>Rating R Packages</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/27/uk-elections-2017/"><p>UK ELECTIONS 2017</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/26/human-capital-index-maps/"><p>HUMAN CAPITAL INDEX MAPS</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/19/women-in-power/"><p>Women in Power</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="/2017/09/13/lil-packages-pt-2-cepr/"><p>Lil&#39; Packages Pt.2: cepR</p></a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f&text=How%20to%20make%20a%20GitHub%20pages%20blog%20with%20RStudio%20and%20Hugo&via=RobertMylesMc" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f&title=How%20to%20make%20a%20GitHub%20pages%20blog%20with%20RStudio%20and%20Hugo" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f&title=How%20to%20make%20a%20GitHub%20pages%20blog%20with%20RStudio%20and%20Hugo" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f&title=How%20to%20make%20a%20GitHub%20pages%20blog%20with%20RStudio%20and%20Hugo" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Robert%20McDonnell&body=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+    <header>
+    <div class="title">
+        
+            <h1><a href="/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/">How to make a GitHub pages blog with RStudio and Hugo</a></h1>
+            
+        
+        
+            <p>Or, how I produce this blog</p>
+        
+    </div>
+    <div class="meta">
+        
+            
+        
+
+        <time class="published"
+            datetime='2017-02-01'>
+            February 1, 2017</time>
+        <span class="author">Robert McDonnell</span>
+        
+            <p>15 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+    <section id="social-share">
+        <ul class="icons">
+            
+
+
+<li><a href="//twitter.com/share?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f&text=How%20to%20make%20a%20GitHub%20pages%20blog%20with%20RStudio%20and%20Hugo&via=RobertMylesMc" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f&title=How%20to%20make%20a%20GitHub%20pages%20blog%20with%20RStudio%20and%20Hugo" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f&title=How%20to%20make%20a%20GitHub%20pages%20blog%20with%20RStudio%20and%20Hugo" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f&title=How%20to%20make%20a%20GitHub%20pages%20blog%20with%20RStudio%20and%20Hugo" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by Robert%20McDonnell&body=%2f2017%2f02%2f01%2fhow-to-make-a-github-pages-blog-with-rstudio-and-hugo%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+    
+    
+
+    
+        
+        
+
+
+
+
+    
+
+
+        
+
+        <a href="/2017/02/01/how-to-make-a-github-pages-blog-with-rstudio-and-hugo/" class="image featured">
+            <img src="/images/r-hugo-octocat.png" alt="" />
+        </a>
+    
+
+
+    <div id="content">
+        <p><em>Update: for some people who may have some issues setting up the blog the way I’ve set out here, see Kate’s helpful comments below.</em></p>
+<p>Since April or so of last year, I’ve had a personal website on GitHub pages, where I keep this blog and a few other things. Setting it up was at times frustrating, but a good learning process (I especially picked up a lot of Git through that experience). Actually writing, not so good. I picked a theme I <a href="https://jekyllthemes.io/theme/45074676/sustain">liked</a>, all good, but I soon realised that writing as I often do in R Markdown was a little less convenient in the GitHub-flavoured markdown <span class="math inline">\(\rightarrow\)</span> jekyll <span class="math inline">\(\rightarrow\)</span> theme <span class="math inline">\(\rightarrow\)</span> website process. This post is an explanation of why I moved to <a href="https://gohugo.io/">Hugo</a> and specifically to <a href="https://github.com/rstudio/blogdown">blogdown</a>. I found the guides on the process (blogdown-focused, that is) to have some errors<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, so I will explain each step in getting your own GitHub pages blog, built by blogdown in RStudio, for anybody who is interested. Feel free to skip to the setup <a href="#how-to-set-up-your-own-github-pages-blog-and-post-using-blogdown">guide</a> to get started.</p>
+<div id="what-i-used-to-do" class="section level3">
+<h3>What I <em>used</em> to do</h3>
+<p>In R Markdown, code (naturally) and equations are easy to format. Back ticks format the text inside as <code>code</code> style text, and full chunks of R code (or <a href="https://yihui.name/knitr/demo/engines/">other languages</a>) can be placed inside three backticks with the accompanying name of the language afterwards inside two curly braces. To do this in April last year, with the theme I had chosen, I needed to write a whole load of Liquid tags like this: <code>{% highlight R linenos=table %}</code> and <code>{% endhighlight %}</code>.</p>
+<p>So that was code formatting, which is quite a frequent need in my blogging. But that wasn’t as bad as <span class="math inline">\(\LaTeX\)</span>. “Meu Deus”, as my Brazilian wife might say. To get the word “LaTeX” like I just wrote above, I had to write <code>{% raw %}\\(\LaTeX\\){% endraw %}</code>. Put that in a paragraph a few times and start to regret it. In R Markdown? <code>$\LaTeX$</code>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> I’ll take that, thanks very much.</p>
+<p>Footnotes were also irritating. Instead of the simple <code>^[footnote]</code> in R Markdown, I was using this: <code>&lt;sup id=&quot;a1&quot;&gt;[1](#fn1)&lt;/sup&gt;</code>, with the accompanying <code>&lt;b id=&quot;fn1&quot;&gt;1&lt;/b&gt; footnote (#a1)</code> (actually, I think that last part is missing something). I thought I was doing great. Hahaha!</p>
+</div>
+<div id="enter-r-pt.-1" class="section level3">
+<h3>Enter R (pt. 1)</h3>
+<p>So I liked the sustain theme that I had chosen, but after seeing that <a href="http://juliasilge.com/">Julia Silge</a> writes her lovely GitHub pages blog in R Markdown, I thought, ‘huh? That would be <em>much</em> easier’. Yes, and no. Big no.</p>
+<p>First, I changed my theme. I chose the same one as Julia, simply because I liked it the most. It’s called the so-simple theme, and its developer Michael Rose is a <em>really</em> nice guy (you can see him <a href="https://github.com/mmistakes/so-simple-theme/issues/227">here</a> helping me out of my confusion relative to a point I will get to shortly about jekyll). So now I was happy, with a cool new blog that I could write in R Markdown.</p>
+<p>In order to convert the .Rmd R Markdown files to ordinary markdown .md files that both jekyll and GitHub can process, I first used the same converting <a href="https://github.com/dgrtwo/dgrtwo.github.com/blob/master/_scripts/knitpages.R">function</a> that Julia uses, adapted by David Robinson from <a href="http://jfisher-usgs.github.io/r/2012/07/03/knitr-jekyll">Jason Fisher</a>. It was ok, except it converted whatever .Rmd files I had in the source folder, even ones that weren’t ready, and I still had to manually change the draft to a full post (changing the title to the date format jekyll uses) and move it around. There were a few other things about it that discommoded me, I can’t remember now. Anyway, I then found <a href="https://github.com/AndySouth/andysouth.github.io/blob/master/rmd2md.r">this one</a>, adapted by a chap called Andy South. I liked the look of this and set about customizing it to do what I wanted. <em>Then</em> I realised just how annoying the R Markdown – jekyll – GitHub pages workflow can be.</p>
+<p>The issues had to do with the paths that jekyll and knitr use to find the files they need to create the posts I was writing. Any file that starts with <code>_</code> is ignored by jekyll. That’s useful for putting our .Rmd files in, so I did, in a <code>_source</code> folder. But then when I tried to preview the drafts with jekyll (which was forever unreliable even before this problem), it couldn’t find the images which were embedded in a <code>_</code> folder. Fine. Then I made <code>_source</code> into <code>source</code> and knitr started complaining about file paths. Not to mention that jekyll started giving errors about datetimes being ‘nil’ and refusing to build or serve the site. :persevere: <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> Putting the images on imgur solved that, but that meant that I was writing code chunks that I was never actually evaluating at “knitting time” (conjures images of grannies sitting at fireplaces), and just linking to the images from the output I had run earlier. Hardly ideal.</p>
+<p>Another thing I like to do in my R Markdown html output is to include some custom css, nothing too fancy, just things like background images and different fonts. I actually don’t like css much, nor do I like html (I pity web developers, these languages are horrible. And javascript? Sheesh. Still, d3 is <strong>awesome</strong>, so I will learn some javascript.) So naturally I tried to do this on a blog post. It’s pretty easy in R Markdown: <code>custom_css:</code> just goes in the YAML header, nothing too taxing on this most weary of boys. And I had a funky little system of converting all this to .md, moving around files with <code>system2()</code> and so forth. I thought I was rocking. Of course not. Apart from the same problem with file paths, the css just never showed up. So then I modified the layouts and so on. (There are lots of examples of how to do this on the web.) No dice. Or sometimes, like the headers. But for all the posts, not just the one I wanted. Sigh. And remember, I am principally a “data analyst” or some type of “data scientist/researcher”. I’m not a web developer and I have very limited patience for messing around with scss variables etc etc. This is not to criticise the theme, it’s great, but I want to spend my time writing blog posts that interest me, not messing around with html and css.</p>
+</div>
+<div id="enter-r-pt.-2" class="section level3">
+<h3>Enter R (pt. 2)</h3>
+<p>So I had seen the genius Yihui’s blogdown package a little while ago, and I thought to myself, ‘that’s an option for the future’. I had just learned all about jekyll and I wasn’t particularly in the mood for diving into the world of Hugo. However, necessity is the mother of doing stuff. So I dived in.</p>
+<p>I have to say, blogdown seemed <em>amazing</em>. Do practically everything from inside Rstudio? Fantastic. Write all my posts in R Markdown and leave behind all those finicky converting functions? More fantastic. Live preview (remember my jekyll preview of drafts almost never worked)? Still more fantastic. Ok, Hugo works a little differently to jekyll, and involved a bit of a learning curve, but it’s actually quite straightforward. And blogdown just makes all of this tremendously easy, so I can get back to writing about stuff that interests in me, in an editor that I like (Rstudio), using a great and simple language (R Markdown, okay, ‘language’ might a bit much, but I can certainly use a few languages in it). You rock, Yihui, you really do. And Hugo is very fast. Why is this good? When you’re previewing your blog post as you write in RStudio, it makes a difference. Ok, let’s get to the meat of the post.</p>
+</div>
+<div id="how-to-set-up-your-own-github-pages-blog-and-post-using-blogdown" class="section level2">
+<h2>How to set up your own GitHub pages blog and post using blogdown</h2>
+<p>1: This is not a Git tutorial. <a href="https://git-scm.com/book/en/v2">Lots</a> of those exist already; here I will be using git commands in Terminal (I write on a macbook) without much explanation.</p>
+<p>2: Neither is this a Hugo or R Markdown tutorial. <a href="https://gohugo.io/overview/introduction/">Those</a> <a href="http://kbroman.org/knitr_knutshell/pages/Rmarkdown.html">exist</a> already, too.</p>
+<p>Ok, let’s get started. I’m assuming you have RStudio and all that installed.</p>
+<div id="blogdown-and-hugo" class="section level3">
+<h3>blogdown and Hugo</h3>
+<p>First, open up RStudio. If you don’t have the devtools package installed, install it (<code>install.packages(&quot;devtools&quot;)</code>). Now, using this, we install blogdown (<code>devtools::install_github('rstudio/blogdown')</code>).</p>
+<p>Next, <code>library(blogdown)</code>. We can use blogdown to install Hugo, but if you are using a mac, you may need to install <a href="http://brew.sh/">homebrew</a> first. It’s easy, just paste <code>/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code> into Terminal. If you don’t use Terminal or the command line much, now is a good time to start. It can be extremely useful.</p>
+<p>Now we can run <code>install_hugo()</code>. Next, we need to do some Git things.</p>
+</div>
+<div id="github" class="section level3">
+<h3>GitHub</h3>
+<p>If you do not have a GitHub account, you can open one <a href="https://github.com/join">here</a>. Choose a good username, it will be the name of your GitHub pages website, unless you pay for a seperate domain name.</p>
+<p>On your GitHub home page, there is a <code>+</code> sign with a downward arrow in the upper-right-hand corner. Click this and go to ‘New Repository’. This new repo will be the repo for your website. For example, mine is RobertMyles.github.io, since my username is RobertMyles. (So the entire repo address is RobertMyles/RobertMyles.github.io). Click ‘Create Repository’ and we’re good to “clone”.</p>
+<p>On the page of the repo, there is an option to “Clone or Download” on the right-hand side. Clone with HTTPS by copying the url of the repo to your clipboard. In Terminal, or whatever command line tool you use, type: - <code>git clone &lt;url&gt;</code>, where <code>&lt;url&gt;</code> is the url you just copied. (By the way, for first time Git use, you need to authenticate your machine. Details <a href="https://help.github.com/articles/generating-an-ssh-key/">here</a>.) - <code>cd &lt;directory&gt;</code>, where <code>&lt;directory&gt;</code> is the name of the folder that you just copied from GitHub. If you don’t know how <code>cd</code> works, you will need to be in the <em>enclosing folder</em> for that bit of script to work (<code>cd</code> moves the working directory like <code>setwd()</code> in R). What we’re doing is moving into the new folder that we have just cloned.</p>
+<p>This folder may or may not have a “README.md” file, depending on whether you chose that option when you set it up. It will have an invisible <code>.git</code> folder. If it does have a “README”, delete it, as blogdown needs an empty directory to start. If you do delete this file, you will need to run the following git commands afterwards:</p>
+<pre class="bash"><code>git add . 
+git commit -m &#39;delete README.md&#39;
+git push -u origin master</code></pre>
+<p>Before we move back to blogdown, you need to create another repository, one that will host all of the hugo/blogdown content. I called this one “website-hugo”, but’s what it’s called isn’t important (short and easy to type is better). Like we did with the first repo, clone this one on your computer (a “local” repo, in Git-world).</p>
+</div>
+</div>
+<div id="blogdown-again" class="section level2">
+<h2>Blogdown (again)</h2>
+<p>In Rstudio, either set your working directory to the <em>Hugo</em> folder that we just cloned, or open an RStudio project in this folder. I don’t think it’s necessary to open a project, and anyway I keep getting problems trying to shut down <a href="https://support.rstudio.com/hc/en-us/community/posts/223936487-RStudio-won-t-quit-when-closing-Projects-on-Mac-">projects</a>, but remember to set the working directory each time you want to do something on the website (<code>setwd(&quot;path/to/your/folder&quot;)</code>).</p>
+<p>Ok, so in the console in RStudio, type <code>new_site()</code>. This will create a site for you with a theme adapted by Yihui that you can interactively tinker with. I quite like this theme, but if you fancy using another, there is a list <a href="http://themes.gohugo.io/">here</a>. The relevant function is <code>install_theme()</code>. All of the folders of the site should be now in the Hugo folder (<em>not</em> the username.github.io folder). If you’re happy with the theme (for now, it’s easy to get a new theme), then return to Terminal, <code>cd</code> to the Hugo folder if you are not already there (it might be easiest to return to your home folder first, with <code>cd ~</code>) and type <code>rm -rf public</code>.</p>
+<div id="git-submodules" class="section level3">
+<h3>Git Submodules</h3>
+<p>This is where <a href="https://github.com/blog/2104-working-with-submodules">Git Submodules</a> come in, and they are really useful. Forget about the other approach using orphaned masters and such, this is the best way to do it (and it’s <a href="https://gohugo.io/tutorials/github-pages-blog/">here</a> on the Hugo website). The idea of a Git submodule is that the repo you want to use can make use of a folder from another repo. Simple. So in our case, our website repo (e.g. RobertMyles.github.io) will use the <code>public</code> folder from our Hugo repo as a submodule (that is, a folder inside it). There will be very little in your Hugo folder repo on GitHub, it should say something like “public @ f8fdbff” where the public folder is.</p>
+<p>So, the git command to get all this running is:</p>
+<pre class="bash"><code>git submodule add -b master git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.git public</code></pre>
+<p>where <code>&lt;username&gt;</code> is your username.</p>
+<p>So now I think it’s a good idea to write a little test blog post on your nice new blog. The blogdown command (there is more than one, see <code>?hugo_cmd</code>) is <code>new_post()</code>. This function has some options for the name of the author and the type of file created (markdown or R Markdown). I didn’t want to set these things every time, so I opened up my .Rprofile file (you can create it on your home folder if you don’t have one. Use Terminal: <code>cd ~; touch '.Rprofile'</code>) and added the following lines to it:</p>
+<pre class="bash"><code>## blogdown options:
+options(blogdown.use.rmd = TRUE)
+options(blogdown.author = &#39;Robert McDonnell&#39;)</code></pre>
+<p>Now <code>new_post()</code> will automatically create an . Rmd and use me as the author. There are a couple of options you can use in the YAML front matter (the stuff between the <code>---</code> lines at the top of the post). The ones I used for this post are below, and there is a full list <a href="https://gohugo.io/content/front-matter/">here</a>. I used <code>draft: true</code> while I was working on the post (no more <code>_drafts</code> crap, yay!), but when you want this to actually appear on your site, delete the line or set it to false.</p>
+<pre><code>---
+title: How to make a GitHub pages blog with RStudio and Hugo
+author: Robert McDonnell
+date: &#39;2017-02-01&#39;
+categories:
+  - R
+  - GitHub
+  - Hugo
+tags:
+  - R
+  - GitHub
+description: &#39;How I produce this blog&#39;
+draft: true
+---</code></pre>
+<p>Once you’ve written something, it’s time to go back to our buddy Terminal. There are some suggestions for pushing to GitHub using custom builds in RStudio <a href="https://github.com/rstudio/blogdown/issues/39">here</a>, but I found that this was more effort than it was worth (like I said, knowing the command line is a good thing) and anyway gave errors about permissions (I fully admit this may have been my own fault). The Hugo tutorial I linked to earlier suggests using a small bash script, but since it’s so small we can just as easily do it in Terminal. First, we move to the public folder (remember, we are in the Hugo repo folder) and add our changes to be committed:</p>
+<pre class="bash"><code>cd public
+git add -A</code></pre>
+<p>Next, we commit and push to GitHub (that’s not so hard now, is it?)</p>
+<pre class="bash"><code>git commit -m &#39;lovely new site&#39;
+git push origin master</code></pre>
+<p>Now go check out your <code>http://&lt;username&gt;.github.io</code> website!</p>
+<p>Posts are easy, just run the <code>new_post()</code> command again. You can preview the page with <code>serve_site()</code> (or click on “Live Preview Site” on the Addins button in Rstudio). <code>build_site()</code> then builds the site with our pal Hugo, and the git commands above push it all to your repo and to the site.</p>
+</div>
+<div id="migrating-from-jekyll" class="section level3">
+<h3>Migrating from jekyll</h3>
+<p>If you already have a jekyll-powered GitHub pages blog, you will have to make a few adjustments for Hugo. First of all, you may need to change any <code>{% raw %}</code> Liquid tags you had (I had to ), and secondly (and more importantly), you will have to include <code>url:</code> in the YAML to point to the old urls where the webpages currently (or previously, if you’ve been reckless and already set up your new Hugo blog). For example, I had a blog post at <a href="http://robertmyles.github.io/ElectionsBR.html" class="uri">http://robertmyles.github.io/ElectionsBR.html</a>. After setting up this new version of the site with blogdown and Hugo, the blog post was at something like <code>http://robertmyles.github.io/posts/ElectionsBR.html</code> (I can’t remember exactly). So any links to the original post will now be broken, which is a shame since that post was quite popular on a Brazilian facebook group (“Métodos”, full of nice people who are interested in social science methods and stuff like R). So the YAML for the new version of the post now contains:</p>
+<pre><code>url: /ElectionsBR.html</code></pre>
+<p>Note the leading slash. Perhaps <a href="https://gohugo.io/extras/aliases/">aliases</a> will be of use, it depends on the structure of your previous site.</p>
+<p>To see the exact layout of my two repos, see <a href="https://github.com/RobertMyles/website-hugo" class="uri">https://github.com/RobertMyles/website-hugo</a> and <a href="https://github.com/RobertMyles/RobertMyles.github.io" class="uri">https://github.com/RobertMyles/RobertMyles.github.io</a>. And please leave a comment or question if you have one. I’m sure I’ll customise this <a href="https://github.com/jpescador/hugo-future-imperfect">theme</a> I’ve chosen, the comments are too dark in the code sections, for example. But that can wait for another day.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>There are three guides that I found on the net, not including the Hugo tutorial, and a big thanks to the authors for taking the time to write those posts and share their experience. In the end I think they confused me more than they helped, but it was a learning process! One is <a href="https://hjdskes.github.io/blog/deploying-hugo-on-personal-gh-pages/index.html">here</a>, by Jente Hidskes, which has some curious items in the bash scripts he provides (why the “Grabbing one file from the $SOURCE branch so that a commit can be made” part, when “touch file” would have been far easier, for example? And anyway, it didn’t work, for me, there is an error with <code>git rm --cached</code> from what I can figure out, and some other lines didn’t work.) Another is <a href="http://code.markedmondson.me/new-blog-down/">here</a>, which is closest to what I did (apart from the Hugo tutorial), except it’s missing a whole host of info on blogdown, Hugo and particularly GitHub. It also takes the project-custom-build approach, which gave me problems. But nice site, Mark. The last one is <a href="https://proquestionasker.github.io/blog/Making_Site/">here</a>, which is lovely and detailed (thanks Amber for taking the time), although it depends on the (I think) faulty bash scripts of Jente. It is also overly complicated, there is no need for the orphan master process. Anyway, they all helped, so thanks folks.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>If you are <em>not</em> using the default blogdown Hugo theme, you will have to enable mathjax, and include <a href="https://github.com/yihui/hugo-lithium-theme/blob/7d436d803df90c873cdaecf24aeeff827696d77c/layouts/partials/footer.html#L21-L30">this</a> piece of html in one of the html files in your layouts/partials files, preferably one that is loaded with every blog post, like footer or header. I put mine in footer.html.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Supposedly emoji support is coming to Hugo in the next release. This should be a ‘perservering’ face. I’m leaving it here until the next release is available. In perseverance.<a href="#fnref3">↩</a></p></li>
+</ol>
+</div>
+
+    </div>
+
+    <footer>
+        <ul class="stats">
+    
+        
+
+        
+        
+            <li>
+                
+                
+                    
+
+                    
+
+                    
+
+                    
+                        Categories
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/r'>R</a></li>
+    
+        <li><a href='/categories/github'>GitHub</a></li>
+    
+        <li><a href='/categories/hugo'>Hugo</a></li>
+    
+</ul>
+
+    </footer>
+</article>
+<ul class="actions pagination">
+    
+        <li><a href="/brad_pitt_movies.html"
+                class="button big previous">Ranking Brad Pitt’s Movies in R</a></li>
+    
+
+    
+        <li><a href="/2017/02/18/carnaval/"
+                class="button big next">Carnaval!</a></li>
+    
+</ul>
+
+
+
+    
+        <article class="post">
+            <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "rob-gitblog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </article>
+    
+
+
+    </div>
+    
+<section id="sidebar">
+
+    
+        <section id="intro">
+            
+            
+                
+                    <a href="/" class="logo"><img src="/images/pic1.jpg" alt="" /></a>
+                
+            
+            
+                <header>
+                    <h2>if(topic != junk) {write} else { wine }</h2>
+                    <p>by Robert Myles McDonnell</p>
+                </header>
+            
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/RobertMyles" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//linkedin.com/in/robert-mcdonnell-7475b320" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+<li><a href="//stackoverflow.com/users/4296028/robertmc" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/RobertMylesMc" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+<li><a href="mailto:robertmylesmcdonnell@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+                
+            </ul>
+        </section>
+
+    
+        <section id="recent-posts">
+            <ul class="posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2018/01/05/stan-irt-code/">Stan IRT Code</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2018-01-05'>
+                                    January 5, 2018</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2018/01/03/blogdown-netlify/">Blogdown &amp; Netlify</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2018-01-03'>
+                                    January 3, 2018</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/12/01/customize-interactive-r-visuals-in-power-bi/">Customize Interactive R Visuals in Power BI</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-12-01'>
+                                    December 1, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/10/24/gauge-style-plots-with-ggplot2/">Gauge-style plots with ggplot2</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-10-24'>
+                                    October 24, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/inhaling-boozing-earth/">Inhaling/Boozing Earth</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/rating-r-packages/">Rating R Packages</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/27/uk-elections-2017/">UK ELECTIONS 2017</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-27'>
+                                    September 27, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/26/human-capital-index-maps/">HUMAN CAPITAL INDEX MAPS</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-26'>
+                                    September 26, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/19/women-in-power/">Women in Power</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-19'>
+                                    September 19, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="/2017/09/13/lil-packages-pt-2-cepr/">Lil&#39; Packages Pt.2: cepR</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2017-09-13'>
+                                    September 13, 2017</time>
+                            </header>
+                        </article>
+                    </li>
+                
+
+                
+                    <li>
+                        <ul class="actions">
+                            <li><a href=
+                            
+                                /post/
+                            
+                            class="button">View more posts</a></li>
+                        </ul>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+    
+    
+    
+        <section id="categories">
+            <ul class="posts">
+                <header>
+                    <h3><a href="/categories/">Categories</a></h3>
+                </header>
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r/">R</a>
+                                <span style="float:right;">35</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-science/">Political Science</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ggplot2/">ggplot2</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/maps/">maps</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/bayesian-statistics/">Bayesian Statistics</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/brazil/">Brazil</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/irt/">IRT</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/r-markdown/">R Markdown</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/stan/">Stan</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/webscraping/">webscraping</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/bitcoin/">BitCoin</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/carnaval/">Carnaval</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/causality/">Causality</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/communism/">Communism</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/eurozone/">Eurozone</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/france/">France</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/germany/">Germany</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/github/">GitHub</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/healthcare/">Healthcare</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/hugo/">Hugo</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/human-capital-index/">Human Capital Index</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ideal-points/">Ideal Points</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/ireland/">Ireland</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/jags/">JAGS</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/netlify/">Netlify</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/osx/">OSX</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/political-economy/">Political Economy</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/power-bi/">Power BI</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/prisons/">Prisons</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/selenium/">Selenium</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/uk/">UK</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/us/">US</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/blogdown/">blogdown</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/booze/">booze</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/metal/">metal</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/rss/">rss</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/text-analysis/">text analysis</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/tidyrss/">tidyRSS</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/time-series/">time-series</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/visualization/">visualization</a>
+                                <span style="float:right;">1</span>
+                            </header>
+                        </article>
+                    </li>
+                
+            </ul>
+        </section>
+    
+
+    
+        
+
+    
+        <section id="footer">
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/RobertMyles" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//linkedin.com/in/robert-mcdonnell-7475b320" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+<li><a href="//stackoverflow.com/users/4296028/robertmc" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//twitter.com/RobertMylesMc" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+<li><a href="mailto:robertmylesmcdonnell@gmail.com" title="Email" class="fa fa-envelope"></a></li>
+
+
+                
+            </ul>
+
+            <p class="copyright">&copy; Robert Myles McDonnell. Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a>. Ported by <a href="//github.com/jpescador" target="_blank">Julio Pescador</a>. Powered by <a href="//gohugo.io" target="_blank">Hugo</a></p>
+        </section>
+
+</section>
+
+            </div>
+        <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+        
+
+        
+        
+            
+        
+
+        
+        
+            <script src="/js/jquery.min.js"></script>
+            <script src="/js/skel.min.js"></script>
+            <script src="/js/util.js"></script>
+            <script src="/js/main.js"></script>
+            <script src="/js/backToTop.js"></script>
+            <script src="/js/highlight.pack.js"></script>
+        
+
+        
+
+            
+            <script>hljs.initHighlightingOnLoad();</script>
+            
+    </body>
+</html>
+

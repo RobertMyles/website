@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rotten Tomatoes on Robert Myles McDonnell</title>
+    <link>/tags/rotten-tomatoes/</link>
+    <description>Recent content in Rotten Tomatoes on Robert Myles McDonnell</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rotten-tomatoes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ranking Brad Pitt’s Movies in R</title>
+      <link>/brad_pitt_movies.html</link>
+      <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/brad_pitt_movies.html</guid>
+      <description>So I saw this blog post, in which Pretty Famous ranked every one of Brad Pitt’s movies (I have no idea how I came across it, I’m not particularly a movie buff or a fan of Señor Pitt, but anyway). Then I wondered how easy/hard it would be to do something like that in R. Pretty Famous used a few sources, but here I’m going to stick to Rotten Tomatoes, since it’s a pretty well-known movie ratings site, maybe the most well-known.</description>
+    </item>
+    
+  </channel>
+</rss>

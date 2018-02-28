@@ -16,6 +16,7 @@ linktitle: ''
 knitr::opts_chunk$set(cache.lazy = TRUE)
 ```
 
+**This blog post is a bit outdated -- for newer, cleaner IRT R code, see this [github repo](https://github.com/RobertMyles/IRT) and this [blog post](https://robertmylesmcdonnell.netlify.com/2018/01/05/stan-irt-code/).**
 
 *The code below on Stan is also available as an [`RPub webpage`](http://rpubs.com/RobertMylesMc/Bayesian-IRT-ideal-points-with-Stan-in-R), if you'd rather work through the examples than read all of the post.*
 

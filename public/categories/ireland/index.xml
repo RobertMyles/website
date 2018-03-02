@@ -1,24 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Ireland on Robert Myles McDonnell</title>
-    <link>/categories/ireland/</link>
-    <description>Recent content in Ireland on Robert Myles McDonnell</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 28 Feb 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/categories/ireland/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Dublin House Prices with R</title>
-      <link>/2017/02/28/dublin-house-prices-with-r/</link>
-      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/2017/02/28/dublin-house-prices-with-r/</guid>
-      <description>library(RSelenium)#system2(&amp;quot;java&amp;quot;, args = c(&amp;quot;-jar&amp;quot;, &amp;quot;/Users/robert/R/selenium-server-standalone-2.53.1.jar&amp;quot;))first &amp;lt;- &amp;quot;body &amp;gt; div.jcf-select-drop.jcf-select-search-select.jcf-select-ng-hide.jcf-select-ng-pristine.jcf-select-ng-valid.jcf-select-jcf-hidden.jcf-unselectable &amp;gt; div &amp;gt; span &amp;gt; div &amp;gt; span&amp;quot;</description>
-    </item>
-    
-  </channel>
-</rss>

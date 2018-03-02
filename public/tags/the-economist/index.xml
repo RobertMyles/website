@@ -1,24 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>The Economist on Robert Myles McDonnell</title>
-    <link>/tags/the-economist/</link>
-    <description>Recent content in The Economist on Robert Myles McDonnell</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 21 Aug 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/the-economist/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Re-creating Plots from The Economist in R and ggplot2</title>
-      <link>/re-creating-plots-from-the-economist-in-r.html</link>
-      <pubDate>Sun, 21 Aug 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/re-creating-plots-from-the-economist-in-r.html</guid>
-      <description>5/2/2017 Update: it seems something is broken in the scripts to run this analysis. I’ll fix it asap.*The Economist is well known for its graphs and images, and I personally like them a lot. I was doing some work on Brexit when I spied the image above, and thought how much I would like to make something similar. Since my go-to environment is R, and its go-to plotting package ggplot2, I thought I’d try to recreate the image using these tools.</description>
-    </item>
-    
-  </channel>
-</rss>

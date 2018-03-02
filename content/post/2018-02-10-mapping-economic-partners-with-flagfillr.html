@@ -1,0 +1,59 @@
+---
+title: Mapping Economic Partners with flagfillr
+author: Robert Myles McDonnell
+date: '2018-02-10'
+slug: mapping-economic-partners-with-flagfillr
+categories: [R, ggplot2, trade]
+tags: []
+draft: true
+---
+
+
+
+<p>🇨🇨 🇨🇽 🇵🇹 🇩🇴 🇫🇲 🇰🇷 Recently I wrote a little package for R called flagfillr (you can read more details <a href="https://github.com/RobertMyles/flagfillr">here</a>). One of the main reasons I made this is because I had seen a few maps of economic partners, for example this one, from <a href="http://drunkeynesian.blogspot.com.br/2017/11/o-que-os-estados-brasileiros-exportam.html">here</a>:</p>
+<div class="figure">
+<img src="https://i.imgur.com/6aL6KI9.png" />
+
+</div>
+<p>These types of maps (some more <a href="http://www.businessinsider.com/us-state-import-export-international-trade-partner-map-2017-11">here</a>, of the US) are interesting visual summaries, but they look a little <em>Excel</em> to me (sorry, whoever made it!). I thought I could spice them up with flags, cos hey, who doesn’t like cool flags (like Bhutan, 🇧🇹, awesome!)</p>
+<div id="enter-flagfillr" class="section level2">
+<h2>Enter <code>flagfillr</code></h2>
+<p>With flagfillr, the above map can easily be created. Once you have a data.frame of the data (here I refer to it as <code>DF</code>), you can do it with one line:</p>
+<pre class="r"><code>flagfillr::flag_fillr_data(data = DF, country = &quot;Brazil&quot;, resolution = &quot;large&quot;,
+                           size = &quot;250&quot;)</code></pre>
+<p>Which, if your data corresponds to the map above, will give you this:</p>
+<div class="figure">
+<img src="https://i.imgur.com/qbNUhbY.png" />
+
+</div>
+</div>
+<div id="mapping-economic-partners" class="section level2">
+<h2>Mapping Economic Partners</h2>
+<p>So how can you do this for another country? Let’s take the example of Australia, from data available <a href="http://dfat.gov.au/trade/resources/trade-at-a-glance/Pages/goods-by-state.aspx">here</a>. First of all, we’ll need to put our data into a dataframe, preferably with columns named <code>country</code>, <code>state</code> and <code>partner</code>, just to keep things simple. Simple is good. I’ll use <code>dplyr</code> here (don’t forget you’ll have to install flagfillr, see <a href="https://github.com/RobertMyles/flagfillr">here</a>. Since Australia’s main trade partners by state are basically China and Japan, let’s choose the <em>third</em> biggest trade partner by state. This also gives me the opportunity to warn of some little ‘gotchas’: flagfillr uses the rnaturalearth package for its geographical data, and when you</p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(flagfillr) 
+
+oz &lt;- tibble(
+  country = &quot;Australia&quot;,
+  state = c(&quot;Northern Territory&quot;, &quot;Western Australia&quot;, &quot;New South Wales&quot;,
+            &quot;South Australia&quot;, &quot;Victoria&quot;, &quot;Queensland&quot;, &quot;Tasmania&quot;,
+            &quot;Australian Capital Territory&quot;),
+  partner = c(&quot;India&quot;, &quot;United Kingdom&quot;, &quot;South Korea&quot;, &quot;Malaysia&quot;, &quot;New Zealand&quot;,
+              &quot;India&quot;, &quot;Malaysia&quot;, &quot;Malaysia&quot;)
+)
+
+flag_fillr_data(oz, country = &quot;Australia&quot;, type = &quot;state&quot;, 
+                partner_col = oz$partner, state_col = oz$state)</code></pre>
+<pre><code>## Combining flags and data...</code></pre>
+<pre><code>## Creating plot...</code></pre>
+<p><img src="/post/2018-02-10-mapping-economic-partners-with-flagfillr_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Thanks to the handy new sf package, and its accompanying <code>geom_sf()</code> in the development version of ggplot2, we now have an easier way to manipulate dataframes of geographical information. I was able to utilise these to make a few functions that make creating</p>
+</div>

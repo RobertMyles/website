@@ -30,7 +30,7 @@ Which, if your data corresponds to the map above, will give you this:
 
 ## Mapping Economic Partners
 
-So how can you do this for another country? Let's take the example of Australia, from data available [here](http://dfat.gov.au/trade/resources/trade-at-a-glance/Pages/goods-by-state.aspx). First of all, we'll need to put our data into a dataframe, preferably with columns named `country`, `state` and `partner`, just to keep things simple. Simple is good. I'll use `dplyr` here (don't forget you'll have to install flagfillr, see [here](https://github.com/RobertMyles/flagfillr). Since Australia's main trade partners by state are basically China and Japan, let's choose the *third* biggest trade partner by state. This also gives me the opportunity to warn of some little 'gotchas': flagfillr uses the rnaturalearth package for its geographical data, and when you 
+So how can you do this for another country? Let's take the example of Australia, from data available [here](http://dfat.gov.au/trade/resources/trade-at-a-glance/Pages/goods-by-state.aspx). First of all, we'll need to put our data into a dataframe, preferably with columns named `country`, `state` and `partner`, just to keep things simple. Simple is good. I'll use `dplyr` here (don't forget you'll have to install flagfillr, see [here](https://github.com/RobertMyles/flagfillr). Since Australia's main trade partners by state are basically China and Japan, let's choose the *third* biggest trade partner by state. 
 
 ```{r}
 library(dplyr)
@@ -45,7 +45,7 @@ oz <- tibble(
               "India", "Malaysia", "Malaysia")
 )
 
-flag_fillr_data(oz, country = "Australia", type = "state", 
+flag_fillr_data(oz, country = "Australia", type = "state", size = "250",
                 partner_col = oz$partner, state_col = oz$state)
 ```
 

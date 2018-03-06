@@ -35,6 +35,7 @@ So how can you do this for another country? Let's take the example of Australia,
 ```{r, message=FALSE, warning=FALSE}
 library(dplyr)
 library(flagfillr) 
+library(plotly)
 
 oz <- tibble(
   country = "Australia",
@@ -90,7 +91,7 @@ flag_fillr_data(imports, country = "United States", type = "state", size = "250"
 ```
 
 
-Maybe that's a slightly disturbing vision to some people haha! I like to think it's a nice reminder of how intertwined our world is. And some surprises in there...Ireland, South Korea, Saudi Arabia. It's probably to do with US Multinationals abroad in the Irish case, maybe with German maunfacturers in the US in the German case...I'm not sure, I'll leave it to the experts. How about the countries that these states most export to?
+Maybe that's a slightly disturbing vision to some people haha! I like to think it's a nice reminder of how intertwined our world is. And some surprises in there...Ireland, South Korea, Saudi Arabia. Seems like Ireland exports tech [products](https://www.census.gov/foreign-trade/statistics/state/data/wy.html) to Oregon, while Louisiana imports -- you guessed it -- oil from Saudi Arabia. How about the countries that these states most export to?
 
 ```{r, message=FALSE}
 exports <- tibble(
@@ -113,6 +114,38 @@ flag_fillr_data(exports, country = "United States", type = "state", size = "250"
                 partner_col = exports$partner, state_col = exports$state)
 
 ```
+
+
+
+Interesting. What does Utah export to the UK? The "state export[s] a broad range of goods, including animal products, aircraft engines, automotive parts, electronics, personal care products, pharmaceuticals, sporting goods, and industrial goods such as valves, drilling tools and fuses", [supposedly](https://www.deseretnews.com/article/865601174/British-diplomat-lauds-UK-trade-relations-with-Utah.html). Brazil and Wyoming also have an interesting relationship, with Wyoming's exports being [chemicals and the like](https://www.census.gov/foreign-trade/statistics/state/data/wy.html). 
+
+
+Another interesting case that makes for an arresting visualization is the internal trade of European Union. Here I skip the code, but the pattern is the same as the above two plots.  
+
+```{r, echo=FALSE}
+eu <- tibble(
+  country = c("United Kingdom", "Ireland", "Netherlands", "Belgium", "France", "Spain", "Portugal",
+              "Italy", "Germany", "Luxembourg", "Denmark", "Sweden", "Finland", "Poland", "Greece",
+              "Romania", "Bulgaria", "Latvia", "Lithuania", "Estonia", "Hungary", "Cyprus",
+              "Czech Republic", "Croatia", "Malta", "Austria", "Slovenia", "Slovakia"),
+  partner = c("Germany")
+) %>% 
+  mutate(partner = case_when(
+    country == "Latvia" ~ "Lithuania",
+    country == "Lithuania" ~ "Latvia",
+    country %in% c("Germany", "Spain") ~ "France",
+    country == "Estonia" ~ "Sweden",
+    country == "Ireland" ~ "United Kingdom",
+    country %in% c("Greece", "Croatia") ~ "Italy",
+    country == "Cyprus" ~ "Greece",
+    country == "Portugal" ~ "Spain"
+  ))
+  
+flag_fillr_data(eu, country_col = eu$country, partner_col = eu$partner)
+
+```
+
+
 
 
 Thanks to the handy new sf package, and its accompanying `geom_sf()` in the development version of ggplot2, we now have an easier way to manipulate dataframes of geographical information. I was able to utilise these to make a few functions that make creating 

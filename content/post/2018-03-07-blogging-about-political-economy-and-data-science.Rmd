@@ -1,11 +1,11 @@
 ---
 title: Blogging about Political Economy and Data Science
-author: ~
+author: 'Robert Myles McDonnell'
 date: '2018-03-07'
 slug: blogging-about-political-economy-and-data-science
-categories: []
+categories: [R, Political Economy]
 tags: []
-description: ''
+description: 'Time for a new direction for this blog'
 featured: ''
 featuredalt: ''
 featuredpath: ''
@@ -13,9 +13,9 @@ linktitle: ''
 draft: true
 ---
 
-I've been thinking about changing the tone and content of this blog for a little while now. I started out writing about IRT models, Bayesian stats and stuff like that, and then I started sharing some R code for various little tasks, along with some tips and tricks, or blogging about some of my R packages. However, the blogosphere is full of great R (or Python etc.) people who share code snippets and tips & tricks (hrbrmstr and curso-R being particularly good ones). I'll still do that when I find something interesting to share, but I'd like to move more in the direction of my current interests, that marshy ground where politics and economics combine. I'll call it Political Economy, since that's what it used to be called before the British economist Alfred Marshall decided we should separate the two and study economics in mathematical detail (he wasn't the only one, of course, Karl Marx famously spent many years futilely trying to prove his theorems mathematically). Given that I have some R skillz, I'm going to combine it all into a lovely mash. Political Economy and R (maybe some Python, some JavaScript). Great.  
+I've been thinking about changing the tone and content of this blog for a little while now. I started out writing about IRT models, Bayesian stats and stuff like that, and then I started sharing some R code for various little tasks, along with some tips and tricks, or blogging about some of my R packages. However, the blogosphere is full of great R (or Python etc.) people who share code snippets and tips & tricks ([hrbrmstr](https://rud.is/b/) and [curso-R](http://curso-r.com/blog/) being particularly good ones). I'll still do that when I find something interesting to share, but I'd like to move more in the direction of my current interests, that marshy ground where politics and economics combine. I'll call it Political Economy, since that's what it used to be called before the British economist Alfred Marshall decided we should separate the two and study economics in mathematical detail. Given that I have some R skillz, I'm going to combine it all into a lovely mash. Political Economy and R (maybe some Python, some JavaScript). Great.  
 
-So a few provisos before we start: I'm not a 'trained' economist, in the sense that I have no formal economics qualifications. I do have a PhD in International Relations (IR), and since I've never believed in the artificial separation of politics and economics, I took and interest in International Political Economy since the start of my formal IR studies back in 2009 (and I was informally interested in it earlier). So this blog will be a chance for me to educate myself and to share that process (comments and corrections are of course always welcome). It is inspired somewhat by Cafe Hayek, and by the fact that I noticed that I regularly read things that irritate me. They irritate me because they're wrong, and they are part of accepted wisdom. Since I do not have either the deep knowledge or the academic pedigree to simply lecture people on the fact that they are wrong (like the estimable Dr. Boudreaux), I will attempt to use my R skills, and my data analysis and data science skills to empirically or statistically highlight my points, where I can. The topics? Stuff that irritates me.   
+So a few provisos before we start: I'm not a 'trained' economist, in the sense that I have no formal economics qualifications. I do have a PhD in International Relations (IR), and since I've never believed in the artificial separation of politics and economics, I took and interest in International Political Economy since the start of my formal IR studies back in 2009 (and I was informally interested in it earlier). So this blog will be a chance for me to educate myself and to share that process (comments and corrections are of course always welcome). It is inspired somewhat by [Cafe Hayek](http://cafehayek.com/), and by the fact that I noticed that I regularly read things that irritate me. They irritate me because they're wrong, and they are part of accepted wisdom. Since I do not have either the deep knowledge or the academic pedigree to simply lecture people on the fact that they are wrong (like the estimable Dr. Boudreaux), I will attempt to use my R skills, and my data analysis and data science skills to empirically or statistically highlight my points, where I can. The topics? Stuff that irritates me.   
 
 I should be clear too, about where I stand on all these things. Since I read Cafe Hayek, it might be obvious. I share the politics of the left, in the sense that I think we should all work towards eliminating poverty and improving the lives of regular people, and that I think social freedoms are important. I share the politics of the right in the sense that I believe in a free market. The problem with the right and the left is that the right doesn't actually believe in a free market, they just think they do, while the left is obsessed with implementing policies that clearly don't work. The fact that they don't work is so clear that I often wonder if people on the left do actually care about what they say they care about.   
 
@@ -33,8 +33,22 @@ I wrote 'libertarianism' above. This is also a point worth mentioning. The word 
 ### First Up
 So where to start? Let's start with my favourite, the Guardian. The Guardian has excellent sports coverage (I love rugby union), so I regularly read it. But it's economic coverage (mainly on the opinion pages) is downright dangerous. In fact it's quite insane. On the same day, you can read a socialist argument for controlling the economy, and criticism of Donald Trump's anti-trade policies being bad for society. I kid you not, the Guardian wallows in cognitive dissonance. Let's start with something I read today. The title of the piece when I first read it was something like *'Get real, Jamie Oliver: middle-class diets need middle-class incomes'*, however, when I went back, it had been changed. The article still seems the same, though. You can read it [here](https://www.theguardian.com/commentisfree/2018/mar/07/jamie-oliver-poor-people-diet-tips-obesity-class).   
 Here's the backgound to this article: Britain, like other rich countries, has an obesity problem. Jamie Oliver (a TV chef and entrepreneur, if you don't know him) has been for many years campaigning for more awareness of healthy food in Britain, at one point sucessfully implenting healthy school meals in schools in England. Jamie suggested recently that porr people think 'in a different gear' when it comes to healthy food, as they are too busy trying to get enough money to buy enough food to feed their families in the first place, and that this leaves them in a difficult position to even start thinking about healthy diets. The columnist in question, Kathleen Kerridge, writes that poor people do indeed know how to cook, that "they are not avoiding broccoli because they're too stupid to cook it", and that cost is the defining factor in determing what people eat.  
-Leaving aside the common observation that there are McDonalds and KFCs everywhere, which means people like them and are prepared to pay money to eat there (and should be able to spend their money on whatever they like), there are other factors at play that are more interesting. The 'unseen', as Bastiat would have put it. 
+Leaving aside the common observation that there are McDonalds and KFCs everywhere, which means people like them and are prepared to pay money to eat there (and should be able to spend their money on whatever they like), there are other factors at play that are more interesting. The 'unseen', as [Bastiat](http://www.econlib.org/library/Bastiat/basEss1.html) would have put it. 
+
+First of all, why can't people afford fruit and vegetables? While top-quality food and exotic fruits will always be expensive, I can't think of a reason why fruit and vegetables would be *a priori* expensive in the UK. I mean, ok, the UK imports something like half its food. It's a small country, and supposedly quite densely populated. So maybe land prices are too high to produce food, and then the UK has to import it? Perhaps, but it's still no reason for it to be expensive, especially since its EU partner France produces more than enough to feed itself and export to its neighbour. Not to mention the Southern European countries, all food producers and members of the trade bloc.
 
 
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
 
+tariffs <- read_tsv("C:/Users/robert.m.mcdonnell/Documents/temp/Applied_MFN_Tariffs.txt")
+
+tariffs %>% filter(Year == 2017) %>% 
+  select(Reporter, `Percent duty free`, Description) %>% 
+  mutate(Description = str_extract(Description, '[A-Za-z ,]{25}')) %>% 
+  group_by(Description, Reporter) %>%
+  summarise(`Mean Tariff` = mean(`Percent duty free`)) %>% 
+  ggplot(aes(x = `Mean Tariff`, y = Description, colour = Reporter)) +
+  geom_point() + facet_wrap(~Reporter)
+```
 

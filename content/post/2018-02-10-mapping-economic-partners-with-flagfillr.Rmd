@@ -5,7 +5,6 @@ date: '2018-02-10'
 slug: mapping-economic-partners-with-flagfillr
 categories: [R, ggplot2, trade]
 tags: []
-draft: true
 ---
 
 `r emo::ji("cocos_islands")` `r emo::ji("christmas_island")` `r emo::ji("portugal")` `r emo::ji("dominican_republic")` `r emo::ji("micronesia")` `r emo::ji("kr")`
@@ -120,15 +119,19 @@ flag_fillr_data(exports, country = "United States", type = "state", size = "250"
 Interesting. What does Utah export to the UK? The "state export[s] a broad range of goods, including animal products, aircraft engines, automotive parts, electronics, personal care products, pharmaceuticals, sporting goods, and industrial goods such as valves, drilling tools and fuses", [supposedly](https://www.deseretnews.com/article/865601174/British-diplomat-lauds-UK-trade-relations-with-Utah.html). Brazil and Wyoming also have an interesting relationship, with Wyoming's exports being [chemicals and the like](https://www.census.gov/foreign-trade/statistics/state/data/wy.html). 
 
 
-Another interesting case that makes for an arresting visualization is the internal trade of European Union. Here I skip the code, but the pattern is the same as the above two plots.  
+Another interesting case that makes for an arresting visualization is the internal trade of European Union. Eurostat presents it to us in this format:  
+![](https://i.imgur.com/PikLKyh.png)
 
-```{r, echo=FALSE}
+But we can make it prettier! Here I skip the code, but the pattern is the same as the above two plots. You might notice French Guyana sneaking in there -- it's officialy part of France, so it's included in the geometry column used for plotting. In the future, it'd be great to have a clean, easy way to filter it out, but right now that means messing with geometry list-columns, and that's a bit messy.  
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 eu <- tibble(
-  country = c("United Kingdom", "Ireland", "Netherlands", "Belgium", "France", "Spain", "Portugal",
-              "Italy", "Germany", "Luxembourg", "Denmark", "Sweden", "Finland", "Poland", "Greece",
-              "Romania", "Bulgaria", "Latvia", "Lithuania", "Estonia", "Hungary", "Cyprus",
-              "Czech Republic", "Croatia", "Malta", "Austria", "Slovenia", "Slovakia"),
-  partner = c("Germany")
+  country = c("United Kingdom", "Ireland", "Netherlands", "Belgium", "France",
+              "Spain", "Portugal", "Italy", "Germany", "Luxembourg", "Denmark",
+              "Sweden", "Finland", "Poland", "Greece", "Romania", "Bulgaria",
+              "Latvia", "Lithuania", "Estonia", "Hungary", "Cyprus",
+              "Croatia", "Austria", "Slovenia", "Slovakia"),
+  partner = NA_character_
 ) %>% 
   mutate(partner = case_when(
     country == "Latvia" ~ "Lithuania",
@@ -138,16 +141,16 @@ eu <- tibble(
     country == "Ireland" ~ "United Kingdom",
     country %in% c("Greece", "Croatia") ~ "Italy",
     country == "Cyprus" ~ "Greece",
-    country == "Portugal" ~ "Spain"
+    country == "Portugal" ~ "Spain",
+    TRUE ~ "Germany"
   ))
   
-flag_fillr_data(eu, country_col = eu$country, partner_col = eu$partner)
+flag_fillr_data(eu, country_col = eu$country, partner_col = eu$partner, 
+                size = "250")
 
 ```
 
 
-
-
-Thanks to the handy new sf package, and its accompanying `geom_sf()` in the development version of ggplot2, we now have an easier way to manipulate dataframes of geographical information. I was able to utilise these to make a few functions that make creating 
+So these are a few examples of the things you can do with flagfillr. Maybe in a future post I'll map some state-level trade for the countries that have state flags in the package (the Netherlands, for example). 
 
 

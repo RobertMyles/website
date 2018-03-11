@@ -44,11 +44,19 @@ library(tidyverse)
 tariffs <- read_tsv("C:/Users/robert.m.mcdonnell/Documents/temp/Applied_MFN_Tariffs.txt")
 
 tariffs %>% filter(Year == 2017) %>% 
-  select(Reporter, `Percent duty free`, Description) %>% 
-  mutate(Description = str_extract(Description, '[A-Za-z ,]{25}')) %>% 
+  select(Reporter, `Percent duty free`, Description, Product) %>% 
+  filter(Product %in% c("02", "03", "04", "07", "08")) %>% 
+  mutate(Description = case_when(Product == "02" ~ "MEAT",
+                                 Product == "03" ~ "FISH & SEAFOOD",
+                                 Product == "04" ~ "DAIRY, EGGS, HONEY",
+                                 Product == "07" ~ "VEGETABLES",
+                                 TRUE ~ "FRUIT & NUTS")) %>% 
   group_by(Description, Reporter) %>%
-  summarise(`Mean Tariff` = mean(`Percent duty free`)) %>% 
-  ggplot(aes(x = `Mean Tariff`, y = Description, colour = Reporter)) +
-  geom_point() + facet_wrap(~Reporter)
+  summarise(`Mean Tariff` = mean(`Percent duty free`)) %>%
+  mutate(`Mean Tariff` = 100 - `Mean Tariff`) %>% 
+  ggplot(aes(x = `Mean Tariff`, y = Reporter, colour = Reporter)) +
+  geom_point() + facet_wrap(~ Description) + 
+  geom_segment(aes(x = 0, xend = `Mean Tariff`, yend = Reporter)) +
+  theme(legend.position = "none", axis.title.y = element_blank())
 ```
 

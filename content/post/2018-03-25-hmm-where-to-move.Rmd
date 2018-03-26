@@ -42,7 +42,6 @@ So now we've got our data. What I wanted to do in this post was to maintain the 
 <script src="d3-legend.js" charset="utf-8"></script>
 Well, enough blathering, here's the pretty chart. You can hover over the chart to highlight certain cities, or hover over the legend to do the same thing. Hovering over the points themselves will give you the percentage value relative to the other cities (the absolute values in the original data would be cooler, but I couldn't figure out how to do that).   
 
-
 <div class="radarChart"></div>
 
 So what makes a city 'good' here? Low-to-medium values for population and cost of living, low crime and not-too-high summer temperatures, not-too-low winter temperatures, nice salaries, high GDP and short distance to the beach. None of the cities are perfect (of course not!), but ol' Cork doesn't come out too bad. Vancouver, too. Remember that the winter temperatures were inversed, so Lisbon looks great in terms of the climate, and its low cost of living. It's also by the beach, something Cork isn't exactly (although there are amazing beaches not too far away). Perth came out OK on our list, after many years of hot weather, I think I might need a break (my skin definitely does), although I'm not sure I like the cold of Berlin, or its bigger population. So which one will we choose? That'd be telling...

@@ -38,8 +38,8 @@ cities <- tibble(
 
   
 So now we've got our data. What I wanted to do in this post was to maintain the data in the document and send to D3 (as in [this](https://towardsdatascience.com/getting-r-and-d3-js-to-play-nicely-in-r-markdown-270e302a52d3) post and [this](http://livefreeordichotomize.com/2017/01/24/custom-javascript-visualizations-in-rmarkdown/) one), however, I was unable to create the JSON in the exact format I needed for use with [Micah Stubb's](https://bl.ocks.org/micahstubbs/a772306d6fd49874ec92)/[Nadieh Bremer's](https://www.visualcinnamon.com/2015/10/different-look-d3-radar-chart.html)/[Alvaro Graves'](https://github.com/alangrafu/radar-chart-d3) D3 Radar Chart. So I had to do that manually...`r emo::ji("frowning_face")`.  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.3.0/d3-legend.js" charset="utf-8"></script>
+<script src="d3.min.js" charset="utf-8"></script>
+<script src="d3-legend.js" charset="utf-8"></script>
 Well, enough blathering, here's the pretty chart. You can hover over the chart to highlight certain cities, or hover over the legend to do the same thing. Hovering over the points themselves will give you the percentage value relative to the other cities (the absolute values in the original data would be cooler, but I couldn't figure out how to do that).   
 
 

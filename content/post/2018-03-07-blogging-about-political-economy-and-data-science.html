@@ -50,30 +50,29 @@ tariffs %&gt;% filter(Year == 2017) %&gt;%
   theme(legend.position = &quot;none&quot;, axis.title.y = element_blank())</code></pre>
 <p><img src="/post/2018-03-07-blogging-about-political-economy-and-data-science_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>Well, what do you know? The EU is consistently above 75% tariffs across various food sectors. Even Japan dips below 75% for meat. Could it be that the EU also has consistently higher prices? Let’s have a look!</p>
-<pre class="r"><code>prices &lt;- read_csv(&quot;http://vam.wfp.org/sites/data/WFPVAM_FoodPrices_05-12-2017.csv&quot;)
+<pre class="r"><code>library(readxl)
+library(stringr)
+library(lubridate)
 
-prices %&gt;% 
-  filter(adm0_name %in% c(&quot;United Kingdom&quot;, &quot;France&quot;, &quot;Spain&quot;, &quot;Italy&quot;,
-                          &quot;United States of America&quot;, &quot;Belgium&quot;,
-                          &quot;Netherlands&quot;, &quot;Portugal&quot;, &quot;&quot;)) %&gt;% 
-  group_by(Area) %&gt;%
-  mutate(day = &quot;01&quot;, 
-         month = case_when(
-           Months == &quot;January&quot; ~ &quot;01&quot;,
-           Months == &quot;February&quot; ~ &quot;02&quot;,
-           Months == &quot;March&quot; ~ &quot;03&quot;,
-           Months == &quot;April&quot; ~ &quot;04&quot;,
-           Months == &quot;May&quot; ~ &quot;05&quot;,
-           Months == &quot;June&quot; ~ &quot;06&quot;,
-           Months == &quot;July&quot; ~ &quot;07&quot;,
-           Months == &quot;August&quot; ~ &quot;08&quot;,
-           Months == &quot;September&quot; ~ &quot;09&quot;,
-           Months == &quot;October&quot; ~ &quot;10&quot;,
-           Months == &quot;November&quot; ~ &quot;11&quot;,
-           TRUE ~ &quot;12&quot;
-         ),
-         date = paste(day, month, Year, sep = &quot;-&quot;),
-         date = lubridate::parse_date_time(date, &quot;dmY&quot;)) %&gt;% 
+prices &lt;- read_excel(&quot;~/Downloads/External_Data.xlsx&quot;, skip = 2) %&gt;% 
+  slice(-2) %&gt;% select(Date = 1, Index = 4) %&gt;% slice(-1) %&gt;% 
+  filter(!is.na(Index)) %&gt;% 
+  mutate(Index = as.numeric(Index),
+         Index = round(Index, 2),
+         Date = str_replace(Date, &quot;M1$&quot;, &quot;-01-01&quot;),
+         Date = str_replace(Date, &quot;M2&quot;, &quot;-02-01&quot;),
+         Date = str_replace(Date, &quot;M3&quot;, &quot;-03-01&quot;),
+         Date = str_replace(Date, &quot;M4&quot;, &quot;-04-01&quot;),
+         Date = str_replace(Date, &quot;M5&quot;, &quot;-05-01&quot;),
+         Date = str_replace(Date, &quot;M6&quot;, &quot;-06-01&quot;),
+         Date = str_replace(Date, &quot;M7&quot;, &quot;-07-01&quot;),
+         Date = str_replace(Date, &quot;M8&quot;, &quot;-08-01&quot;),
+         Date = str_replace(Date, &quot;M9&quot;, &quot;-09-01&quot;),
+         Date = str_replace(Date, &quot;M10$&quot;, &quot;-10-01&quot;),
+         Date = str_replace(Date, &quot;M11$&quot;, &quot;-11-01&quot;),
+         Date = str_replace(Date, &quot;M12$&quot;, &quot;-12-01&quot;),
+         Date = parse_date_time(Date, &quot;Ymd&quot;)) %&gt;% 
   ggplot(aes(x = date, y = Value, group = Area)) + 
   geom_line()</code></pre>
+<p>So, ok, that doesn’t <em>prove</em> anything, I get it. But I sincerely doubt it’s a coincidence</p>
 </div>

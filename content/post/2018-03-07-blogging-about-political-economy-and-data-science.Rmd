@@ -63,32 +63,31 @@ tariffs %>% filter(Year == 2017) %>%
 Well, what do you know? The EU is consistently above 75% tariffs across various food sectors. Even Japan dips below 75% for meat. Could it be that the EU also has consistently higher prices? Let's have a look!  
 
 ```{r message=FALSE, warning=FALSE, eval = F}
-prices <- read_csv("http://vam.wfp.org/sites/data/WFPVAM_FoodPrices_05-12-2017.csv")
+library(readxl)
+library(stringr)
+library(lubridate)
 
-prices %>% 
-  filter(adm0_name %in% c("United Kingdom", "France", "Spain", "Italy",
-                          "United States of America", "Belgium",
-                          "Netherlands", "Portugal", "")) %>% 
-  group_by(Area) %>%
-  mutate(day = "01", 
-         month = case_when(
-           Months == "January" ~ "01",
-           Months == "February" ~ "02",
-           Months == "March" ~ "03",
-           Months == "April" ~ "04",
-           Months == "May" ~ "05",
-           Months == "June" ~ "06",
-           Months == "July" ~ "07",
-           Months == "August" ~ "08",
-           Months == "September" ~ "09",
-           Months == "October" ~ "10",
-           Months == "November" ~ "11",
-           TRUE ~ "12"
-         ),
-         date = paste(day, month, Year, sep = "-"),
-         date = lubridate::parse_date_time(date, "dmY")) %>% 
+prices <- read_excel("~/Downloads/External_Data.xlsx", skip = 2) %>% 
+  slice(-2) %>% select(Date = 1, Index = 4) %>% slice(-1) %>% 
+  filter(!is.na(Index)) %>% 
+  mutate(Index = as.numeric(Index),
+         Index = round(Index, 2),
+         Date = str_replace(Date, "M1$", "-01-01"),
+         Date = str_replace(Date, "M2", "-02-01"),
+         Date = str_replace(Date, "M3", "-03-01"),
+         Date = str_replace(Date, "M4", "-04-01"),
+         Date = str_replace(Date, "M5", "-05-01"),
+         Date = str_replace(Date, "M6", "-06-01"),
+         Date = str_replace(Date, "M7", "-07-01"),
+         Date = str_replace(Date, "M8", "-08-01"),
+         Date = str_replace(Date, "M9", "-09-01"),
+         Date = str_replace(Date, "M10$", "-10-01"),
+         Date = str_replace(Date, "M11$", "-11-01"),
+         Date = str_replace(Date, "M12$", "-12-01"),
+         Date = parse_date_time(Date, "Ymd")) %>% 
   ggplot(aes(x = date, y = Value, group = Area)) + 
   geom_line()
 
 ```
 
+So, ok, that doesn't *prove* anything, I get it. But I sincerely doubt it's a coincidence

@@ -1,0 +1,776 @@
+---
+title: Hmm...where to move to? Using R & D3 to decide where to live (kind of).
+author: Robert Myles McDonnell
+date: '2018-03-25'
+slug: hmm-where-to-move
+categories: [R, D3]
+tags: []
+output:
+  html_document:
+    includes:
+      after_body: radar_index.html
+---
+
+
+
+<p>Myself and my wife have been thinking about where we’d like to move in the future. We have 5 cities in mind. The things that matter to us (that I could get data on, or are relevant/measurable) are the climate, crime, the cost of living, the type of salary we could get, if the city is near to the sea and beach (I like being close to the sea) and if a city is very big (large population). We live in São Paulo, so we’re kind of due a break from having <em>millions</em> of people around us all the time.<br />
+The cost of living stats, which are relative to NY (i.e. 100 = NY), I got from <a href="https://www.numbeo.com/cost-of-living/rankings.jsp">numbeo</a>. Salary stats I got from Google searches, mainly leading to indeed.com (for Berlin I found only the German national average, and Lisbon is a bit of a guess, there was nothing that I found). Temperatures I found on Wikipedia, and all currency values were converted to Euro skrilla 💶. The crime index also comes from numbeo. I put these in a tibble and rescaled all the values, inverting the winter temps so that lower ones mean higher values on the plot:</p>
+<pre class="r"><code>library(dplyr)
+library(scales)
+
+cities &lt;- tibble(
+  city = c(&quot;Cork&quot;, &quot;Vancouver&quot;, &quot;Perth&quot;, &quot;Lisbon&quot;, &quot;Berlin&quot;),
+  av_winter_temp = c(5.6, 3.5, 13, 11.6, 1),
+  av_summer_temp = c(15.3, 18, 25, 23.5, 19.2),
+  av_min_winter_temp = c(3, 1, 7.7, 8, -2),
+  av_max_summer_temp = c(18.7, 22, 32.3, 28.3, 25),
+  median_salary = c(55000, 60000, 60000, 45000, 52000),
+  gdp_per_capita = c(50544, 36000, 45000, 30000, 35600),
+  crime_index = c(29.19, 35.96, 43.93, 33.53, 40.97),
+  population = c(208669, 631486, 2022044, 552700, 3700000),
+  distance_to_beach = c(25, 0, 0, 0, 145),
+  cost_of_living = c(82.89, 75.59, 86.24, 57.69, 74.32)
+) %&gt;% mutate_at(vars(-city),funs(rescale)) %&gt;% 
+  mutate(av_min_winter_temp = 1- av_min_winter_temp,
+         av_winter_temp = 1 - av_winter_temp)</code></pre>
+<p>So now we’ve got our data. What I wanted to do in this post was to maintain the data in the document and send to D3 (as in <a href="https://towardsdatascience.com/getting-r-and-d3-js-to-play-nicely-in-r-markdown-270e302a52d3">this</a> post and <a href="http://livefreeordichotomize.com/2017/01/24/custom-javascript-visualizations-in-rmarkdown/">this</a> one), however, I was unable to create the JSON in the exact format I needed for use with <a href="https://bl.ocks.org/micahstubbs/a772306d6fd49874ec92">Micah Stubb’s</a>/<a href="https://www.visualcinnamon.com/2015/10/different-look-d3-radar-chart.html">Nadieh Bremer’s</a>/<a href="https://github.com/alangrafu/radar-chart-d3">Alvaro Graves’</a> D3 Radar Chart. So I had to do that manually…☹.</p>
+<p>Well, enough blathering, here’s the pretty chart. You can hover over the chart to highlight certain cities, or hover over the legend to do the same thing. Hovering over the points themselves will give you the percentage value relative to the other cities (the absolute values in the original data would be cooler, but I couldn’t figure out how to do that).</p>
+<div class="radarChart">
+
+</div>
+<p>So what makes a city ‘good’ here? Low-to-medium values for population and cost of living, low crime and not-too-high summer temperatures, not-too-low winter temperatures, nice salaries, high GDP and short distance to the beach. None of the cities are perfect (of course not!), but ol’ Cork doesn’t come out too bad. Vancouver, too. Remember that the winter temperatures were inversed, so Lisbon looks great in terms of the climate, and its low cost of living. It’s also by the beach, something Cork isn’t exactly (although there are amazing beaches not too far away). Perth came out OK on our list, after many years of hot weather, I think I might need a break (my skin definitely does), although I’m not sure I like the cold of Berlin, or its bigger population. So which one will we choose? That’d be telling…</p>
+<p>The JavaScript code used to make this is as follows:</p>
+<pre class="js"><code>var margin = {top: 100, right: 100, bottom: 100, left: 100},
+legendPosition = {x: 25, y: 25},
+width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+var color = d3.scale.ordinal()
+.range([&quot;#41D3BD&quot;,&quot;#F0C987&quot;,&quot;#791E94&quot;, &quot;#DE6449&quot;, &quot;#407899&quot;]);
+
+var radarChartOptions = {
+  w: width,
+  h: height,
+  margin: margin,
+  legendPosition: legendPosition,
+  maxValue: 1,
+  wrapWidth: 60,
+  levels: 5,
+  roundStrokes: true,
+  color: color,
+  axisName: &quot;reason&quot;,
+  areaName: &quot;city&quot;,
+  value: &quot;value&quot;
+};
+
+//Load the data and Call function to draw the Radar chart
+d3.json(&quot;data2.json&quot;, function(error, data){
+RadarChart(&quot;.radarChart&quot;, data, radarChartOptions);
+});
+</code></pre>
+<script type="text/javascript">
+var margin = {top: 100, right: 100, bottom: 100, left: 100},
+legendPosition = {x: 25, y: 25},
+width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+var color = d3.scale.ordinal()
+.range(["#41D3BD","#F0C987","#791E94", "#DE6449", "#407899"]);
+
+var radarChartOptions = {
+  w: width,
+  h: height,
+  margin: margin,
+  legendPosition: legendPosition,
+  maxValue: 1,
+  wrapWidth: 60,
+  levels: 5,
+  roundStrokes: true,
+  color: color,
+  axisName: "reason",
+  areaName: "city",
+  value: "value"
+};
+
+//Load the data and Call function to draw the Radar chart
+d3.json("data2.json", function(error, data){
+RadarChart(".radarChart", data, radarChartOptions);
+});
+
+</script>
+<p>This is combined with the <code>RadarChart()</code> function that you see above, and creating a div in the RMarkdown (<code>&lt;div class=&quot;radarChart&quot;&gt;&lt;/div&gt;</code>). This div has the class <code>.radarChart</code>, which you will see referenced in <code>radar_index.html</code>, which is included in the blogdown YAML. The relevant part is:</p>
+<pre><code>output:
+  html_document:
+    includes:
+      after_body: radar_index.html
+      </code></pre>
+<p>The content of <code>radar_index.html</code> can be seen from the element inspector in your browser, but I’ll put it here for ease:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=utf-8&quot;/ &gt;
+        &lt;title&gt;&lt;/title&gt;
+
+        &lt;!-- Google fonts --&gt;
+        &lt;link href=&#39;https://fonts.googleapis.com/css?family=Open+Sans:400,300&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
+        &lt;link href=&#39;https://fonts.googleapis.com/css?family=Raleway&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
+
+        &lt;!-- D3.js --&gt;
+        &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.3.0/d3-legend.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+        
+        &lt;style&gt;
+            .radarChart {
+                font-family: &#39;Open Sans&#39;, sans-serif;
+                font-size: 11px;
+                font-weight: 300;
+                fill: #242424;
+                text-align: center;
+                text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+                cursor: default;
+            }
+            
+            .tooltip {
+                fill: #333333;
+            }
+        &lt;/style&gt;
+    
+    &lt;/head&gt;
+&lt;/html&gt;</code></pre>
+<p>These are both combined with the <code>RadarChart()</code> function, which is basically the same as Micah’s, except I took out the fuzzy glow part, and changed the colours of both the main palette and the circle backgrounds. The code and inspiration for all of this comes from the talented D3-ers linked to above (Nadieh, Micah and Alvaro).</p>
+<pre class="js"><code>function RadarChart(id, data, options) {
+    var cfg = {
+     w: 600,                //Width of the circle
+     h: 600,                //Height of the circle
+     margin: {top: 20, right: 20, bottom: 20, left: 20}, //The margins around the circle
+     legendPosition: {x: 20, y: 20}, // the position of the legend, from the top-left corner of the svg
+     levels: 3,             //How many levels or inner circles should there be drawn
+     maxValue: 0,               //What is the value that the biggest circle will represent
+     labelFactor: 1.25,             //How much farther than the radius of the outer circle should the labels be placed
+     wrapWidth: 60,             //The number of pixels after which a label needs to be given a new line
+     opacityArea: 0.35,             //The opacity of the area of the blob
+     dotRadius: 4,              //The size of the colored circles of each blog
+     opacityCircles: 0.1,           //The opacity of the circles of each blob
+     strokeWidth: 2,            //The width of the stroke around each blob
+     roundStrokes: false,           //If true the area and stroke will follow a round path (cardinal-closed)
+     color: d3.scale.category10(),      //Color function
+     axisName: &quot;axis&quot;,
+     areaName:&quot;areaName&quot;,
+     value: &quot;value&quot;,
+     sortAreas: true,
+    };
+    
+    //Put all of the options into a variable called cfg
+    if(&#39;undefined&#39; !== typeof options){
+      for(var i in options){
+        if(&#39;undefined&#39; !== typeof options[i]){ cfg[i] = options[i]; }
+      }//for i
+    }//if
+
+    //Map the fields specified in the configuration 
+    // to the axis and value variables
+    var axisName = cfg[&quot;axisName&quot;],
+            areaName = cfg[&quot;areaName&quot;],
+            value = cfg[&quot;value&quot;];
+
+    //Calculate the average value for each area
+    data.forEach(function(d){
+        d[value + &quot;Average&quot;] = d3.mean(d.values, function(e){ return e[value] }); 
+    })
+
+    //Sort the data for the areas from largest to smallest
+    //by average value as an approximation of actual blob area
+    //so that that the smallest area is drawn last
+    //and therefore appears on top
+    data = data.sort(function(a, b){
+        var a = a[value + &quot;Average&quot;],
+                b = b[value + &quot;Average&quot;];
+        return b - a;
+    })
+    
+    //Convert the nested data passed in
+    // into an array of values arrays
+    data = data.map(function(d) { return d.values })
+
+    //If the supplied maxValue is smaller than the actual one, replace by the max in the data
+    var maxValue = Math.max(cfg.maxValue, d3.max(data, function(i){
+        return d3.max(i.map(
+            function(o){ return o[value]; }
+        ))
+    }));
+        
+    var allAxis = (data[0].map(function(d, i){ return d[axisName] })),  //Names of each axis
+        total = allAxis.length,                 //The number of different axes
+        radius = Math.min(cfg.w/2, cfg.h/2),            //Radius of the outermost circle
+        Format = d3.format(&#39;%&#39;),                //Percentage formatting
+        angleSlice = Math.PI * 2 / total;           //The width in radians of each &quot;slice&quot;
+
+    //Scale for the radius
+    var rScale = d3.scale.linear()
+        .range([0, radius])
+        .domain([0, maxValue]);
+        
+    /////////////////////////////////////////////////////////
+    //////////// Create the container SVG and g /////////////
+    /////////////////////////////////////////////////////////
+
+    //Remove whatever chart with the same id/class was present before
+    d3.select(id).select(&quot;svg&quot;).remove();
+    
+    //Initiate the radar chart SVG
+    var svg = d3.select(id).append(&quot;svg&quot;)
+            .attr(&quot;width&quot;,  cfg.w + cfg.margin.left + cfg.margin.right)
+            .attr(&quot;height&quot;, cfg.h + cfg.margin.top + cfg.margin.bottom)
+            .attr(&quot;class&quot;, &quot;radar&quot;+id);
+    //Append a g element        
+    var g = svg.append(&quot;g&quot;)
+            .attr(&quot;transform&quot;, &quot;translate(&quot; + (cfg.w/2 + cfg.margin.left) + &quot;,&quot; + (cfg.h/2 + cfg.margin.top) + &quot;)&quot;);
+    
+    //Wrapper for the grid &amp; axes
+    var axisGrid = g.append(&quot;g&quot;).attr(&quot;class&quot;, &quot;axisWrapper&quot;);
+    
+    //Draw the background circles
+    axisGrid.selectAll(&quot;.levels&quot;)
+       .data(d3.range(1,(cfg.levels+1)).reverse())
+       .enter()
+        .append(&quot;circle&quot;)
+        .attr(&quot;class&quot;, &quot;gridCircle&quot;)
+        .attr(&quot;r&quot;, function(d, i){return radius/cfg.levels*d;})
+        .style(&quot;fill&quot;, &quot;white&quot;)
+        .style(&quot;stroke&quot;, &quot;#CDCDCD&quot;);
+
+    //Text indicating at what % each level is
+    axisGrid.selectAll(&quot;.axisLabel&quot;)
+       .data(d3.range(1,(cfg.levels+1)).reverse())
+       .enter().append(&quot;text&quot;)
+       .attr(&quot;class&quot;, &quot;axisLabel&quot;)
+       .attr(&quot;x&quot;, 4)
+       .attr(&quot;y&quot;, function(d){return -d*radius/cfg.levels;})
+       .attr(&quot;dy&quot;, &quot;0.4em&quot;)
+       .style(&quot;font-size&quot;, &quot;10px&quot;)
+       .attr(&quot;fill&quot;, &quot;#737373&quot;)
+       .text(function(d,i) { return Format(maxValue * d/cfg.levels); });
+    
+    //Create the straight lines radiating outward from the center
+    var axis = axisGrid.selectAll(&quot;.axis&quot;)
+        .data(allAxis)
+        .enter()
+        .append(&quot;g&quot;)
+        .attr(&quot;class&quot;, &quot;axis&quot;);
+    //Append the lines
+    axis.append(&quot;line&quot;)
+        .attr(&quot;x1&quot;, 0)
+        .attr(&quot;y1&quot;, 0)
+        .attr(&quot;x2&quot;, function(d, i){ return rScale(maxValue*1.1) * Math.cos(angleSlice*i - Math.PI/2); })
+        .attr(&quot;y2&quot;, function(d, i){ return rScale(maxValue*1.1) * Math.sin(angleSlice*i - Math.PI/2); })
+        .attr(&quot;class&quot;, &quot;line&quot;)
+        .style(&quot;stroke&quot;, &quot;white&quot;)
+        .style(&quot;stroke-width&quot;, &quot;2px&quot;);
+
+    //Append the labels at each axis
+    axis.append(&quot;text&quot;)
+        .attr(&quot;class&quot;, &quot;legend&quot;)
+        .style(&quot;font-size&quot;, &quot;11px&quot;)
+        .attr(&quot;text-anchor&quot;, &quot;middle&quot;)
+        .attr(&quot;dy&quot;, &quot;0.35em&quot;)
+        .attr(&quot;x&quot;, function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2); })
+        .attr(&quot;y&quot;, function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2); })
+        .text(function(d){return d})
+        .call(wrap, cfg.wrapWidth);
+    
+    //The radial line function
+    var radarLine = d3.svg.line.radial()
+        .interpolate(&quot;linear-closed&quot;)
+        .radius(function(d) { return rScale(d[value]); })
+        .angle(function(d,i) {  return i*angleSlice; });
+        
+    if(cfg.roundStrokes) {
+        radarLine.interpolate(&quot;cardinal-closed&quot;);
+    }
+                
+    //Create a wrapper for the blobs    
+    var blobWrapper = g.selectAll(&quot;.radarWrapper&quot;)
+        .data(data)
+        .enter().append(&quot;g&quot;)
+        .attr(&quot;class&quot;, &quot;radarWrapper&quot;);
+            
+    //Append the backgrounds    
+    blobWrapper
+        .append(&quot;path&quot;)
+        .attr(&quot;class&quot;, function(d) {
+            return &quot;radarArea&quot; + &quot; &quot; + d[0][areaName].replace(/\s+/g, &#39;&#39;) //Remove spaces from the areaName string to make one valid class name
+        })
+        .attr(&quot;d&quot;, function(d,i) { return radarLine(d); })
+        .style(&quot;fill&quot;, function(d,i) { return cfg.color(i); })
+        .style(&quot;fill-opacity&quot;, cfg.opacityArea)
+        .on(&#39;mouseover&#39;, function (d,i){
+            console.log(&quot;d&quot;, d);
+            console.log(&quot;this&quot;, this);
+            //Dim all blobs
+            d3.selectAll(&quot;.radarArea&quot;)
+                .transition().duration(200)
+                .style(&quot;fill-opacity&quot;, 0.1); 
+            //Bring back the hovered over blob
+            d3.select(this)
+                .transition().duration(200)
+                .style(&quot;fill-opacity&quot;, 0.7);    
+        })
+        .on(&#39;mouseout&#39;, function(){
+            //Bring back all blobs
+            d3.selectAll(&quot;.radarArea&quot;)
+                .transition().duration(200)
+                .style(&quot;fill-opacity&quot;, cfg.opacityArea);
+        });
+        
+    //Create the outlines   
+    blobWrapper.append(&quot;path&quot;)
+        .attr(&quot;class&quot;, &quot;radarStroke&quot;)
+        .attr(&quot;d&quot;, function(d,i) { return radarLine(d); })
+        .style(&quot;stroke-width&quot;, cfg.strokeWidth + &quot;px&quot;)
+        .style(&quot;stroke&quot;, function(d,i) { return cfg.color(i); })
+        .style(&quot;fill&quot;, &quot;none&quot;)
+        .style(&quot;filter&quot; , &quot;url(#glow)&quot;);        
+    
+    //Append the circles
+    blobWrapper.selectAll(&quot;.radarCircle&quot;)
+        .data(function(d,i) { return d; })
+        .enter().append(&quot;circle&quot;)
+        .attr(&quot;class&quot;, &quot;radarCircle&quot;)
+        .attr(&quot;r&quot;, cfg.dotRadius)
+        .attr(&quot;cx&quot;, function(d,i){ return rScale(d[value]) * Math.cos(angleSlice*i - Math.PI/2); })
+        .attr(&quot;cy&quot;, function(d,i){ return rScale(d[value]) * Math.sin(angleSlice*i - Math.PI/2); })
+        .style(&quot;fill&quot;, function(d,i,j) { return cfg.color(j); })
+        .style(&quot;fill-opacity&quot;, 0.8);
+    
+    //Wrapper for the invisible circles on top
+    var blobCircleWrapper = g.selectAll(&quot;.radarCircleWrapper&quot;)
+        .data(data)
+        .enter().append(&quot;g&quot;)
+        .attr(&quot;class&quot;, &quot;radarCircleWrapper&quot;);
+        
+    //Append a set of invisible circles on top for the mouseover pop-up
+    blobCircleWrapper.selectAll(&quot;.radarInvisibleCircle&quot;)
+        .data(function(d,i) { return d; })
+        .enter().append(&quot;circle&quot;)
+        .attr(&quot;class&quot;, &quot;radarInvisibleCircle&quot;)
+        .attr(&quot;r&quot;, cfg.dotRadius*1.5)
+        .attr(&quot;cx&quot;, function(d,i){ return rScale(d[value]) * Math.cos(angleSlice*i - Math.PI/2); })
+        .attr(&quot;cy&quot;, function(d,i){ return rScale(d[value]) * Math.sin(angleSlice*i - Math.PI/2); })
+        .style(&quot;fill&quot;, &quot;none&quot;)
+        .style(&quot;pointer-events&quot;, &quot;all&quot;)
+        .on(&quot;mouseover&quot;, function(d,i) {
+            newX =  parseFloat(d3.select(this).attr(&#39;cx&#39;)) - 10;
+            newY =  parseFloat(d3.select(this).attr(&#39;cy&#39;)) - 10;
+                    
+            tooltip
+                .attr(&#39;x&#39;, newX)
+                .attr(&#39;y&#39;, newY)
+                .text(Format(d[value]))
+                .transition().duration(200)
+                .style(&#39;opacity&#39;, 1);
+        })
+        .on(&quot;mouseout&quot;, function(){
+            tooltip.transition().duration(200)
+                .style(&quot;opacity&quot;, 0);
+        });
+        
+    //Set up the small tooltip for when you hover over a circle
+    var tooltip = g.append(&quot;text&quot;)
+        .attr(&quot;class&quot;, &quot;tooltip&quot;)
+        .style(&quot;opacity&quot;, 0);
+    
+    /////////////////////////////////////////////////////////
+    /////////////////// Helper Functions ////////////////////
+    /////////////////////////////////////////////////////////
+
+    //Taken from http://bl.ocks.org/mbostock/7555321
+    //Wraps SVG text    
+    function wrap(text, width) {
+      text.each(function() {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.4, // ems
+            y = text.attr(&quot;y&quot;),
+            x = text.attr(&quot;x&quot;),
+            dy = parseFloat(text.attr(&quot;dy&quot;)),
+            tspan = text.text(null).append(&quot;tspan&quot;).attr(&quot;x&quot;, x).attr(&quot;y&quot;, y).attr(&quot;dy&quot;, dy + &quot;em&quot;);
+            
+        while (word = words.pop()) {
+          line.push(word);
+          tspan.text(line.join(&quot; &quot;));
+          if (tspan.node().getComputedTextLength() &gt; width) {
+            line.pop();
+            tspan.text(line.join(&quot; &quot;));
+            line = [word];
+            tspan = text.append(&quot;tspan&quot;).attr(&quot;x&quot;, x).attr(&quot;y&quot;, y).attr(&quot;dy&quot;, ++lineNumber * lineHeight + dy + &quot;em&quot;).text(word);
+          }
+        }
+      });
+    }//wrap 
+
+    // on mouseover for the legend symbol
+    function cellover(d) {
+            //Dim all blobs
+            d3.selectAll(&quot;.radarArea&quot;)
+                .transition().duration(200)
+                .style(&quot;fill-opacity&quot;, 0.1); 
+            //Bring back the hovered over blob
+            d3.select(&quot;.&quot; + data[d][0][areaName].replace(/\s+/g, &#39;&#39;))
+                .transition().duration(200)
+                .style(&quot;fill-opacity&quot;, 0.7);    
+    }
+
+    // on mouseout for the legend symbol
+    function cellout() {
+        //Bring back all blobs
+        d3.selectAll(&quot;.radarArea&quot;)
+            .transition().duration(200)
+            .style(&quot;fill-opacity&quot;, cfg.opacityArea);
+    }
+
+    /////////////////////////////////////////////////////////
+    /////////////////// Draw the Legend /////////////////////
+    /////////////////////////////////////////////////////////
+
+    svg.append(&quot;g&quot;)
+    .attr(&quot;class&quot;, &quot;legendOrdinal&quot;)
+    .attr(&quot;transform&quot;, &quot;translate(&quot; + cfg[&quot;legendPosition&quot;][&quot;x&quot;] + &quot;,&quot; + cfg[&quot;legendPosition&quot;][&quot;y&quot;] + &quot;)&quot;);
+
+    var legendOrdinal = d3.legend.color()
+  //d3 symbol creates a path-string, for example
+  //&quot;M0,-8.059274488676564L9.306048591020996,
+  //8.059274488676564 -9.306048591020996,8.059274488676564Z&quot;
+    .shape(&quot;path&quot;, d3.svg.symbol().type(&quot;triangle-up&quot;).size(150)())
+    .shapePadding(10)
+    .scale(cfg.color)
+    .labels(cfg.color.domain().map(function(d){
+        return data[d][0][areaName];
+    }))
+    .on(&quot;cellover&quot;, function(d){ cellover(d); })
+    .on(&quot;cellout&quot;, function(d) { cellout(); });
+
+svg.select(&quot;.legendOrdinal&quot;)
+  .call(legendOrdinal);
+}//RadarChart</code></pre>
+<script type="text/javascript">
+function RadarChart(id, data, options) {
+    var cfg = {
+     w: 600,                //Width of the circle
+     h: 600,                //Height of the circle
+     margin: {top: 20, right: 20, bottom: 20, left: 20}, //The margins around the circle
+     legendPosition: {x: 20, y: 20}, // the position of the legend, from the top-left corner of the svg
+     levels: 3,             //How many levels or inner circles should there be drawn
+     maxValue: 0,               //What is the value that the biggest circle will represent
+     labelFactor: 1.25,             //How much farther than the radius of the outer circle should the labels be placed
+     wrapWidth: 60,             //The number of pixels after which a label needs to be given a new line
+     opacityArea: 0.35,             //The opacity of the area of the blob
+     dotRadius: 4,              //The size of the colored circles of each blog
+     opacityCircles: 0.1,           //The opacity of the circles of each blob
+     strokeWidth: 2,            //The width of the stroke around each blob
+     roundStrokes: false,           //If true the area and stroke will follow a round path (cardinal-closed)
+     color: d3.scale.category10(),      //Color function
+     axisName: "axis",
+     areaName:"areaName",
+     value: "value",
+     sortAreas: true,
+    };
+    
+    //Put all of the options into a variable called cfg
+    if('undefined' !== typeof options){
+      for(var i in options){
+        if('undefined' !== typeof options[i]){ cfg[i] = options[i]; }
+      }//for i
+    }//if
+
+    //Map the fields specified in the configuration 
+    // to the axis and value variables
+    var axisName = cfg["axisName"],
+            areaName = cfg["areaName"],
+            value = cfg["value"];
+
+    //Calculate the average value for each area
+    data.forEach(function(d){
+        d[value + "Average"] = d3.mean(d.values, function(e){ return e[value] }); 
+    })
+
+    //Sort the data for the areas from largest to smallest
+    //by average value as an approximation of actual blob area
+    //so that that the smallest area is drawn last
+    //and therefore appears on top
+    data = data.sort(function(a, b){
+        var a = a[value + "Average"],
+                b = b[value + "Average"];
+        return b - a;
+    })
+    
+    //Convert the nested data passed in
+    // into an array of values arrays
+    data = data.map(function(d) { return d.values })
+
+    //If the supplied maxValue is smaller than the actual one, replace by the max in the data
+    var maxValue = Math.max(cfg.maxValue, d3.max(data, function(i){
+        return d3.max(i.map(
+            function(o){ return o[value]; }
+        ))
+    }));
+        
+    var allAxis = (data[0].map(function(d, i){ return d[axisName] })),  //Names of each axis
+        total = allAxis.length,                 //The number of different axes
+        radius = Math.min(cfg.w/2, cfg.h/2),            //Radius of the outermost circle
+        Format = d3.format('%'),                //Percentage formatting
+        angleSlice = Math.PI * 2 / total;           //The width in radians of each "slice"
+
+    //Scale for the radius
+    var rScale = d3.scale.linear()
+        .range([0, radius])
+        .domain([0, maxValue]);
+        
+    /////////////////////////////////////////////////////////
+    //////////// Create the container SVG and g /////////////
+    /////////////////////////////////////////////////////////
+
+    //Remove whatever chart with the same id/class was present before
+    d3.select(id).select("svg").remove();
+    
+    //Initiate the radar chart SVG
+    var svg = d3.select(id).append("svg")
+            .attr("width",  cfg.w + cfg.margin.left + cfg.margin.right)
+            .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
+            .attr("class", "radar"+id);
+    //Append a g element        
+    var g = svg.append("g")
+            .attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
+    
+    //Wrapper for the grid & axes
+    var axisGrid = g.append("g").attr("class", "axisWrapper");
+    
+    //Draw the background circles
+    axisGrid.selectAll(".levels")
+       .data(d3.range(1,(cfg.levels+1)).reverse())
+       .enter()
+        .append("circle")
+        .attr("class", "gridCircle")
+        .attr("r", function(d, i){return radius/cfg.levels*d;})
+        .style("fill", "white")
+        .style("stroke", "#CDCDCD");
+
+    //Text indicating at what % each level is
+    axisGrid.selectAll(".axisLabel")
+       .data(d3.range(1,(cfg.levels+1)).reverse())
+       .enter().append("text")
+       .attr("class", "axisLabel")
+       .attr("x", 4)
+       .attr("y", function(d){return -d*radius/cfg.levels;})
+       .attr("dy", "0.4em")
+       .style("font-size", "10px")
+       .attr("fill", "#737373")
+       .text(function(d,i) { return Format(maxValue * d/cfg.levels); });
+    
+    //Create the straight lines radiating outward from the center
+    var axis = axisGrid.selectAll(".axis")
+        .data(allAxis)
+        .enter()
+        .append("g")
+        .attr("class", "axis");
+    //Append the lines
+    axis.append("line")
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", function(d, i){ return rScale(maxValue*1.1) * Math.cos(angleSlice*i - Math.PI/2); })
+        .attr("y2", function(d, i){ return rScale(maxValue*1.1) * Math.sin(angleSlice*i - Math.PI/2); })
+        .attr("class", "line")
+        .style("stroke", "white")
+        .style("stroke-width", "2px");
+
+    //Append the labels at each axis
+    axis.append("text")
+        .attr("class", "legend")
+        .style("font-size", "11px")
+        .attr("text-anchor", "middle")
+        .attr("dy", "0.35em")
+        .attr("x", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.cos(angleSlice*i - Math.PI/2); })
+        .attr("y", function(d, i){ return rScale(maxValue * cfg.labelFactor) * Math.sin(angleSlice*i - Math.PI/2); })
+        .text(function(d){return d})
+        .call(wrap, cfg.wrapWidth);
+    
+    //The radial line function
+    var radarLine = d3.svg.line.radial()
+        .interpolate("linear-closed")
+        .radius(function(d) { return rScale(d[value]); })
+        .angle(function(d,i) {  return i*angleSlice; });
+        
+    if(cfg.roundStrokes) {
+        radarLine.interpolate("cardinal-closed");
+    }
+                
+    //Create a wrapper for the blobs    
+    var blobWrapper = g.selectAll(".radarWrapper")
+        .data(data)
+        .enter().append("g")
+        .attr("class", "radarWrapper");
+            
+    //Append the backgrounds    
+    blobWrapper
+        .append("path")
+        .attr("class", function(d) {
+            return "radarArea" + " " + d[0][areaName].replace(/\s+/g, '') //Remove spaces from the areaName string to make one valid class name
+        })
+        .attr("d", function(d,i) { return radarLine(d); })
+        .style("fill", function(d,i) { return cfg.color(i); })
+        .style("fill-opacity", cfg.opacityArea)
+        .on('mouseover', function (d,i){
+            console.log("d", d);
+            console.log("this", this);
+            //Dim all blobs
+            d3.selectAll(".radarArea")
+                .transition().duration(200)
+                .style("fill-opacity", 0.1); 
+            //Bring back the hovered over blob
+            d3.select(this)
+                .transition().duration(200)
+                .style("fill-opacity", 0.7);    
+        })
+        .on('mouseout', function(){
+            //Bring back all blobs
+            d3.selectAll(".radarArea")
+                .transition().duration(200)
+                .style("fill-opacity", cfg.opacityArea);
+        });
+        
+    //Create the outlines   
+    blobWrapper.append("path")
+        .attr("class", "radarStroke")
+        .attr("d", function(d,i) { return radarLine(d); })
+        .style("stroke-width", cfg.strokeWidth + "px")
+        .style("stroke", function(d,i) { return cfg.color(i); })
+        .style("fill", "none")
+        .style("filter" , "url(#glow)");        
+    
+    //Append the circles
+    blobWrapper.selectAll(".radarCircle")
+        .data(function(d,i) { return d; })
+        .enter().append("circle")
+        .attr("class", "radarCircle")
+        .attr("r", cfg.dotRadius)
+        .attr("cx", function(d,i){ return rScale(d[value]) * Math.cos(angleSlice*i - Math.PI/2); })
+        .attr("cy", function(d,i){ return rScale(d[value]) * Math.sin(angleSlice*i - Math.PI/2); })
+        .style("fill", function(d,i,j) { return cfg.color(j); })
+        .style("fill-opacity", 0.8);
+    
+    //Wrapper for the invisible circles on top
+    var blobCircleWrapper = g.selectAll(".radarCircleWrapper")
+        .data(data)
+        .enter().append("g")
+        .attr("class", "radarCircleWrapper");
+        
+    //Append a set of invisible circles on top for the mouseover pop-up
+    blobCircleWrapper.selectAll(".radarInvisibleCircle")
+        .data(function(d,i) { return d; })
+        .enter().append("circle")
+        .attr("class", "radarInvisibleCircle")
+        .attr("r", cfg.dotRadius*1.5)
+        .attr("cx", function(d,i){ return rScale(d[value]) * Math.cos(angleSlice*i - Math.PI/2); })
+        .attr("cy", function(d,i){ return rScale(d[value]) * Math.sin(angleSlice*i - Math.PI/2); })
+        .style("fill", "none")
+        .style("pointer-events", "all")
+        .on("mouseover", function(d,i) {
+            newX =  parseFloat(d3.select(this).attr('cx')) - 10;
+            newY =  parseFloat(d3.select(this).attr('cy')) - 10;
+                    
+            tooltip
+                .attr('x', newX)
+                .attr('y', newY)
+                .text(Format(d[value]))
+                .transition().duration(200)
+                .style('opacity', 1);
+        })
+        .on("mouseout", function(){
+            tooltip.transition().duration(200)
+                .style("opacity", 0);
+        });
+        
+    //Set up the small tooltip for when you hover over a circle
+    var tooltip = g.append("text")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+    
+    /////////////////////////////////////////////////////////
+    /////////////////// Helper Functions ////////////////////
+    /////////////////////////////////////////////////////////
+
+    //Taken from http://bl.ocks.org/mbostock/7555321
+    //Wraps SVG text    
+    function wrap(text, width) {
+      text.each(function() {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.4, // ems
+            y = text.attr("y"),
+            x = text.attr("x"),
+            dy = parseFloat(text.attr("dy")),
+            tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+            
+        while (word = words.pop()) {
+          line.push(word);
+          tspan.text(line.join(" "));
+          if (tspan.node().getComputedTextLength() > width) {
+            line.pop();
+            tspan.text(line.join(" "));
+            line = [word];
+            tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+          }
+        }
+      });
+    }//wrap 
+
+    // on mouseover for the legend symbol
+    function cellover(d) {
+            //Dim all blobs
+            d3.selectAll(".radarArea")
+                .transition().duration(200)
+                .style("fill-opacity", 0.1); 
+            //Bring back the hovered over blob
+            d3.select("." + data[d][0][areaName].replace(/\s+/g, ''))
+                .transition().duration(200)
+                .style("fill-opacity", 0.7);    
+    }
+
+    // on mouseout for the legend symbol
+    function cellout() {
+        //Bring back all blobs
+        d3.selectAll(".radarArea")
+            .transition().duration(200)
+            .style("fill-opacity", cfg.opacityArea);
+    }
+
+    /////////////////////////////////////////////////////////
+    /////////////////// Draw the Legend /////////////////////
+    /////////////////////////////////////////////////////////
+
+    svg.append("g")
+    .attr("class", "legendOrdinal")
+    .attr("transform", "translate(" + cfg["legendPosition"]["x"] + "," + cfg["legendPosition"]["y"] + ")");
+
+    var legendOrdinal = d3.legend.color()
+  //d3 symbol creates a path-string, for example
+  //"M0,-8.059274488676564L9.306048591020996,
+  //8.059274488676564 -9.306048591020996,8.059274488676564Z"
+    .shape("path", d3.svg.symbol().type("triangle-up").size(150)())
+    .shapePadding(10)
+    .scale(cfg.color)
+    .labels(cfg.color.domain().map(function(d){
+        return data[d][0][areaName];
+    }))
+    .on("cellover", function(d){ cellover(d); })
+    .on("cellout", function(d) { cellout(); });
+
+svg.select(".legendOrdinal")
+  .call(legendOrdinal);
+}//RadarChart
+</script>

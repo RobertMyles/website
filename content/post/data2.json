@@ -1,0 +1,228 @@
+[  
+  {  
+    "key":"Cork",
+    "values":[  
+      {  
+        "reason":"Median Salary",
+        "city":"Cork",
+        "value":0.67
+        
+      },
+      {  
+        "reason":"Crime Index",
+        "city":"Cork",
+        "value":0
+      },
+      {  
+        "reason":"GDP Per Capita",
+        "city":"Cork",
+        "value":1
+      },
+      {  
+        "reason":"Av. Min Winter Temp",
+        "city":"Cork",
+        "value":0.5
+      },
+      {  
+        "reason":"Av. Max Summer Temp",
+        "city":"Cork",
+        "value":0
+      },
+      {  
+        "reason":"Population",
+        "city":"Cork",
+        "value":0
+      },
+      {  
+        "reason":"Cost of Living",
+        "city":"Cork",
+        "value":0.88
+      },
+      {  
+        "reason":"Distance to the Beach",
+        "city":"Cork",
+        "value":0.17
+      }
+    ]
+  },
+  {  
+    "key":"Vancouver",
+    "values":[  
+      {  
+        "reason":"Median Salary",
+        "city":"Vancouver",
+        "value":1
+      },
+      {  
+        "reason":"Crime Index",
+        "city":"Vancouver",
+        "value":0.46
+      },
+      {  
+        "reason":"GDP Per Capita",
+        "city":"Vancouver",
+        "value":0.29
+      },
+      {  
+        "reason":"Av. Min Winter Temp",
+        "city":"Vancouver",
+        "value":0.7
+      },
+      {  
+        "reason":"Av. Max Summer Temp",
+        "city":"Vancouver",
+        "value":0.24
+      },
+      {  
+        "reason":"Population",
+        "city":"Vancouver",
+        "value":0.12
+      },
+      {  
+        "reason":"Cost of Living",
+        "city":"Vancouver",
+        "value":0.63
+      },
+      {  
+        "reason":"Distance to the Beach",
+        "city":"Vancouver",
+        "value":0
+      }
+    ]
+  },
+  {  
+    "key":"Perth",
+    "values":[  
+      {  
+        "reason":"Median Salary",
+        "city":"Perth",
+        "value":1
+      },
+      {  
+        "reason":"Crime Index",
+        "city":"Perth",
+        "value":1
+      },
+      {  
+        "reason":"GDP Per Capita",
+        "city":"Perth",
+        "value":0.73
+      },
+      {  
+        "reason":"Av. Min Winter Temp",
+        "city":"Perth",
+        "value":0.03
+      },
+      {  
+        "reason":"Av. Max Summer Temp",
+        "city":"Perth",
+        "value":1
+      },
+      {  
+        "reason":"Population",
+        "city":"Perth",
+        "value":0.52
+      },
+      {  
+        "reason":"Cost of Living",
+        "city":"Perth",
+        "value":1
+      },
+      {  
+        "reason":"Distance to the Beach",
+        "city":"Perth",
+        "value":0
+      }
+    ]
+  },
+  {  
+    "key":"Lisbon",
+    "values":[  
+      {  
+        "reason":"Median Salary",
+        "city":"Lisbon",
+        "value":0.26
+      },
+      {  
+        "reason":"Crime Index",
+        "city":"Lisbon",
+        "value":0.29
+      },
+      {  
+        "reason":"GDP Per Capita",
+        "city":"Lisbon",
+        "value":0
+      },
+      {  
+        "reason":"Av. Min Winter Temp",
+        "city":"Lisbon",
+        "value":0
+      },
+      {  
+        "reason":"Av. Max Summer Temp",
+        "city":"Lisbon",
+        "value":0.7
+      },
+      {  
+        "reason":"Population",
+        "city":"Lisbon",
+        "value":0.1
+      },
+      {  
+        "reason":"Cost of Living",
+        "city":"Lisbon",
+        "value":0
+      },
+      {  
+        "reason":"Distance to the Beach",
+        "city":"Lisbon",
+        "value":0
+      }
+    ]
+  },
+  {  
+    "key":"Berlin",
+    "values":[  
+      {  
+        "reason":"Median Salary",
+        "city":"Berlin",
+        "value":0.47
+      },
+      {  
+        "reason":"Crime Index",
+        "city":"Berlin",
+        "value":0.8
+      },
+      {  
+        "reason":"GDP Per Capita",
+        "city":"Berlin",
+        "value":0.27
+      },
+      {  
+        "reason":"Av. Min Winter Temp",
+        "city":"Berlin",
+        "value":1
+      },
+      {  
+        "reason":"Av. Max Summer Temp",
+        "city":"Berlin",
+        "value":0.46
+      },
+      {  
+        "reason":"Population",
+        "city":"Berlin",
+        "value":1
+      },
+      {  
+        "reason":"Cost of Living",
+        "city":"Berlin",
+        "value":0.58
+      },
+      {  
+        "reason":"Distance to the Beach",
+        "city":"Berlin",
+        "value":1
+      }
+    ]
+  }
+]

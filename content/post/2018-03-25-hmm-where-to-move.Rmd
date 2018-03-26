@@ -5,6 +5,7 @@ date: '2018-03-25'
 slug: hmm-where-to-move
 categories: [R, D3]
 tags: []
+draft: false
 output:
   html_document:
     includes:
@@ -49,7 +50,7 @@ So what makes a city 'good' here? Low-to-medium values for population and cost o
 
 The JavaScript code used to make this is as follows:  
 
-```{js}
+```
 var margin = {top: 100, right: 100, bottom: 100, left: 100},
 legendPosition = {x: 25, y: 25},
 width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
@@ -129,7 +130,7 @@ The content of `radar_index.html` can be seen from the element inspector in your
 
 These are both combined with the `RadarChart()` function, which is basically the same as Micah's, except I took out the fuzzy glow part, and changed the colours of both the main palette and the circle backgrounds. The code and inspiration for all of this comes from the talented D3-ers linked to above (Nadieh, Micah and Alvaro).  
 
-```{js}
+```
 function RadarChart(id, data, options) {
 	var cfg = {
 	 w: 600,				//Width of the circle

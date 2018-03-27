@@ -11,16 +11,16 @@ function RadarChart(id, data, options) {
 	 h: 600,				//Height of the circle
 	 margin: {top: 20, right: 20, bottom: 20, left: 20}, //The margins around the circle
 	 legendPosition: {x: 20, y: 20}, // the position of the legend, from the top-left corner of the svg
-	 levels: 3,				//How many levels or inner circles should there be drawn
-	 maxValue: 0, 				//What is the value that the biggest circle will represent
-	 labelFactor: 1.25, 			//How much farther than the radius of the outer circle should the labels be placed
-	 wrapWidth: 60, 			//The number of pixels after which a label needs to be given a new line
-	 opacityArea: 0.35, 			//The opacity of the area of the blob
-	 dotRadius: 4, 				//The size of the colored circles of each blog
-	 opacityCircles: 0.1, 			//The opacity of the circles of each blob
-	 strokeWidth: 2, 			//The width of the stroke around each blob
-	 roundStrokes: false,			//If true the area and stroke will follow a round path (cardinal-closed)
-	 color: d3.scale.category10(),		//Color function
+	 levels: 3,	//How many levels or inner circles should there be drawn
+	 maxValue: 0, //What is the value that the biggest circle will represent
+	 labelFactor: 1.25, //How much farther than the radius of the outer circle should the labels be placed
+	 wrapWidth: 60, //The number of pixels after which a label needs to be given a new line
+	 opacityArea: 0.35,//The opacity of the area of the blob
+	 dotRadius: 4, 		//The size of the colored circles of each blog
+	 opacityCircles: 0.1, 	//The opacity of the circles of each blob
+	 strokeWidth: 2, //The width of the stroke around each blob
+	 roundStrokes: false,//If true the area and stroke will follow a round path (cardinal-closed)
+	 color: d3.scale.category10(),//Color function
 	 axisName: "axis",
 	 areaName:"areaName",
 	 value: "value",
@@ -67,10 +67,10 @@ function RadarChart(id, data, options) {
 	}));
 		
 	var allAxis = (data[0].map(function(d, i){ return d[axisName] })),	//Names of each axis
-		total = allAxis.length,					//The number of different axes
-		radius = Math.min(cfg.w/2, cfg.h/2), 			//Radius of the outermost circle
-		Format = d3.format('%'),			 	//Percentage formatting
-		angleSlice = Math.PI * 2 / total;			//The width in radians of each "slice"
+		total = allAxis.length,		//The number of different axes
+		radius = Math.min(cfg.w/2, cfg.h/2), //Radius of the outermost circle
+		Format = d3.format('%'),	//Percentage formatting
+		angleSlice = Math.PI * 2 / total; //The width in radians of each "slice"
 
 	//Scale for the radius
 	var rScale = d3.scale.linear()
@@ -88,7 +88,7 @@ function RadarChart(id, data, options) {
 	var svg = d3.select(id).append("svg")
 			.attr("width",  cfg.w + cfg.margin.left + cfg.margin.right)
 			.attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
-			.attr("class", "radar"+id);
+			.attr("class", "radarChart");//+id);
 	//Append a g element		
 	var g = svg.append("g")
 			.attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
@@ -98,11 +98,11 @@ function RadarChart(id, data, options) {
 	/////////////////////////////////////////////////////////
 	
 	//Filter for the outside glow
-	var filter = g.append('defs').append('filter').attr('id','glow'),
+	/* var filter = g.append('defs').append('filter').attr('id','glow'),
 		feGaussianBlur = filter.append('feGaussianBlur').attr('stdDeviation','2.5').attr('result','coloredBlur'),
 		feMerge = filter.append('feMerge'),
 		feMergeNode_1 = feMerge.append('feMergeNode').attr('in','coloredBlur'),
-		feMergeNode_2 = feMerge.append('feMergeNode').attr('in','SourceGraphic');
+		feMergeNode_2 = feMerge.append('feMergeNode').attr('in','SourceGraphic'); */
 
 	/////////////////////////////////////////////////////////
 	/////////////// Draw the Circular grid //////////////////

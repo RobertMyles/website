@@ -80,7 +80,7 @@ send_df_to_js(cities)
 function dataViz(incomingData){
         var maxPopulation = d3.max(incomingData, function(el) {
             return parseInt(el.population);});
-        var yScale = d3.scale.linear().domain([0,maxPopulation]).range([0,500]);
+        var xScale = d3.scale.linear().domain([0,maxPopulation]).range([0,600]);
         
         d3.select("svg").attr("style","height: 500px; width: 600px;");
         
@@ -89,10 +89,12 @@ function dataViz(incomingData){
           .data(incomingData)
           .enter()
           .append("rect")
-          .attr("width", 50)
-          .attr("height", function(d) {return yScale(parseInt(d.population));})
-          .attr("x", function(d,i) {return i * 60;})
-          .attr("y", function(d) {return 500 - yScale(parseInt(d.population));})
+          .attr("width", function(d) {return d.population/10000;})
+          //.attr("width", function(d) {return xScale(parseInt(d.population));})
+          .attr("height", 50)
+          .attr("y", function(d,i) {return i * 60;})
+          .attr("x", function(d) { return 0;})
+          //.attr("x", function(d) {return 600 - xScale(parseInt(d.population));})
           .style("fill", "blue")
           .style("stroke", "red")
           .style("stroke-width", "1px")
@@ -105,3 +107,63 @@ dataViz(data);
 So what makes a city 'good' here? Low-to-medium values for population and cost of living, low crime and not-too-high summer temperatures, not-too-low winter temperatures, nice salaries, high GDP and short distance to the beach. None of the cities are perfect (of course not!), but ol' Cork doesn't come out too bad. Vancouver, too. Remember that the winter temperatures were inversed, so Lisbon looks great in terms of the climate, and its low cost of living. It's also by the beach, something Cork isn't exactly (although there are amazing beaches not too far away). Perth came out OK on our list, after many years of hot weather, I think I might need a break (my skin definitely does), although I'm not sure I like the cold of Berlin, or its bigger population. So which one will we choose? That'd be telling...
  
 # set up data as nested list
+<svg></svg>
+```{js}
+d3 = require("https://d3js.org/d3.v5.min.js")
+
+margin = ({top: 30, right: 0, bottom: 10, left: 30})
+height = 690
+
+x = d3.scaleLinear()
+    .domain([0, d3.max(data, d => d.crime_index)])
+    .range([margin.left, width - margin.right])
+
+y = d3.scaleBand()
+    .domain(data.map(d => d.city))
+    .range([margin.top, height - margin.bottom])
+    .padding(0.1)
+
+xAxis = g => g
+    .attr("transform", `translate(0,${margin.top})`)
+    .call(d3.axisTop(x).ticks(width / 80))
+    .call(g => g.select(".domain").remove())
+
+yAxis = g => g
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y).tickSizeOuter(0))
+
+chart = {
+  const svg = d3.select(DOM.svg(width, height));
+  
+  svg.append("g")
+    .attr("fill", "steelblue")
+    .selectAll("rect")
+    .data(data)
+    .enter().append("rect")
+      .attr("x", x(0))
+      .attr("y", d => y(d.name))
+      .attr("width", d => x(d.value) - x(0))
+      .attr("height", y.bandwidth());
+  
+  svg.append("g")
+    .attr("fill", "white")
+    .attr("text-anchor", "end")
+    .style("font", "12px sans-serif")
+    .selectAll("text")
+    .data(data)
+    .enter().append("text")
+      .attr("x", d => x(d.value) - 4)
+      .attr("y", d => y(d.name) + y.bandwidth() / 2)
+      .attr("dy", "0.35em")
+      .text(d => formatValue(d.value));
+  
+  svg.append("g")
+      .call(xAxis);
+  
+  svg.append("g")
+      .call(yAxis);
+  
+  return svg.node();
+}
+
+```

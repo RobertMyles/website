@@ -393,6 +393,7 @@ function dataViz(incomingData){
         var maxPopulation = d3.max(incomingData, function(el) {
             return parseInt(el.population);});
         var xScale = d3.scale.linear().domain([0,maxPopulation]).range([0,600]);
+
         
         d3.select(&quot;svg&quot;).attr(&quot;style&quot;,&quot;height: 500px; width: 600px;&quot;);
         
@@ -401,12 +402,10 @@ function dataViz(incomingData){
           .data(incomingData)
           .enter()
           .append(&quot;rect&quot;)
-          .attr(&quot;width&quot;, function(d) {return d.population/10000;})
-          //.attr(&quot;width&quot;, function(d) {return xScale(parseInt(d.population));})
           .attr(&quot;height&quot;, 50)
+          .attr(&quot;width&quot;, function(d) {return xScale(parseInt(d.population));})
           .attr(&quot;y&quot;, function(d,i) {return i * 60;})
-          .attr(&quot;x&quot;, function(d) { return 0;})
-          //.attr(&quot;x&quot;, function(d) {return 600 - xScale(parseInt(d.population));})
+          .attr(&quot;x&quot;, 0)
           .style(&quot;fill&quot;, &quot;blue&quot;)
           .style(&quot;stroke&quot;, &quot;red&quot;)
           .style(&quot;stroke-width&quot;, &quot;1px&quot;)
@@ -420,6 +419,7 @@ function dataViz(incomingData){
         var maxPopulation = d3.max(incomingData, function(el) {
             return parseInt(el.population);});
         var xScale = d3.scale.linear().domain([0,maxPopulation]).range([0,600]);
+
         
         d3.select("svg").attr("style","height: 500px; width: 600px;");
         
@@ -428,12 +428,10 @@ function dataViz(incomingData){
           .data(incomingData)
           .enter()
           .append("rect")
-          .attr("width", function(d) {return d.population/10000;})
-          //.attr("width", function(d) {return xScale(parseInt(d.population));})
           .attr("height", 50)
+          .attr("width", function(d) {return xScale(parseInt(d.population));})
           .attr("y", function(d,i) {return i * 60;})
-          .attr("x", function(d) { return 0;})
-          //.attr("x", function(d) {return 600 - xScale(parseInt(d.population));})
+          .attr("x", 0)
           .style("fill", "blue")
           .style("stroke", "red")
           .style("stroke-width", "1px")

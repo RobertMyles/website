@@ -43,7 +43,7 @@ recipe(Status ~ ., data = credit_data) %>%
   step_center(all_numeric()) %>% 
   step_dummy(-all_numeric()) %>% 
   prep() %>% 
-  m_bake(data = credit_data) %->% c(train, test) %->% c(train, test)
+  m_bake(data = credit_data) %->% c(train, test)
 
 ls()
 

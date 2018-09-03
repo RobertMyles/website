@@ -1,0 +1,55 @@
+---
+title: Avoiding the tiresome "training" & "test" data split
+author: Robert Myles McDonnell
+date: '2018-09-03'
+slug: avoiding-the-tiresome-training-test-data-split
+categories: [R, destructuring]
+tags: []
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+---
+
+I really don't like splitting data into 'train' and 'test'. I don't mean that I'm against the idea of it, though you could say it's a waste of data that could be used to better your model, but I mean that actual assignment in R of 'train' and 'test'. I always liked destructuring in Python, and I like it a lot in 2018 JavaScript, so when I remembered that the [zeallot](https://github.com/r-lib/zeallot/blob/master/vignettes/unpacking-assignment.Rmd) package has it, I thought it would be a good opportunity to see how that could fit in a [tidy modelling](https://github.com/tidymodels) pipeline. Much to my delight, one little helper function later, it works perfectly. 
+
+Loading packages and data:  
+
+```{r message=FALSE, warning=FALSE}
+library(recipes); library(rsample); library(tidyverse); library(zeallot)
+
+# load some data:
+data("credit_data")
+``` 
+
+Next comes our little helper function: 
+
+```{r}
+m_bake <- function(recipe_object, data){
+  cd <- initial_split(credit_data)
+  tr <- training(cd)
+  te <- testing(cd)
+  x1 <- bake(recipe_object, tr)
+  x2 <- bake(recipe_object, te)
+  return(list(x1, x2))
+}
+```
+
+Now you get a nice clean pipeline with a train/test split as a result, using zeallot's great `%->%` operator:  
+```{r}
+recipe(Status ~ ., data = credit_data) %>% 
+  step_knnimpute(all_predictors()) %>% 
+  step_center(all_numeric()) %>% 
+  step_dummy(-all_numeric()) %>% 
+  prep() %>% 
+  m_bake(data = credit_data) %->% c(train, test) %->% c(train, test)
+
+ls()
+
+head(train); head(test)
+```
+
+Lovely.  
+
+(Ok, I still had to split it (!!), but once you write this function, you can just call this.)

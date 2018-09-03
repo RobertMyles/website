@@ -1,0 +1,72 @@
+---
+title: Avoiding the tiresome "training" & "test" data split
+author: Robert Myles McDonnell
+date: '2018-09-03'
+slug: avoiding-the-tiresome-training-test-data-split
+categories: [R, destructuring]
+tags: []
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+---
+
+
+
+<p>I really don’t like splitting data into ‘train’ and ‘test’. I don’t mean that I’m against the idea of it, though you could say it’s a waste of data that could be used to better your model, but I mean that actual assignment in R of ‘train’ and ‘test’. I always liked destructuring in Python, and I like it a lot in 2018 JavaScript, so when I remembered that the <a href="https://github.com/r-lib/zeallot/blob/master/vignettes/unpacking-assignment.Rmd">zeallot</a> package has it, I thought it would be a good opportunity to see how that could fit in a <a href="https://github.com/tidymodels">tidy modelling</a> pipeline. Much to my delight, one little helper function later, it works perfectly.</p>
+<p>Loading packages and data:</p>
+<pre class="r"><code>library(recipes); library(rsample); library(tidyverse); library(zeallot)
+
+# load some data:
+data(&quot;credit_data&quot;)</code></pre>
+<p>Next comes our little helper function:</p>
+<pre class="r"><code>m_bake &lt;- function(recipe_object, data){
+  cd &lt;- initial_split(credit_data)
+  tr &lt;- training(cd)
+  te &lt;- testing(cd)
+  x1 &lt;- bake(recipe_object, tr)
+  x2 &lt;- bake(recipe_object, te)
+  return(list(x1, x2))
+}</code></pre>
+<p>Now you get a nice clean pipeline with a train/test split as a result, using zeallot’s great <code>%-&gt;%</code> operator:</p>
+<pre class="r"><code>recipe(Status ~ ., data = credit_data) %&gt;% 
+  step_knnimpute(all_predictors()) %&gt;% 
+  step_center(all_numeric()) %&gt;% 
+  step_dummy(-all_numeric()) %&gt;% 
+  prep() %&gt;% 
+  m_bake(data = credit_data) %-&gt;% c(train, test) %-&gt;% c(train, test)
+
+ls()</code></pre>
+<pre><code>## [1] &quot;credit_data&quot; &quot;m_bake&quot;      &quot;test&quot;        &quot;train&quot;</code></pre>
+<pre class="r"><code>head(train); head(test)</code></pre>
+<pre><code>## # A tibble: 6 x 23
+##   Seniority  Time    Age Expenses Income Assets  Debt Amount Price
+##       &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1      1.01  13.6  -7.08    17.4   -12.4 -5435. -342. -239.  -617.
+## 2      9.01  13.6  20.9     -7.57  -10.4 -5435. -342.  -38.9  195.
+## 3     -7.99  13.6 -13.1      7.43   40.6 -2935. -342. -139.  -138.
+## 4     -7.99 -10.4 -11.1     -9.57  -34.4 -5435. -342. -729.  -553.
+## 5     -6.99  13.6  -1.08    19.4    72.6 -1935. -342. -389.   182.
+## 6     21.0   13.6   6.92    19.4   -16.4  4565. -342.  561.   337.
+## # ... with 14 more variables: Home_other &lt;dbl&gt;, Home_owner &lt;dbl&gt;,
+## #   Home_parents &lt;dbl&gt;, Home_priv &lt;dbl&gt;, Home_rent &lt;dbl&gt;,
+## #   Marital_married &lt;dbl&gt;, Marital_separated &lt;dbl&gt;, Marital_single &lt;dbl&gt;,
+## #   Marital_widow &lt;dbl&gt;, Records_yes &lt;dbl&gt;, Job_freelance &lt;dbl&gt;,
+## #   Job_others &lt;dbl&gt;, Job_partime &lt;dbl&gt;, Status_good &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 6 x 23
+##   Seniority   Time    Age Expenses Income  Assets  Debt Amount   Price
+##       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1      2.01 -10.4    8.92     34.4   58.6  -2435. -342.  961.   1.52e3
+## 2     -7.99   1.56   3.92     34.4  -61.4  -5435. -342.  161.   5.22e0
+## 3     -7.99 -10.4  -14.1     -10.6  -19.4  -2935. -342. -639.  -1.06e3
+## 4      6.01 -22.4   13.9      19.4   56.6  -4435. -342. -589.  -8.13e2
+## 5     -6.99   7.56  -1.08     14.4  -42.4  -5435. -342.  -88.9 -5.13e2
+## 6     -7.99  13.6   23.9     -20.6   88.6  44565. -342.  -88.9 -3.13e2
+## # ... with 14 more variables: Home_other &lt;dbl&gt;, Home_owner &lt;dbl&gt;,
+## #   Home_parents &lt;dbl&gt;, Home_priv &lt;dbl&gt;, Home_rent &lt;dbl&gt;,
+## #   Marital_married &lt;dbl&gt;, Marital_separated &lt;dbl&gt;, Marital_single &lt;dbl&gt;,
+## #   Marital_widow &lt;dbl&gt;, Records_yes &lt;dbl&gt;, Job_freelance &lt;dbl&gt;,
+## #   Job_others &lt;dbl&gt;, Job_partime &lt;dbl&gt;, Status_good &lt;dbl&gt;</code></pre>
+<p>Lovely.</p>
+<p>(Ok, I still had to split it (!!), but once you write this function, you can just call this.)</p>

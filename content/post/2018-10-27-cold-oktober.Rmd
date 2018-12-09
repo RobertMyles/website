@@ -1,0 +1,142 @@
+---
+title: Cold Oktober
+author: Robert Myles McDonnell
+date: '2018-10-27'
+slug: cold-oktober
+categories: [R, weather, D3]
+tags: []
+description: 'Am I cold or am I imagining it?'
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+---
+
+Moving back to Ireland from Brazil has me feeling cold. This got me thinking that seems like an unusually cold October, but, since I just moved here, I may not be a reliable guide. I was wondering whether I was a) correct, or b) a weakling, unable to withstand temperatures I would have previously considered normal. Well, I did what every data scientist would do in such a situation -- I found data, cleaned it up and made graphs. I was able to scrape some recent data from [met eireann's](http://archive.met.ie/climate/monthly-data.asp?Num=518) historical site and download historical data from the World Bank's [Climate Change Knowledge Portal](http://sdwebx.worldbank.org/climateportal/index.cfm?page=country_historical_climate&ThisCCode=IRL), both of which needed some cleanup:  
+
+```{r dataprep, message=FALSE, warning=FALSE}
+library(tidyverse); library(glue);library(rvest)
+library(readxl); library(lubridate);
+library(r2d3)
+
+source("https://raw.githubusercontent.com/RobertMyles/r_utils/master/char_from_copy.R")
+source("https://raw.githubusercontent.com/RobertMyles/r_utils/master/month_changer.R")
+
+
+tabl <- read_html('http://archive.met.ie/climate/monthly-data.asp?Num=518') %>% 
+  xml_nodes('#climate-report > table:nth-child(5)') %>% 
+  html_table() %>% .[[1]] %>% 
+  magrittr::set_colnames(
+    value = char_from_copy(
+      "Year Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec Annual"
+      )) %>% 
+  slice(-1) %>% 
+  mutate_all(as.numeric) %>% 
+  slice(-5) %>% select(-Annual) %>% 
+  gather("Month", "temp", -Year) %>% 
+  month_changer("Month") %>% 
+  mutate(Day = "01",
+         date = glue('{Year}-{Month}-{Day}')) %>% 
+  select(-c(Year, Month, Day)) %>% 
+  filter(year(parse_date_time(date, 'ymd')) > 2015)
+
+
+temps <- read_excel('~/Downloads/tas_1901_2015.xls') %>% 
+  rename("temp" = "tas") %>% 
+  mutate(Day = "01",
+         date = glue('{Year}-{Month}-{Day}')) %>% 
+  select(-c(Country, Year, Month, Day, ISO3, ISO2)) %>% 
+  bind_rows(tabl) %>% 
+  filter(!is.na(temp)) %>% 
+  arrange(parse_date_time(date, 'ymd'))
+
+```
+
+Combining these gives us this table:  
+
+```{r}
+knitr::kable(head(temps))
+```
+
+```{r}
+knitr::kable(tail(temps))
+```
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.3.1/d3-annotation.js"></script>
+
+```{d3 echo = FALSE, data=temps}
+margin = {top: 10, bottom: 20, left: 30, right: 5}
+w = 670
+h = 400
+
+d2 = data
+d2.forEach(d => d.date = new Date(d.date))
+d2.forEach(d => d.mean = d3.mean(d2, d => d.temp))
+
+x = d3.scaleTime()
+    .domain(d3.extent(d2, d => d.date))
+    .range([margin.left, w - margin.right])
+
+y = d3.scaleLinear()
+    .domain([0, d3.max(d2, d => d.temp)]).nice()
+    .range([h - margin.bottom, margin.top])
+
+xAxis = g => g
+    .attr("transform", `translate(0,${h - margin.bottom})`)
+    .call(d3.axisBottom(x).ticks(w/60).tickSizeOuter(0))
+
+yAxis = g => g
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y))
+    .call(g => g.select(".domain").remove())
+    .call(g => g.select(".tick:last-of-type text").clone()
+        .attr("x", 3)
+        .attr("text-anchor", "start")
+        .attr("font-weight", "bold")
+        .text(d2.y))
+
+line = d3.line()
+    .x(d => x(d.date))
+    .y(d => y(d.temp))
+
+av_line = d3.line()
+    .x(d => x(d.date))
+    .y(d => y(d.mean))
+
+svg.append("g").call(xAxis);
+
+svg.append("g").call(yAxis);
+  
+svg.append("path")
+    .datum(d2)
+    .attr("fill", "none")
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", 1.5)
+    .attr("stroke-linejoin", "round")
+    .attr("stroke-linecap", "round")
+    .attr("d", line)
+
+svg.append("path")
+    .datum(d2)
+    .attr("fill", "none")
+    .attr("stroke", "#B84A62")
+    .attr("stroke-width", 1.5)
+    .attr("stroke-linejoin", "round")
+    .attr("stroke-linecap", "round")
+    .attr("d", av_line);
+
+svg.append("text")
+    .attr("x", 550)
+    .attr("y", 360)
+    .attr("dy", ".35em")
+    .style("fill", "#B84A62")
+    .text("Mean: 9.2 degrees");
+
+svg.append("line")
+    .attr("x1", 550)
+    .attr("x2", 470)
+    .attr("y1", 345)
+    .attr("y2", 190)
+    .style("stroke", "#B84A62");
+```
+

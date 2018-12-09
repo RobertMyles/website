@@ -1,11 +1,12 @@
 ---
-title: "Robert Myles McDonnell"
-date: "2016-05-05T21:48:51-07:00"
+title: 'Robert Myles McDonnell'
+date: '2016-05-05T21:48:51-07:00'
 ---
 
-
 ### <i class="fa fa-birthday-cake"></i> 19/12/1980
+
 ### <i class="fa fa-phone"></i> +55 (11) 98282-8713
+
 ### <i class="fa fa-send-o"></i> <a href="mailto:robertmylesmcdonnell@gmail.com">robertmylesmcdonnell@gmail.com</a>
 
 &nbsp;
@@ -13,30 +14,38 @@ date: "2016-05-05T21:48:51-07:00"
 
 ## <i class="fa fa-history"></i> Professional History
 
+## Data Scientist, First Data Corporation, Ireland
+
+- 08/2018 — Present
+
 ### Data Scientist, Avanade, São Paulo
-- 08/2017 — Present
+
+- 08/2017 — 07/2018
 
 I currently work at Avanade in São Paulo. So far, my contributions have been in the following areas: sentiment analysis, audio analysis, machine & deep learning, BI, data visualization and data tidying. I've given a course on tidy data and several tutorials on the R language.
 
 ### São Paulo City Council
+
 - 03/2017 — 07/2017
 - São Paulo
 - Position: Director of DIPROJ; Data Science & Analytics Administration
 
-In the *Secretaria da Fazenda*, I headed a team responsible for making accurate forecasts of data on public spending. Part of my job was also modernizing the way the department does analysis. To do that, I gave an in-house R course and built a Shiny application for the department (part of an internal R package that I wrote), along with the production of semi-automated reports. It was an interesting experience being at the heart of politics in one of the biggest cities in the world, without a doubt. I learned how much of the job was actually about something very simple: managing relationships.   
+In the _Secretaria da Fazenda_, I headed a team responsible for making accurate forecasts of data on public spending. Part of my job was also modernizing the way the department does analysis. To do that, I gave an in-house R course and built a Shiny application for the department (part of an internal R package that I wrote), along with the production of semi-automated reports. It was an interesting experience being at the heart of politics in one of the biggest cities in the world, without a doubt. I learned how much of the job was actually about something very simple: managing relationships.
 
 ### Instituto Brasileiro de Pesquisa e Análise de Dados ([IBPAD](http://www.ibpad.com.br/))
+
 - 08/2016 – present
 - Various locations throughout Brazil
 - Position: Course Tutor
 
- I give private classes, in-company courses and public courses on the statistical programming language R. I am responsible for designing and giving the classes, and I also contribute to the blog of the Institute. The topics covered in the public course include: an introduction to statistics; obtaining, cleaning and tidying data; data analysis and modelling; producing plots and interactive visualizations; producing high-quality documents and web pages in RStudio. I was also part of a 2-man team that designed and implemented a successful in-company course for the airline company Gol, which included an introduction to R, statistics in R, and machine learning in R. In my private classes, I have helped clients to implement genetic algorithms from scratch in R for analysis of financial data, among other things.
+I give private classes, in-company courses and public courses on the statistical programming language R. I am responsible for designing and giving the classes, and I also contribute to the blog of the Institute. The topics covered in the public course include: an introduction to statistics; obtaining, cleaning and tidying data; data analysis and modelling; producing plots and interactive visualizations; producing high-quality documents and web pages in RStudio. I was also part of a 2-man team that designed and implemented a successful in-company course for the airline company Gol, which included an introduction to R, statistics in R, and machine learning in R. In my private classes, I have helped clients to implement genetic algorithms from scratch in R for analysis of financial data, among other things.
 
 ### Freelance R Consultant
 
 I've helped people with projects ranging from their academic work to scraping information from social media sites, text analysis to statistics, in areas ranging from finance to communication and to legislative studies.
 
 ### [Fundação Getúlio Vargas](http://cpdoc.fgv.br/en/about)
+
 - 08/2016 – present
 - São Paulo, Brazil
 - Position: researcher
@@ -44,6 +53,7 @@ I've helped people with projects ranging from their academic work to scraping in
 I write case studies for FGV, to be used as teaching materials in their post-graduate courses, on topics ranging from Brexit to the embargo of Cuba. Apart from that, I do some data science work (web-scraping, organizing & cleaning data and statistical analyses) for some researchers involved with the Centre for International Relations.
 
 ### [Centre for the Study of International Negotiations (CAENI)](http://www.caeni.com.br/)
+
 - 03/2012 – 07/2016
 - University of São Paulo, Brazil
 - Position: researcher
@@ -59,13 +69,14 @@ I have a very high level of writing ability, as I have shown in academic work th
 
 &nbsp;
 
-
 ## <i class="fa fa-graduation-cap"></i> Academic Background
 
 ### PhD – [University of São Paulo](http://www5.usp.br/english/?lang=en) (2016)
+
 - Thesis: Explaining the Determinants of Foreign Policy Voting Behaviour in the Brazilian Houses of Legislature, with a Focus on the Senate
 
 ### Masters: [Dublin City University](https://www.dcu.ie/), Ireland (2010) (First Class Honour)
+
 - Thesis: Brazil’s Foreign Policy- Domestic Interests, Presidentialism or the Autonomy of Itamaraty?
 
 ### Bachelor’s degree in Fine Art – [National College of Art & Design](http://www.ncad.ie/), Ireland (2004) (2:1 Honours)
@@ -74,6 +85,7 @@ I have a very high level of writing ability, as I have shown in academic work th
 &nbsp;
 
 ## <i class="fa fa-language"></i> Languages
+
 - Native speaker of English
 - Fluent in Portuguese
 - Intermediate level Spanish and French
@@ -92,15 +104,17 @@ I have a very high level of writing ability, as I have shown in academic work th
 &nbsp;
 
 ## Other information
+
 - International experience: I have lived and worked or studied in Ireland, Belgium, the United States and Brazil.
 - Seminars / certifications: I have given academic presentations on my work and I have attended many short technical courses. The most recent one was on Agent-Based Models in Python and was given in USP by [Davoud Taghawi-Nejad](https://www.taghawi-nejad.de/). Others have been on time-series modelling by [Guy Whitten](https://pols.tamu.edu/about-us/faculty-directory/guy-d-whitten-professor/) of Texas A&M, game theory by [B. Peter Rosendorff](http://politics.as.nyu.edu/object/PeterRosendorff) of New York University, experiments in social science by [Paolo Spada](https://www.spadap.com/) and [Leonid Peisakhin](http://www.leonidpeisakhin.org/) of Yale University, and various software packages.
-- Online courses: I have taken many online courses, the most recent of which was Deep Learning by Andrew Ng on Coursera (certified). I have various certificates from Data Camp in areas such as Machine Learning and Data Analysis. I have also a strong interest in JavaScript and have taken many codeschool courses on its various flavours.  
+- Online courses: I have taken many online courses, the most recent of which was Deep Learning by Andrew Ng on Coursera (certified). I have various certificates from Data Camp in areas such as Machine Learning and Data Analysis. I have also a strong interest in JavaScript and have taken many codeschool courses on its various flavours.
 - Hobbies: I like to play music, write, read and blog, and I am involved in the creation and development of some R software packages. I have written a fictional novel, which I hope to publish in the future, and I have recorded an album of my music. I have a strong interest in political economic history and liberalism.
 
 &nbsp;
 &nbsp;
 
 ## <i class="fa fa-share-alt"></i> Social Networks
+
 <i class="fa fa-twitter"></i> @RobertMylesMc
 <i class="fa fa-github"></i> https://github.com/RobertMyles
 <i class="fa fa-linkedin"></i> https://br.linkedin.com/in/robert-mcdonnell-7475b320
@@ -108,7 +122,8 @@ I have a very high level of writing ability, as I have shown in academic work th
 &nbsp;
 &nbsp;
 
-##  <i class="fa fa-file-text-o"></i> Publications
+## <i class="fa fa-file-text-o"></i> Publications
+
 - “Formal Comparisons of Legislative Institutions: Comparing ideal points from the Chamber of Deputies and the Federal Senate”, Brazilian Political Science Review, vol.11 no.1, 2017. [[link](http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1981-38212017000100502&lng=en&nrm=iso&tlng=en.)]
 - Freire, Danilo and Robert M. McDonnell (2018). prisonbrief: An R package that returns tidy data from the World Prison Brief website. Journal of Open Source Software, 3(22), 361, https://doi.org/10.21105/joss.00361
 - “Do Brazilian Legislators Care About Foreign Policy?”. Currently under review.
@@ -116,7 +131,7 @@ I have a very high level of writing ability, as I have shown in academic work th
 &nbsp;
 &nbsp;
 
-##  Professional References
+## Professional References
 
 Max Stabile, Director, IBPAD. +55 (11) 3042-0218; max@ibpad.com.br
 
